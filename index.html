@@ -1,0 +1,2892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrea Micola Azwir | Portfolio</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-accent: #f1f5f9;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-accent: #374151;
+            --border-color: #4b5563;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(17, 24, 39, 0.8);
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--bg-accent);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-accent);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-accent {
+            background: var(--accent-color);
+            color: white;
+            border: 1px solid var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-card.card-1 {
+            top: 10%;
+            right: -20%;
+            animation-delay: 0s;
+        }
+
+        .floating-card.card-2 {
+            bottom: 20%;
+            left: -20%;
+            animation-delay: 1s;
+        }
+
+        /* About Section */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: justify;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .portfolio-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .modal-description p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        /* Portfolio Tabs */
+        .portfolio-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-tab {
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-family: inherit;
+        }
+
+        .portfolio-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .portfolio-tab:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .portfolio-content-wrapper {
+            min-height: 400px;
+        }
+
+        .portfolio-section {
+            display: none;
+        }
+
+        .portfolio-section.active {
+            display: block;
+        }
+
+        /* Certificate Cards */
+        .certificate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .certificate-item {
+            background: var(--bg-secondary);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .certificate-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .certificate-item:hover .certificate-overlay {
+            opacity: 1;
+        }
+
+        .certificate-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(99, 102, 241, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .certificate-btn {
+            background: white;
+            color: var(--primary-color);
+            padding: 0.75rem;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+        }
+
+        .certificate-btn:hover {
+            transform: scale(1.1);
+            color: var(--primary-color);
+        }
+
+        .certificate-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .certificate-action-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .certificate-action-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .certificate-action-btn.secondary {
+            background: var(--bg-accent);
+            color: var(--text-primary);
+        }
+
+        .certificate-action-btn.secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .certificate-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .certificate-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-content {
+            padding: 2rem;
+        }
+
+        .certificate-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-organization {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Organization Cards */
+        .organization-item {
+            background: var(--bg-secondary);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .organization-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .organization-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .organization-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .organization-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .organization-role {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .organization-period {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Experience Cards */
+        .experience-item {
+            background: var(--bg-secondary);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px 0 0 2px;
+        }
+
+        .experience-header {
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .experience-company {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-period {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-location {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .experience-description {
+            margin-bottom: 1rem;
+        }
+
+        .experience-achievements {
+            list-style: none;
+            padding: 0;
+        }
+
+        .experience-achievements li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .experience-achievements li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .about-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .skill-tag:nth-child(even) {
+            background: var(--secondary-color);
+        }
+
+        .skill-tag:nth-child(3n) {
+            background: var(--accent-color);
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            background: var(--bg-secondary);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(99, 102, 241, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-btn {
+            background: white;
+            color: var(--primary-color);
+            padding: 0.75rem;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+        }
+
+        .portfolio-btn:hover {
+            transform: scale(1.1);
+            color: var(--primary-color);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            margin: 1rem;
+            width: 100%;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--bg-accent);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: var(--text-secondary);
+        }
+
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-image {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .modal-description {
+            margin-bottom: 2rem;
+        }
+
+        .modal-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .modal-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .portfolio-tag {
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-map {
+            background: var(--bg-secondary);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            max-width: 280px;
+            z-index: 10;
+        }
+
+        [data-theme="dark"] .map-overlay {
+            background: rgba(17, 24, 39, 0.95);
+        }
+
+        .map-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .map-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image-container {
+                width: 250px;
+                height: 320px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: lightboxZoom 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+            background: #fff;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: -10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .lightbox-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        .lightbox-loading.show {
+            display: block;
+        }
+
+        /* Loading spinner */
+        .lightbox-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes lightboxZoom {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Make modal gallery images clickable dengan hover effect yang lebih baik */
+        .modal-image {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .modal-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(99, 102, 241, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .modal-image:hover::before {
+            opacity: 1;
+        }
+
+        .modal-image:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .modal-image img {
+            transition: all 0.3s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-image:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .lightbox-content {
+                max-width: 95%;
+                max-height: 95%;
+            }
+
+            .lightbox-nav {
+                width: 45px;
+                height: 45px;
+                padding: 0.75rem;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+
+            .lightbox-close {
+                top: -40px;
+                right: -5px;
+                width: 40px;
+                height: 40px;
+                padding: 0.5rem;
+            }
+
+            .lightbox-counter {
+                bottom: -50px;
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        .projects-footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-github-profile {
+            background: linear-gradient(135deg, #24292f, #57606a);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 15px rgba(36, 41, 47, 0.2);
+        }
+
+        .btn-github-profile:hover {
+            background: linear-gradient(135deg, #1c2128, #24292f);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(36, 41, 47, 0.3);
+            color: white;
+        }
+
+        .btn-github-profile i {
+            font-size: 1.25rem;
+        }
+
+        .github-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .github-main-text {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .github-sub-text {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .btn-github-profile {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .github-main-text {
+                font-size: 0.9rem;
+            }
+
+            .github-sub-text {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Andrea Portfolio</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-subtitle">Hello, I'm</div>
+                <h1 class="hero-title">Andrea Micola Azwir</h1>
+                <p class="hero-description">
+                    Data & Web Development Enthusiast passionate about creating innovative solutions
+                    and turning complex problems into elegant, user-friendly experiences.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        View My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Get In Touch
+                    </a>
+                    <a href="https://drive.google.com/file/d/1fm00ssLFRoH01Qpy5Tt7wAOyyt34MCzG/view?usp=sharing"
+                        target="_blank" class="btn btn-accent">
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-container">
+                    <img src="assets/images/profil.jpg" alt="Andrea Micola Azwir">
+                    <div class="floating-elements">
+                        <div class="floating-card card-1">
+                            <i class="fas fa-code" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                            <span>Web Dev</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i class="fas fa-chart-line" style="color: var(--accent-color); margin-right: 0.5rem;"></i>
+                            <span>Data Science</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">
+                    Get to know more about my background, skills, and passion for technology
+                </p>
+            </div>
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="assets/images/profil lagi.jpg" alt="About Andrea">
+                </div>
+                <div class="about-content">
+                    <h3>Data & Web Development Enthusiast</h3>
+                    <p>
+                        I specialize in front-end and back-end development with extensive experience in using
+                        cutting-edge frameworks and libraries. My expertise allows me to create interactive,
+                        dynamic web applications.
+                    </p>
+                    <p>
+                        I am also proficient in managing databases and performing data analysis using advanced
+                        tools and techniques. Constantly curious and eager to learn, I thrive on tackling new
+                        challenges and expanding my knowledge horizons.
+                    </p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="age-display">22</div>
+                            <div class="stat-label">Years Old</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3.74</div>
+                            <div class="stat-label">GPA / 4.0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2024</div>
+                            <div class="stat-label">Graduate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills" style="background: var(--bg-secondary);">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <p class="section-subtitle">
+                    Technologies and tools I work with to bring ideas to life
+                </p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Programming Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-layer-group"></i> Frameworks & Libraries</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">Bootstrap</span>
+                        <span class="skill-tag">JQuery</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> Tools & Software</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Canva</span>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Google Colab</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-chart-bar"></i> Data Science</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">Data Visualization</span>
+                        <span class="skill-tag">LSTM</span>
+                        <span class="skill-tag">Statistical Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section" id="portfolio">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Portfolio & Experience</h2>
+                <p class="section-subtitle">
+                    A comprehensive showcase of my projects, certifications, organizational involvement, and
+                    professional experience that demonstrates my growth and expertise in technology
+                </p>
+            </div>
+
+            <!-- Portfolio Tabs -->
+            <div class="portfolio-tabs">
+                <button class="portfolio-tab active" data-tab="projects">
+                    <i class="fas fa-code"></i> Projects
+                </button>
+                <button class="portfolio-tab" data-tab="certificates">
+                    <i class="fas fa-certificate"></i> Certificates
+                </button>
+                <button class="portfolio-tab" data-tab="experience">
+                    <i class="fas fa-briefcase"></i> Work Experience
+                </button>
+            </div>
+
+            <div class="portfolio-content-wrapper">
+                <!-- Projects Tab -->
+                <div class="portfolio-section active" id="projects">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item" onclick="openModal('modal1')">
+                            <div class="portfolio-image">
+                                <img src="assets/images/gallery/spk-maut/dashboard.png" alt="Decision Support System">
+                                <div class="portfolio-overlay">
+                                    <a href="#" class="portfolio-btn"
+                                        onclick="event.stopPropagation(); openModal('modal1')">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="https://github.com/kangkungmozzarella" target="_blank"
+                                        class="portfolio-btn" onclick="event.stopPropagation()">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portfolio-content">
+                                <h3 class="portfolio-title">Decision Support System - MAUT Method</h3>
+                                <p class="portfolio-description">
+                                    A comprehensive system for selecting the best accommodation using Multi-Attribute
+                                    Utility Theory to help users make informed decisions through multiple criteria
+                                    evaluation.
+                                </p>
+                                <div class="portfolio-tags">
+                                    <span class="portfolio-tag">PHP</span>
+                                    <span class="portfolio-tag">MySQL</span>
+                                    <span class="portfolio-tag">Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item" onclick="openModal('modal2')">
+                            <div class="portfolio-image">
+                                <img src="assets/images/gallery/travel/1.png" alt="Travel System">
+                                <div class="portfolio-overlay">
+                                    <a href="#" class="portfolio-btn"
+                                        onclick="event.stopPropagation(); openModal('modal2')">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="https://github.com/kangkungmozzarella" target="_blank"
+                                        class="portfolio-btn" onclick="event.stopPropagation()">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portfolio-content">
+                                <h3 class="portfolio-title">Travel Information System</h3>
+                                <p class="portfolio-description">
+                                    Complete travel management system built with Laravel 10 featuring comprehensive
+                                    booking and management capabilities for tour operators and travelers.
+                                </p>
+                                <div class="portfolio-tags">
+                                    <span class="portfolio-tag">Laravel</span>
+                                    <span class="portfolio-tag">MySQL</span>
+                                    <span class="portfolio-tag">Tailwind</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item" onclick="openModal('modal4')">
+                            <div class="portfolio-image">
+                                <img src="assets/images/gallery/ml/1.png" alt="Machine Learning">
+                                <div class="portfolio-overlay">
+                                    <a href="#" class="portfolio-btn"
+                                        onclick="event.stopPropagation(); openModal('modal4')">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="https://github.com/kangkungmozzarella" target="_blank"
+                                        class="portfolio-btn" onclick="event.stopPropagation()">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portfolio-content">
+                                <h3 class="portfolio-title">Stock Price Prediction - LSTM</h3>
+                                <p class="portfolio-description">
+                                    Advanced machine learning model for predicting mutual fund stock prices using Long
+                                    Short-Term Memory networks with comprehensive data analysis and visualization.
+                                </p>
+                                <div class="portfolio-tags">
+                                    <span class="portfolio-tag">Python</span>
+                                    <span class="portfolio-tag">LSTM</span>
+                                    <span class="portfolio-tag">TensorFlow</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item" onclick="openModal('modal5')">
+                            <div class="portfolio-image">
+                                <img src="assets/images/gallery/alumni/1.png" alt="Alumni System">
+                                <div class="portfolio-overlay">
+                                    <a href="#" class="portfolio-btn"
+                                        onclick="event.stopPropagation(); openModal('modal5')">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="https://github.com/kangkungmozzarella" target="_blank"
+                                        class="portfolio-btn" onclick="event.stopPropagation()">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portfolio-content">
+                                <h3 class="portfolio-title">Alumni Information System</h3>
+                                <p class="portfolio-description">
+                                    Comprehensive platform for managing alumni data, career tracking, and networking
+                                    capabilities to maintain institutional connections with graduates.
+                                </p>
+                                <div class="portfolio-tags">
+                                    <span class="portfolio-tag">PHP</span>
+                                    <span class="portfolio-tag">MySQL</span>
+                                    <span class="portfolio-tag">jQuery</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item" onclick="openModal('modal6')">
+                            <div class="portfolio-image">
+                                <img src="assets/images/gallery/spk-smart/1.png" alt="SMART Method">
+                                <div class="portfolio-overlay">
+                                    <a href="#" class="portfolio-btn"
+                                        onclick="event.stopPropagation(); openModal('modal6')">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="https://github.com/kangkungmozzarella" target="_blank"
+                                        class="portfolio-btn" onclick="event.stopPropagation()">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portfolio-content">
+                                <h3 class="portfolio-title">Laptop Selection DSS - SMART Method</h3>
+                                <p class="portfolio-description">
+                                    Decision support system for selecting optimal laptops for Informatics and Management
+                                    students using comprehensive criteria evaluation and ranking algorithms.
+                                </p>
+                                <div class="portfolio-tags">
+                                    <span class="portfolio-tag">PHP</span>
+                                    <span class="portfolio-tag">SMART Algorithm</span>
+                                    <span class="portfolio-tag">Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="projects-footer">
+                        <a href="https://github.com/kangkungmozzarella" target="_blank" class="btn-github-profile">
+                            <i class="fab fa-github"></i>
+                            <div class="github-text">
+                                <span class="github-main-text">Lihat Semua Project</span>
+                                <span class="github-sub-text">Kunjungi GitHub Profile saya</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Certificates Tab -->
+                <div class="portfolio-section" id="certificates">
+                    <div class="certificate-grid">
+                        <div class="certificate-item" onclick="openCertificateModal('cert2')">
+                            <div class="certificate-overlay">
+                                <a href="#" class="certificate-btn"
+                                    onclick="event.stopPropagation(); openCertificateModal('cert2')">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="https://drive.google.com/file/d/18R6a9aIwQ0DEZMqfcDK0LApWYMuEXgEF/view?usp=sharing" target="_blank" class="certificate-btn" onclick="event.stopPropagation()">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                            <div class="certificate-header">
+                                <div class="certificate-icon">
+                                    <i class="fab fa-react"></i>
+                                </div>
+                                <h3>Frontend Certificate</h3>
+                            </div>
+                            <div class="certificate-content">
+                                <h4 class="certificate-title">Frontend Engineering</h4>
+                                <p class="certificate-organization">PT Ruang Raya Indonesia</p>
+                                <p class="certificate-date">2022</p>
+                                <p style="text-align: justify;">Developing Frontend with Modern Frameworks, Applied
+                                    Tailwind CSS, HTML5,
+                                    JavaScript, and React.js to build responsive and efficient user interfaces in web
+                                    development projects.</p>
+                            </div>
+                        </div>
+
+                        <div class="certificate-item" onclick="openCertificateModal('cert3')">
+                            <div class="certificate-overlay">
+                                <a href="#" class="certificate-btn"
+                                    onclick="event.stopPropagation(); openCertificateModal('cert3')">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="https://drive.google.com/file/d/1lh8DgH_rO12OUcIb5Iu33yYKkeSO-c5t/view?usp=sharing" target="_blank" class="certificate-btn"
+                                    onclick="event.stopPropagation()">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                            <div class="certificate-header">
+                                <div class="certificate-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h3>Data Analysis Certification</h3>
+                            </div>
+                            <div class="certificate-content">
+                                <h4 class="certificate-title">Google Data Analytics</h4>
+                                <p class="certificate-organization">Coursera</p>
+                                <p class="certificate-date">2024</p>
+                                <p style="text-align: justify;">Advanced certification in data analysis using Python,
+                                    pandas, NumPy, and machine learning libraries. Covered statistical analysis, data
+                                    visualization, and predictive modeling techniques for real-world applications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Tab -->
+                <div class="portfolio-section" id="experience" style="text-align: justify;">
+                    <div class="certificate-grid">
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <h3 class="experience-title">Call Center Staff</h3>
+                                <p class="experience-company">PT TUNAS CAHAYA MANDIRI WIDYATAMA</p>
+                                <p class="experience-period">May 2025 - Now</p>
+                                <p class="experience-location">Palembang</p>
+                            </div>
+                            <ul class="experience-achievements" text-ali>
+                                <li>Trouble Ticket Management & Monitoring: Monitored and managed trouble tickets from
+                                    multiple tower providers (TBG, TIS/IBS, Persada Sokka, Smartfren) across Sumatra and
+                                    Kalimantan regions. Ensured 100% compliance in TT monitoring and on-time closing
+                                    according to Service Level Agreements, handling emergency cases (2 hours SLA) to
+                                    minor
+                                    issues (7 days SLA).</li>
+                                <li>Multi-Regional Operations & Escalation Coordination: Coordinated field team
+                                    responses
+                                    across 5 regions through TOTI system and communication platforms. Implemented
+                                    systematic escalation procedures from Supervisor to General Manager levels, managing
+                                    real-time team monitoring via GPS coordinates to ensure efficient issue resolution.
+                                </li>
+                                <li>Database Management & Reporting: Maintained comprehensive evidence databases for
+                                    completed tickets and utilized TOTI system for real-time tracking. Managed reporting
+                                    systems with 100% accuracy, handling various case categories including PLN issues,
+                                    security improvements, and facility maintenance across multiple operators
+                                    (Telkomsel,
+                                    XL, Smartfren, Indosat).</li>
+                            </ul>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <h3 class="experience-title">Freelance Web Developer</h3>
+                                <p class="experience-company">Freelance</p>
+                                <p class="experience-period">December 2023 - Present</p>
+                                <p class="experience-location">Remote</p>
+                            </div>
+                            <ul class="experience-achievements">
+                                <li>Data-Driven Web Application Development: Designed and built web solutions to support
+                                    data analysis and decision-making, utilizing the latest web technologies to optimize
+                                    performance and accessibility.</li>
+                                <li>Client Collaboration: Worked directly with clients to understand specific needs,
+                                    design
+                                    intuitive interfaces, and ensure efficient data management according to project
+                                    requirements.</li>
+                                <li>Effective Solution Delivery: Delivered user-friendly, responsive web applications,
+                                    enhancing user experience across various contexts with a results-oriented approach.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <h3 class="experience-title">Internal Audit</h3>
+                                <p class="experience-company">PT GUNUNG SARI INDONESIA</p>
+                                <p class="experience-period">November 2024 - December 2024</p>
+                                <p class="experience-location">Medan</p>
+                            </div>
+                            <ul class="experience-achievements">
+                                <li>Ensuring Financial Audit Accuracy: Supported the internal audit team in reviewing
+                                    financial reports, ensuring compliance with applicable accounting standards.</li>
+                                <li>Data Analysis for Efficiency: Conducted financial and non-financial data analysis to
+                                    identify potential discrepancies or operational inefficiencies, improving
+                                    decision-making
+                                    processes.</li>
+                                <li>Verifying Audit Documents: Managed the collection and validation of supporting
+                                    documents such as invoices, bank statements, and transaction records to ensure a
+                                    comprehensive audit process.</li>
+                            </ul>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <h3 class="experience-title">Data Analytics</h3>
+                                <p class="experience-company">Coursera</p>
+                                <p class="experience-period">April 2024 - July 2024</p>
+                                <p class="experience-location">Jakarta</p>
+                            </div>
+                            <ul class="experience-achievements">
+                                <li>Ensuring Data Quality: Performed data cleaning using spreadsheets, SQL, R, and
+                                    Tableau
+                                    to produce accurate, analysis-ready datasets.</li>
+                                <li>Building Interactive Dashboards: Designed and visualized data through interactive
+                                    dashboards, supporting effective data-driven decision-making.</li>
+                                <li>Enhancing Analytical Skills: Mastered and applied analytical tools like R and
+                                    Tableau for
+                                    optimal data management and visualization.</li>
+                            </ul>
+                        </div>
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <h3 class="experience-title">Frontend Engineering</h3>
+                                <p class="experience-company">PT RUANG RAYA INDONESIA</p>
+                                <p class="experience-period">August 2022 - December 2022</p>
+                                <p class="experience-location">Jakarta</p>
+                            </div>
+                            <ul class="experience-achievements">
+                                <li>Developing Frontend with Modern Frameworks: Applied Tailwind CSS, HTML5,
+                                    JavaScript, and React.js to build responsive and efficient user interfaces in web
+                                    development projects.</li>
+                                <li>Applying OOP Principles and Version Control: Used Object-Oriented Programming
+                                    (OOP) principles for structured application development and ensured optimal
+                                    deployment
+                                    through Git and GitHub.</li>
+                                <li>Supporting Backend Development: Utilized Node.js to build backend functionality that
+                                    supports the effective and integrated operation of projects.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modals -->
+    <!-- Modal 1 - Decision Support System MAUT -->
+    <div class="modal" id="modal1">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal1')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title">Decision Support System - MAUT Method</h2>
+                <p class="modal-subtitle">Sistem Pengambilan Keputusan Penginapan Terbaik</p>
+            </div>
+            <div class="modal-gallery">
+                <div class="modal-image">
+                    <img src="assets/images/gallery/spk-maut/dashboard.png" alt="Dashboard">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/spk-maut/data kriteria.png" alt="Data Management">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/spk-maut/perankingan.png" alt="Ranking Process">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/spk-maut/data penginapan.png" alt="Results">
+                </div>
+            </div>
+            <div class="modal-description">
+                <p>A comprehensive decision support system for selecting the best accommodation using Multi-Attribute
+                    Utility Theory (MAUT). This system helps users make informed decisions by evaluating multiple
+                    criteria such as price, location, facilities, and ratings.</p>
+                <p>Features include data management, criteria weighting, MAUT calculation engine, and interactive
+                    ranking visualization.</p>
+            </div>
+            <div class="modal-tech">
+                <span class="tech-tag">PHP Native</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">Bootstrap 4</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">MAUT Algorithm</span>
+            </div>
+            <div class="modal-links">
+                <a href="https://github.com/kangkungmozzarella" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Source Code
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 - Travel Information System -->
+    <div class="modal" id="modal2">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal2')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title">Travel Information System</h2>
+                <p class="modal-subtitle">Website Sistem Informasi Travel Menggunakan Laravel 10</p>
+            </div>
+            <div class="modal-gallery">
+                <div class="modal-image">
+                    <img src="assets/images/gallery/travel/1.png" alt="Homepage">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/travel/2.png" alt="Booking System">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/travel/3.png" alt="Admin Dashboard">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/travel/4.png" alt="User Management">
+                </div>
+            </div>
+            <div class="modal-description">
+                <p>Complete travel management system built with Laravel 10 featuring comprehensive booking and
+                    management capabilities. Users can browse destinations, make reservations, and manage their travel
+                    itineraries.</p>
+                <p>Admin panel includes tour package management, booking oversight, payment tracking, and customer
+                    relationship management tools.</p>
+            </div>
+            <div class="modal-tech">
+                <span class="tech-tag">Laravel 10</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">Tailwind CSS</span>
+            </div>
+            <div class="modal-links">
+                <a href="https://github.com/kangkungmozzarella" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Source Code
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 - Stock Price Prediction -->
+    <div class="modal" id="modal4">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal4')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title">Stock Price Prediction - LSTM</h2>
+                <p class="modal-subtitle">Prediksi Pergerakan Harga Saham Menggunakan Long Short-Term Memory</p>
+            </div>
+            <div class="modal-gallery">
+                <div class="modal-image">
+                    <img src="assets/images/gallery/ml/1.png" alt="Data Analysis">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/ml/2.png" alt="Model Training">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/ml/3.png" alt="Predictions">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/ml/4.png" alt="Visualization">
+                </div>
+            </div>
+            <div class="modal-description">
+                <p>Advanced machine learning model for predicting mutual fund stock prices using Long Short-Term Memory
+                    (LSTM) networks. This project analyzes historical stock data to forecast future price movements with
+                    high accuracy.</p>
+                <p>Features comprehensive data preprocessing, LSTM model architecture, training optimization, and
+                    interactive visualization of prediction results.</p>
+            </div>
+            <div class="modal-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">TensorFlow/Keras</span>
+                <span class="tech-tag">LSTM</span>
+                <span class="tech-tag">Pandas</span>
+                <span class="tech-tag">NumPy</span>
+                <span class="tech-tag">Matplotlib</span>
+            </div>
+            <div class="modal-links">
+                <a href="https://github.com/kangkungmozzarella" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Source Code
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-book"></i> Research Paper
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5 - Alumni Information System -->
+    <div class="modal" id="modal5">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal5')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title">Alumni Information System</h2>
+                <p class="modal-subtitle">Website Sistem Informasi Alumni</p>
+            </div>
+            <div class="modal-gallery">
+                <div class="modal-image">
+                    <img src="assets/images/gallery/alumni/1.png" alt="Dashboard">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/alumni/2.png" alt="Alumni Directory">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/alumni/3.png" alt="Career Tracking">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/alumni/4.png" alt="Events">
+                </div>
+            </div>
+            <div class="modal-description">
+                <p>Comprehensive platform for managing alumni data, career tracking, and networking capabilities. The
+                    system enables educational institutions to maintain connection with graduates and track their
+                    professional development.</p>
+                <p>Includes alumni registration, profile management, career progression tracking, event management, and
+                    networking features.</p>
+            </div>
+            <div class="modal-tech">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">jQuery</span>
+                <span class="tech-tag">Bootstrap</span>
+            </div>
+            <div class="modal-links">
+                <a href="https://github.com/kangkungmozzarella" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Source Code
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6 - Laptop Selection DSS -->
+    <div class="modal" id="modal6">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal6')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title">Laptop Selection DSS - SMART Method</h2>
+                <p class="modal-subtitle">Sistem Pengambilan Keputusan Laptop Terbaik Menggunakan Metode SMART</p>
+            </div>
+            <div class="modal-gallery">
+                <div class="modal-image">
+                    <img src="assets/images/gallery/spk-smart/1.png" alt="Homepage">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/spk-smart/2.png" alt="Criteria Selection">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/spk-smart/3.png" alt="SMART Calculation">
+                </div>
+                <div class="modal-image">
+                    <img src="assets/images/gallery/spk-smart/4.png" alt="Ranking Results">
+                </div>
+            </div>
+            <div class="modal-description">
+                <p>Decision support system for selecting optimal laptops for Informatics and Management students using
+                    Simple Multi-Attribute Rating Technique (SMART). The system evaluates laptops based on multiple
+                    criteria including performance, price, and suitability for academic needs.</p>
+                <p>Features comprehensive laptop database, customizable criteria weighting, SMART algorithm
+                    implementation, and detailed comparison results.</p>
+            </div>
+            <div class="modal-tech">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">SMART Algorithm</span>
+                <span class="tech-tag">Bootstrap</span>
+                <span class="tech-tag">Chart.js</span>
+            </div>
+            <div class="modal-links">
+                <a href="https://github.com/kangkungmozzarella" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Source Code
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Preview Modals -->
+   
+    <!-- Certificate Modal 2 - FE Certification -->
+    <div class="modal" id="cert2">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('cert2')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title">Frontend Engineering</h2>
+                <p class="modal-subtitle">PT RUANG RAYA INDONESIA</p>
+            </div>
+            <div class="modal-gallery">
+                <div class="modal-image" style="grid-column: 1 / -1;">
+                    <img src="assets/images/sertifikat/RG.jpg" alt="Laravel Certificate" style="height: 400px;">
+                </div>
+            </div>
+            <div class="modal-description">
+                <p><strong>Certification:</strong> Frontend Engineering</p>
+                <p><strong>Provider:</strong> PT RUANG RAYA INDONESIA</p>
+                <p><strong>Completion Date:</strong> 2022</p>
+                <p><strong>Skills Covered:</strong> HTML, Node.JS, Git, React.JS, JavaScript, API
+                    Development</p>
+                <p>Comprehensive certification covering Laravel framework fundamentals, advanced features, and modern
+                    PHP development practices.</p>
+            </div>
+            <div class="modal-links">
+                <a href="https://drive.google.com/file/d/18R6a9aIwQ0DEZMqfcDK0LApWYMuEXgEF/view?usp=sharing"
+                    target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Download
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Modal 3 - Data Analysis -->
+    <div class="modal" id="cert3">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('cert3')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title">Google Data Analytics</h2>
+                <p class="modal-subtitle">Coursera</p>
+            </div>
+            <div class="modal-gallery">
+                <div class="modal-image" style="grid-column: 1 / -1;">
+                    <img src="assets/images/sertifikat/DA.jpg" alt="Data Science Certificate" style="height: 400px;">
+                </div>
+            </div>
+            <div class="modal-description">
+                <p><strong>Certification:</strong> Data Analytics</p>
+                <p><strong>Provider:</strong> Digitalent, Kominfo, Google & Coursera</p>
+                <p><strong>Completion Date:</strong> 2023</p>
+                <p><strong>Skills Covered:</strong> Python, Pandas, NumPy, Machine Learning, Data Visualization</p>
+                <p>Advanced certification covering statistical analysis, data visualization, and predictive modeling
+                    techniques for real-world applications.</p>
+            </div>
+            <div class="modal-links">
+                <a href="https://drive.google.com/file/d/1lh8DgH_rO12OUcIb5Iu33yYKkeSO-c5t/view?usp=sharing"
+                    target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Download
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact" style="background: var(--bg-secondary);">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="section-subtitle">
+                    Ready to start your next project? Let's create something amazing together!
+                </p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>andreamicolaazwir@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+62 822 7604 3336</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Medan, North Sumatra</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <h4>Education</h4>
+                            <p>Malikussaleh University</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127540.84734756158!2d98.58193584726562!3d3.595196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30313167d1b9b7c3%3A0x5c1e9ea45c709e8!2sMedan%2C%20Kota%20Medan%2C%20Sumatera%20Utara!5e0!3m2!1sen!2sid!4v1732626000000!5m2!1sen!2sid"
+                            width="100%" height="100%" style="border:0; border-radius: 1rem;" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="lightbox-nav lightbox-prev" onclick="previousImage()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav lightbox-next" onclick="nextImage()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <img id="lightbox-img" src="" alt="Project Image">
+            <div class="lightbox-counter">
+                <span id="lightbox-current">1</span> / <span id="lightbox-total">4</span>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://github.com/kangkungmozzarella" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/andreamicolaazwir/" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.instagram.com/andreamicolaazwir/" target="_blank" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p>&copy; <span id="copyright-year"></span> Andrea Micola Azwir. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+
+        // Lightbox functionality
+        let currentImageIndex = 0;
+        let currentModal = '';
+        let currentModalImages = [];
+        let isLightboxOpen = false;
+
+        const modalImages = {
+            'modal1': [
+                'assets/images/gallery/spk-maut/dashboard.png',
+                'assets/images/gallery/spk-maut/data kriteria.png',
+                'assets/images/gallery/spk-maut/perankingan.png',
+                'assets/images/gallery/spk-maut/data penginapan.png'
+            ],
+            'modal2': [
+                'assets/images/gallery/travel/1.png',
+                'assets/images/gallery/travel/2.png',
+                'assets/images/gallery/travel/3.png',
+                'assets/images/gallery/travel/4.png'
+            ],
+            'modal4': [
+                'assets/images/gallery/ml/1.png',
+                'assets/images/gallery/ml/2.png',
+                'assets/images/gallery/ml/3.png',
+                'assets/images/gallery/ml/4.png'
+            ],
+            'modal5': [
+                'assets/images/gallery/alumni/1.png',
+                'assets/images/gallery/alumni/2.png',
+                'assets/images/gallery/alumni/3.png',
+                'assets/images/gallery/alumni/4.png'
+            ],
+            'modal6': [
+                'assets/images/gallery/spk-smart/1.png',
+                'assets/images/gallery/spk-smart/2.png',
+                'assets/images/gallery/spk-smart/3.png',
+                'assets/images/gallery/spk-smart/4.png'
+            ]
+        };
+
+        function showLightboxLoading() {
+            const loading = document.querySelector('.lightbox-loading');
+            if (loading) {
+                loading.classList.add('show');
+            }
+        }
+
+        function hideLightboxLoading() {
+            const loading = document.querySelector('.lightbox-loading');
+            if (loading) {
+                loading.classList.remove('show');
+            }
+        }
+
+        function preloadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+                img.src = src;
+            });
+        }
+
+        function updateLightboxCounter() {
+            const currentSpan = document.getElementById('lightbox-current');
+            const totalSpan = document.getElementById('lightbox-total');
+
+            if (currentSpan && totalSpan) {
+                currentSpan.textContent = currentImageIndex + 1;
+                totalSpan.textContent = currentModalImages.length;
+            }
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.querySelector('.lightbox-prev');
+            const nextBtn = document.querySelector('.lightbox-next');
+
+            if (prevBtn && nextBtn) {
+                // Enable/disable buttons based on current position
+                prevBtn.disabled = currentImageIndex === 0 && currentModalImages.length <= 1;
+                nextBtn.disabled = currentImageIndex === currentModalImages.length - 1 && currentModalImages.length <= 1;
+            }
+        }
+
+        function openLightbox(modalId, imageIndex) {
+            // Validate inputs
+            if (!modalImages[modalId]) {
+                console.error('Modal not found:', modalId);
+                return;
+            }
+
+            if (imageIndex < 0 || imageIndex >= modalImages[modalId].length) {
+                console.error('Invalid image index:', imageIndex);
+                return;
+            }
+
+            // Set global variables
+            currentModal = modalId;
+            currentImageIndex = imageIndex;
+            currentModalImages = modalImages[modalId];
+            isLightboxOpen = true;
+
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            if (!lightbox || !lightboxImg) {
+                console.error('Lightbox elements not found');
+                return;
+            }
+
+            // Show lightbox immediately
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Show loading
+            showLightboxLoading();
+
+            // Update counter immediately
+            updateLightboxCounter();
+            updateNavigationButtons();
+
+            // Load image
+            const imageSrc = currentModalImages[imageIndex];
+
+            preloadImage(imageSrc)
+                .then((img) => {
+                    if (isLightboxOpen) { // Check if lightbox is still open
+                        lightboxImg.src = img.src;
+                        hideLightboxLoading();
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error loading image:', error);
+                    hideLightboxLoading();
+                    if (isLightboxOpen) {
+                        // Show placeholder or error message
+                        lightboxImg.alt = 'Image failed to load';
+                    }
+                });
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            if (!lightbox || !lightboxImg) return;
+
+            isLightboxOpen = false;
+
+            // Hide lightbox
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            // Clear image and loading state
+            setTimeout(() => {
+                if (!isLightboxOpen) {
+                    lightboxImg.src = '';
+                    hideLightboxLoading();
+                }
+            }, 300); // Wait for transition to complete
+
+            // Reset variables
+            currentModal = '';
+            currentImageIndex = 0;
+            currentModalImages = [];
+        }
+
+        function nextImage() {
+            if (!isLightboxOpen || currentModalImages.length === 0) return;
+
+            const nextIndex = currentImageIndex < currentModalImages.length - 1
+                ? currentImageIndex + 1
+                : 0; // Loop to first image
+
+            openLightbox(currentModal, nextIndex);
+        }
+
+        function previousImage() {
+            if (!isLightboxOpen || currentModalImages.length === 0) return;
+
+            const prevIndex = currentImageIndex > 0
+                ? currentImageIndex - 1
+                : currentModalImages.length - 1; // Loop to last image
+
+            openLightbox(currentModal, prevIndex);
+        }
+
+        function initializeLightboxEvents() {
+            // Remove existing listeners and add new ones
+            document.querySelectorAll('.modal').forEach(modal => {
+                const modalId = modal.id;
+                const modalImageElements = modal.querySelectorAll('.modal-image');
+
+                modalImageElements.forEach((imageElement, index) => {
+                    // Remove existing click listeners by cloning
+                    const newImageElement = imageElement.cloneNode(true);
+                    imageElement.parentNode.replaceChild(newImageElement, imageElement);
+
+                    // Add new click listener
+                    newImageElement.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        openLightbox(modalId, index);
+                    });
+                });
+            });
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function (e) {
+                if (!isLightboxOpen) return;
+
+                switch (e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        break;
+                    case 'ArrowLeft':
+                        previousImage();
+                        break;
+                }
+            });
+
+            // Add click outside to close
+            document.getElementById('lightbox')?.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    closeLightbox();
+                }
+            });
+        }
+
+        // ============================================
+        // ORIGINAL PORTFOLIO FUNCTIONALITY
+        // ============================================
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle?.querySelector('i');
+
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        if (currentTheme === 'dark' && themeIcon) {
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggle?.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            if (themeIcon) {
+                if (newTheme === 'dark') {
+                    themeIcon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    themeIcon.classList.replace('fa-sun', 'fa-moon');
+                }
+            }
+        });
+
+        // Mobile Navigation
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle?.addEventListener('click', () => {
+            navLinks?.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    navLinks?.classList.remove('active');
+                    const mobileIcon = mobileToggle?.querySelector('i');
+                    if (mobileIcon) {
+                        mobileIcon.classList.add('fa-bars');
+                        mobileIcon.classList.remove('fa-times');
+                    }
+                }
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar?.classList.add('scrolled');
+            } else {
+                navbar?.classList.remove('scrolled');
+            }
+        });
+
+        // Active Navigation Link
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Portfolio Tabs Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabButtons = document.querySelectorAll('.portfolio-tab');
+            const tabSections = document.querySelectorAll('.portfolio-section');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+
+                    // Remove active class from all tabs and sections
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabSections.forEach(section => section.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding section
+                    button.classList.add('active');
+                    document.getElementById(targetTab)?.classList.add('active');
+                });
+            });
+
+            // Initialize lightbox events
+            initializeLightboxEvents();
+
+            // Auto-update copyright year
+            const currentYear = new Date().getFullYear();
+            const copyrightEl = document.getElementById('copyright-year');
+            if (copyrightEl) {
+                copyrightEl.textContent = currentYear;
+            }
+        });
+
+        // Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Certificate Modal Functions
+        function openCertificateModal(certId) {
+            const modal = document.getElementById(certId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const activeModal = document.querySelector('.modal.active');
+                if (activeModal && !isLightboxOpen) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+        // Function to calculate age automatically
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        // Update age on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const ageElement = document.getElementById('age-display');
+            if (ageElement) {
+                const myAge = calculateAge('2002-08-15'); // Your birth date: August 15, 2002
+                ageElement.textContent = myAge;
+            }
+        });
+    </script>
+</body>
+
+</html>
