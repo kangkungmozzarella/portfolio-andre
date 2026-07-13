@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Andrea Micola Azwir | Portfolio</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="assets/css/main.css" />
 
@@ -14,9 +14,9 @@
 
 <!-- BG -->
 <div class="bg-mesh"></div>
-<div class="bg-orb bg-orb-1"></div>
-<div class="bg-orb bg-orb-2"></div>
-<div class="bg-orb bg-orb-3"></div>
+<div class="bg-orb-parallax bg-orb-parallax-1"><div class="bg-orb bg-orb-1"></div></div>
+<div class="bg-orb-parallax bg-orb-parallax-2"><div class="bg-orb bg-orb-2"></div></div>
+<div class="bg-orb-parallax bg-orb-parallax-3"><div class="bg-orb bg-orb-3"></div></div>
 
 <div class="page">
 
@@ -285,12 +285,36 @@
 
     <div class="exp-card">
       <div class="exp-top">
-        <div>
-          <div class="exp-title">Call Center Staff</div>
-          <div class="exp-company">PT TUNAS CAHAYA MANDIRI WIDYATAMA</div>
-          <div class="exp-meta">
-            <span class="exp-badge ebp"><i class="fas fa-clock"></i> May 2025 – Now</span>
-            <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Palembang</span>
+        <div class="exp-top-left">
+          <div class="exp-logo has-img"><img src="assets/images/logos/kurosim.png" alt="Kurosim" /></div>
+          <div>
+            <div class="exp-title">Frontend Engineer</div>
+            <div class="exp-company">Kurosim</div>
+            <div class="exp-meta">
+              <span class="exp-badge ebp"><i class="fas fa-clock"></i> May 2026 – Present</span>
+              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Medan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Building and maintaining frontend features across Kurosim's product suite, translating designs into responsive, accessible interfaces.</li>
+        <li>Collaborating closely with product and backend teams to ship features end-to-end, from UI implementation to API integration.</li>
+        <li>Focusing on code quality, performance, and consistent UI patterns across the codebase.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-top">
+        <div class="exp-top-left">
+          <div class="exp-logo has-img zoom"><img src="assets/images/logos/tcmw.jpg" alt="PT TCMW" /></div>
+          <div>
+            <div class="exp-title">Call Center Staff</div>
+            <div class="exp-company">PT TUNAS CAHAYA MANDIRI WIDYATAMA</div>
+            <div class="exp-meta">
+              <span class="exp-badge ebp"><i class="fas fa-clock"></i> May 2025 – Apr 2026</span>
+              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Palembang</span>
+            </div>
           </div>
         </div>
       </div>
@@ -303,12 +327,15 @@
 
     <div class="exp-card">
       <div class="exp-top">
-        <div>
-          <div class="exp-title">Freelance Web Developer</div>
-          <div class="exp-company">Freelance</div>
-          <div class="exp-meta">
-            <span class="exp-badge ebp"><i class="fas fa-clock"></i> Dec 2023 – Present</span>
-            <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Remote</span>
+        <div class="exp-top-left">
+          <div class="exp-logo has-img fill"><img src="assets/images/logos/freelance.png" alt="Freelance" /></div>
+          <div>
+            <div class="exp-title">Freelance Web Developer</div>
+            <div class="exp-company">Freelance</div>
+            <div class="exp-meta">
+              <span class="exp-badge ebp"><i class="fas fa-clock"></i> Dec 2023 – Present</span>
+              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Remote</span>
+            </div>
           </div>
         </div>
       </div>
@@ -321,12 +348,15 @@
 
     <div class="exp-card">
       <div class="exp-top">
-        <div>
-          <div class="exp-title">Internal Audit</div>
-          <div class="exp-company">PT GUNUNG SARI INDONESIA</div>
-          <div class="exp-meta">
-            <span class="exp-badge ebp"><i class="fas fa-clock"></i> Nov 2024 – Dec 2024</span>
-            <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Medan</span>
+        <div class="exp-top-left">
+          <div class="exp-logo has-img"><img src="assets/images/logos/gunungsari.png" alt="PT Gunung Sari Indonesia" /></div>
+          <div>
+            <div class="exp-title">Internal Audit</div>
+            <div class="exp-company">PT GUNUNG SARI INDONESIA</div>
+            <div class="exp-meta">
+              <span class="exp-badge ebp"><i class="fas fa-clock"></i> Nov 2024 – Mar 2025</span>
+              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Medan</span>
+            </div>
           </div>
         </div>
       </div>
@@ -339,12 +369,15 @@
 
     <div class="exp-card">
       <div class="exp-top">
-        <div>
-          <div class="exp-title">Data Analytics</div>
-          <div class="exp-company">Coursera · Google · Digitalent</div>
-          <div class="exp-meta">
-            <span class="exp-badge ebp"><i class="fas fa-clock"></i> Apr 2024 – Jul 2024</span>
-            <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Jakarta</span>
+        <div class="exp-top-left">
+          <div class="exp-logo has-img"><img src="assets/images/logos/coursera.png" alt="Coursera" /></div>
+          <div>
+            <div class="exp-title">Data Analytics</div>
+            <div class="exp-company">Coursera · Google · Digitalent</div>
+            <div class="exp-meta">
+              <span class="exp-badge ebp"><i class="fas fa-clock"></i> Apr 2024 – Jul 2024</span>
+              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Jakarta</span>
+            </div>
           </div>
         </div>
       </div>
@@ -357,12 +390,15 @@
 
     <div class="exp-card">
       <div class="exp-top">
-        <div>
-          <div class="exp-title">Frontend Engineering</div>
-          <div class="exp-company">PT RUANG RAYA INDONESIA</div>
-          <div class="exp-meta">
-            <span class="exp-badge ebp"><i class="fas fa-clock"></i> Aug 2022 – Dec 2022</span>
-            <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Jakarta</span>
+        <div class="exp-top-left">
+          <div class="exp-logo has-img zoom"><img src="assets/images/logos/ruangguru.jpg" alt="Ruangguru" /></div>
+          <div>
+            <div class="exp-title">Frontend Engineering</div>
+            <div class="exp-company">PT RUANG RAYA INDONESIA</div>
+            <div class="exp-meta">
+              <span class="exp-badge ebp"><i class="fas fa-clock"></i> Aug 2022 – Dec 2022</span>
+              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Jakarta</span>
+            </div>
           </div>
         </div>
       </div>
@@ -388,7 +424,6 @@
     <div>
       <div class="contact-info-block">
         <div class="ci"><div class="ci-icon vi"><i class="fas fa-envelope"></i></div><div><div class="ci-lbl">Email</div><div class="ci-val">andreamicolaazwir@gmail.com</div></div></div>
-        <div class="ci"><div class="ci-icon cy"><i class="fas fa-phone"></i></div><div><div class="ci-lbl">Phone</div><div class="ci-val">+62 822 7604 3336</div></div></div>
         <div class="ci"><div class="ci-icon ro"><i class="fas fa-map-marker-alt"></i></div><div><div class="ci-lbl">Location</div><div class="ci-val">Medan, North Sumatra</div></div></div>
         <div class="ci"><div class="ci-icon mi"><i class="fas fa-graduation-cap"></i></div><div><div class="ci-lbl">Education</div><div class="ci-val">Malikussaleh University</div></div></div>
       </div>

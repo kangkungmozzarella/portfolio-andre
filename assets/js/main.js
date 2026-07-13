@@ -5,7 +5,11 @@
   function switchTab(name) {
     tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
     tabContents.forEach(c => c.classList.toggle('active', c.id === 'tab-' + name));
-    document.getElementById('tab-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const tabBar = document.getElementById('tab-bar');
+    const navHeight = document.getElementById('heroNav').offsetHeight;
+    const targetY = tabBar.getBoundingClientRect().top + window.scrollY - navHeight;
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
   }
   tabBtns.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
   document.getElementById('viewWorkBtn').addEventListener('click', e => { e.preventDefault(); switchTab('about'); });
@@ -14,6 +18,51 @@
   window.addEventListener('scroll', () => {
     document.getElementById('heroNav').classList.toggle('scrolled', window.scrollY > 40);
   });
+
+  /* ── PARALLAX: SCROLL (background orbs) ─────────────────── */
+  const orbs = [
+    { el: document.querySelector('.bg-orb-parallax-1'), speed: 0.15 },
+    { el: document.querySelector('.bg-orb-parallax-2'), speed: 0.3 },
+    { el: document.querySelector('.bg-orb-parallax-3'), speed: 0.22 },
+  ].filter(o => o.el);
+
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      orbs.forEach(o => { o.el.style.transform = `translateY(${y * o.speed}px)`; });
+      scrollTicking = false;
+    });
+  });
+
+  /* ── PARALLAX: MOUSE TILT (hero photo) ──────────────────── */
+  const heroSection = document.getElementById('hero');
+  const heroVisual = document.querySelector('.hero-visual');
+  const photoWrap = document.querySelector('.hero-photo-wrap');
+
+  if (heroSection && heroVisual && photoWrap) {
+    let tiltTicking = false, tiltX = 0, tiltY = 0;
+
+    heroSection.addEventListener('mousemove', e => {
+      const r = heroSection.getBoundingClientRect();
+      tiltX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      tiltY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (tiltTicking) return;
+      tiltTicking = true;
+      requestAnimationFrame(() => {
+        photoWrap.style.transform = `rotateY(${tiltX * 8}deg) rotateX(${-tiltY * 8}deg)`;
+        heroVisual.style.transform = `translate(${tiltX * -12}px, ${tiltY * -8}px)`;
+        tiltTicking = false;
+      });
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+      photoWrap.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      heroVisual.style.transform = 'translate(0,0)';
+    });
+  }
 
   /* ── AGE ────────────────────────────────────────────────── */
   (function(){
