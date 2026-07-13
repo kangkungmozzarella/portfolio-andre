@@ -1,0 +1,69 @@
+  /* ── TAB SYSTEM ─────────────────────────────────────────── */
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  function switchTab(name) {
+    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+    tabContents.forEach(c => c.classList.toggle('active', c.id === 'tab-' + name));
+    document.getElementById('tab-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  tabBtns.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+  document.getElementById('viewWorkBtn').addEventListener('click', e => { e.preventDefault(); switchTab('about'); });
+
+  /* ── NAVBAR SCROLL ──────────────────────────────────────── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('heroNav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  /* ── AGE ────────────────────────────────────────────────── */
+  (function(){
+    const d = new Date('2002-08-15'), n = new Date();
+    let a = n.getFullYear() - d.getFullYear();
+    if (n.getMonth() < d.getMonth() || (n.getMonth()===d.getMonth() && n.getDate()<d.getDate())) a--;
+    document.getElementById('age-num').textContent = a;
+  })();
+
+  /* ── MODAL ──────────────────────────────────────────────── */
+  function openModal(id) {
+    const el = document.getElementById(id);
+    if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  }
+  function closeModal(id) {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
+  }
+  document.querySelectorAll('.modal-bd').forEach(b => {
+    b.addEventListener('click', e => { if (e.target === b) closeModal(b.id); });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-bd.open').forEach(b => closeModal(b.id));
+      closeLB();
+    }
+  });
+
+  /* ── LIGHTBOX ───────────────────────────────────────────── */
+  let lbImgs = [], lbIdx = 0;
+  function openLB(imgs, idx) {
+    lbImgs = imgs; lbIdx = idx;
+    document.getElementById('lb-img').src = imgs[idx];
+    document.getElementById('lb-cur').textContent = idx + 1;
+    document.getElementById('lb-tot').textContent = imgs.length;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLB() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lbNav(dir) {
+    lbIdx = (lbIdx + dir + lbImgs.length) % lbImgs.length;
+    document.getElementById('lb-img').src = lbImgs[lbIdx];
+    document.getElementById('lb-cur').textContent = lbIdx + 1;
+  }
+  document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLB(); });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowRight') lbNav(1);
+    if (e.key === 'ArrowLeft')  lbNav(-1);
+  });
