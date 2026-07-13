@@ -49,13 +49,9 @@
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       opacity: 0.35; pointer-events:none;
     }
-    .bg-orb-parallax {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      will-change: transform;
-    }
     .bg-orb {
-      position: absolute; border-radius: 50%; filter: blur(80px);
-      pointer-events: none;
+      position: fixed; border-radius: 50%; filter: blur(80px);
+      pointer-events: none; z-index: 0;
       animation: orbFloat 12s ease-in-out infinite;
     }
     .bg-orb-1 { width:500px; height:500px; top:-100px; left:-150px; background:rgba(139,92,246,0.3); animation-delay:0s; }
@@ -593,6 +589,14 @@
       position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
       font-size:0.85rem; color:rgba(255,255,255,0.6);
       background:rgba(0,0,0,0.5); padding:0.4rem 1rem; border-radius:50px;
+    }
+
+    /* ─── SCROLL REVEAL ─────────────────────────────────────── */
+    .reveal { opacity:0; transform:translateY(28px); }
+    .reveal.in-view { animation: revealUp 0.7s var(--ease) forwards; }
+    @keyframes revealUp { to { opacity:1; transform:translateY(0); } }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity:1; transform:none; animation:none; }
     }
 
     /* ─── RESPONSIVE ────────────────────────────────────────── */
