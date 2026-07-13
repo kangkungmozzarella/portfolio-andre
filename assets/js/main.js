@@ -6,9 +6,12 @@
     tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
     tabContents.forEach(c => c.classList.toggle('active', c.id === 'tab-' + name));
 
-    const tabBar = document.getElementById('tab-bar');
+    // Measure from #hero (never sticky) instead of #tab-bar: once tab-bar is
+    // stuck, its own getBoundingClientRect() reports the stuck offset, not
+    // its natural flow position, which throws off the scroll target.
+    const hero = document.getElementById('hero');
     const navHeight = document.getElementById('heroNav').offsetHeight;
-    const targetY = tabBar.getBoundingClientRect().top + window.scrollY - navHeight;
+    const targetY = hero.offsetTop + hero.offsetHeight - navHeight;
     window.scrollTo({ top: targetY, behavior: 'smooth' });
   }
   tabBtns.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
