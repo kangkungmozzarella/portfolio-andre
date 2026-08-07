@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
 
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="assets/css/main.css" />
 
@@ -18,9 +18,6 @@
 
 <!-- BG -->
 <div class="bg-mesh"></div>
-<div class="bg-orb bg-orb-1"></div>
-<div class="bg-orb bg-orb-2"></div>
-<div class="bg-orb bg-orb-3"></div>
 
 <div class="page">
 
@@ -71,22 +68,27 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     TAB BAR
+     EDITOR SHELL — sidebar explorer + main content
 ════════════════════════════════════════════════════════════ -->
-<div id="tab-bar">
-  <div class="tab-list" role="tablist">
-    <button class="tab-btn active" data-tab="about"><i class="fas fa-user"></i><span> About &amp; Skills</span></button>
-    <button class="tab-btn" data-tab="projects"><i class="fas fa-code"></i><span> Projects</span></button>
-    <button class="tab-btn" data-tab="certificates"><i class="fas fa-certificate"></i><span> Certificates</span></button>
-    <button class="tab-btn" data-tab="experience"><i class="fas fa-briefcase"></i><span> Experience</span></button>
-    <button class="tab-btn" data-tab="contact"><i class="fas fa-envelope"></i><span> Contact</span></button>
-  </div>
-</div>
+<div class="editor-shell" id="tab-bar">
+<aside class="editor-sidebar">
+  <div class="sidebar-explorer-label">Explorer</div>
+  <div class="sidebar-folder"><i class="fas fa-chevron-down"></i> portfolio-andre</div>
+  <nav class="tab-list" role="tablist">
+    <button class="tab-btn active" data-tab="about"><i class="fas fa-file-alt"></i><span>about.md</span></button>
+    <button class="tab-btn" data-tab="projects"><i class="fas fa-folder"></i><span>projects/</span></button>
+    <button class="tab-btn" data-tab="certificates"><i class="fas fa-file-code"></i><span>certificates.json</span></button>
+    <button class="tab-btn" data-tab="experience"><i class="fas fa-file-alt"></i><span>experience.log</span></button>
+    <button class="tab-btn" data-tab="contact"><i class="fas fa-file-code"></i><span>contact.js</span></button>
+  </nav>
+</aside>
+<main class="editor-main">
 
 <!-- ════════════════════════════════════════════════════════════
      ABOUT & SKILLS
 ════════════════════════════════════════════════════════════ -->
 <div class="tab-content active" id="tab-about">
+  <div class="code-file-bar"><i class="fas fa-file-alt"></i> about.md</div>
   <h2 class="sec-title">About <span>Me</span></h2>
   <div class="sec-divider"></div>
 
@@ -110,6 +112,7 @@
     </div>
   </div>
 
+  <div class="code-file-bar"><i class="fas fa-file-code"></i> package.json</div>
   <p class="skills-heading"><i class="fas fa-layer-group" style="color:var(--a);margin-right:0.5rem;"></i>Skills &amp; Expertise</p>
   <div class="skills-grid">
     <div class="skill-card">
@@ -138,6 +141,7 @@
   <h2 class="sec-title">My <span>Projects</span></h2>
   <div class="sec-divider"></div>
   <p class="sec-sub">A selection of projects demonstrating my capabilities across web development and data science.</p>
+  <div class="code-file-bar"><i class="fas fa-folder-open"></i> projects/</div>
 
   <div class="projects-grid">
 
@@ -151,6 +155,7 @@
         </div>
       </div>
       <div class="proj-body">
+        <div class="proj-path">~/projects/dss-maut.php</div>
         <h3 class="proj-title">Decision Support System – MAUT Method</h3>
         <p class="proj-desc">Comprehensive system for selecting the best accommodation using Multi-Attribute Utility Theory, evaluating multiple weighted criteria.</p>
         <div class="proj-tags"><span class="ptag">PHP</span><span class="ptag">MySQL</span><span class="ptag">Bootstrap</span><span class="ptag">MAUT</span></div>
@@ -167,6 +172,7 @@
         </div>
       </div>
       <div class="proj-body">
+        <div class="proj-path">~/projects/travel-system.php</div>
         <h3 class="proj-title">Travel Information System</h3>
         <p class="proj-desc">Full-featured travel management platform built with Laravel 10 — booking, admin dashboard, payment tracking, and itinerary management.</p>
         <div class="proj-tags"><span class="ptag">Laravel 10</span><span class="ptag">MySQL</span><span class="ptag">Tailwind CSS</span></div>
@@ -183,6 +189,7 @@
         </div>
       </div>
       <div class="proj-body">
+        <div class="proj-path">~/projects/stock-lstm.py</div>
         <h3 class="proj-title">Stock Price Prediction – LSTM</h3>
         <p class="proj-desc">Deep learning model for predicting mutual fund stock prices using Long Short-Term Memory networks with interactive visualizations.</p>
         <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">TensorFlow</span><span class="ptag">LSTM</span><span class="ptag">Matplotlib</span></div>
@@ -199,6 +206,7 @@
         </div>
       </div>
       <div class="proj-body">
+        <div class="proj-path">~/projects/alumni-system.php</div>
         <h3 class="proj-title">Alumni Information System</h3>
         <p class="proj-desc">Platform for managing alumni data, career tracking, and networking — enabling institutions to maintain connection with graduates.</p>
         <div class="proj-tags"><span class="ptag">PHP</span><span class="ptag">MySQL</span><span class="ptag">jQuery</span><span class="ptag">Bootstrap</span></div>
@@ -215,6 +223,7 @@
         </div>
       </div>
       <div class="proj-body">
+        <div class="proj-path">~/projects/laptop-dss.php</div>
         <h3 class="proj-title">Laptop Selection DSS – SMART Method</h3>
         <p class="proj-desc">Decision support system for selecting optimal laptops for students using SMART algorithm with customizable weighted criteria.</p>
         <div class="proj-tags"><span class="ptag">PHP</span><span class="ptag">MySQL</span><span class="ptag">SMART</span><span class="ptag">Chart.js</span></div>
@@ -238,6 +247,7 @@
   <h2 class="sec-title">My <span>Certificates</span></h2>
   <div class="sec-divider"></div>
   <p class="sec-sub">Professional certifications and courses I've completed to sharpen my technical expertise.</p>
+  <div class="code-file-bar"><i class="fas fa-file-code"></i> certificates.json</div>
 
   <div class="cert-grid">
 
@@ -285,6 +295,7 @@
   <h2 class="sec-title">Work <span>Experience</span></h2>
   <div class="sec-divider"></div>
   <p class="sec-sub">My professional journey across different roles and industries.</p>
+  <div class="code-file-bar"><i class="fas fa-code-branch"></i> git log --oneline --graph</div>
 
   <div class="exp-list">
 
@@ -424,6 +435,7 @@
   <h2 class="sec-title">Let's <span>Connect</span></h2>
   <div class="sec-divider"></div>
   <p class="sec-sub">Ready to collaborate or just want to say hello? I'd love to hear from you.</p>
+  <div class="code-file-bar"><i class="fas fa-file-code"></i> contact.js</div>
 
   <div class="contact-layout">
     <div>
@@ -446,6 +458,9 @@
     </div>
   </div>
 </div>
+
+</main>
+</div><!-- .editor-shell -->
 
 <!-- ════════════════════════════════════════════════════════════
      PROJECT MODALS

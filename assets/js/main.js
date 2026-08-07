@@ -69,6 +69,34 @@
     });
   }
 
+  /* ── TYPEWRITER: hero name ──────────────────────────────── */
+  (function () {
+    const el = document.querySelector('.hero-name');
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const line1 = 'Andrea';
+    const line2 = 'Micola Azwir';
+    el.innerHTML = '<span class="tw-l1"></span><br><span class="tw-l2"></span>';
+    const l1 = el.querySelector('.tw-l1');
+    const l2 = el.querySelector('.tw-l2');
+    let i = 0;
+    function typeLine1() {
+      if (i <= line1.length) {
+        l1.textContent = line1.slice(0, i++);
+        setTimeout(typeLine1, 75);
+      } else {
+        i = 0;
+        setTimeout(typeLine2, 150);
+      }
+    }
+    function typeLine2() {
+      if (i <= line2.length) {
+        l2.textContent = line2.slice(0, i++);
+        setTimeout(typeLine2, 75);
+      }
+    }
+    typeLine1();
+  })();
+
   /* ── AGE ────────────────────────────────────────────────── */
   (function(){
     const d = new Date('2002-08-15'), n = new Date();
