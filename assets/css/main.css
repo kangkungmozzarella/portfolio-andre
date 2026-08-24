@@ -286,7 +286,7 @@
        ABOUT TAB
     ════════════════════════════════════════════════════════════ */
     .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-bottom:4rem; }
-    .about-text p { color:var(--txt-2); line-height:1.8; margin-bottom:1.2rem; font-size:0.9rem; }
+    .about-text p { color:var(--txt-2); line-height:1.8; margin-bottom:1.2rem; font-size:0.9rem; text-align:justify; hyphens:auto; }
     .about-highlights { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:2rem; }
     .ahi {
       padding:1.1rem 1.3rem;
@@ -366,7 +366,7 @@
     .proj-body { padding:1.5rem; }
     .proj-path { font-family:var(--sans); font-size:0.68rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--txt-3); margin-bottom:0.5rem; }
     .proj-title { font-family:var(--display); font-weight:600; font-size:1rem; margin-bottom:0.5rem; color:var(--txt); }
-    .proj-desc { font-size:0.8rem; color:var(--txt-2); line-height:1.65; margin-bottom:1.1rem; }
+    .proj-desc { font-size:0.8rem; color:var(--txt-2); line-height:1.65; margin-bottom:1.1rem; text-align:justify; hyphens:auto; }
     .proj-tags { display:flex; flex-wrap:wrap; gap:0.35rem; }
     .ptag { font-family:var(--mono); font-size:0.7rem; padding:0.2rem 0.6rem; border-radius:var(--r-sm); background:rgba(244,114,182,0.06); border:1px solid rgba(244,114,182,0.2); color:var(--c); }
     .proj-github-footer { text-align:center; margin-top:3rem; padding-top:2.5rem; border-top:1px solid var(--glass-border); }
@@ -405,7 +405,7 @@
     .cert-name { font-family:var(--display); font-weight:600; font-size:0.98rem; margin-bottom:0.3rem; color:var(--txt); }
     .cert-org { font-size:0.8rem; color:var(--a); font-weight:500; margin-bottom:0.5rem; }
     .cert-date { font-family:var(--mono); font-size:0.75rem; color:var(--txt-3); margin-bottom:1rem; }
-    .cert-desc { font-size:0.8rem; color:var(--txt-2); line-height:1.6; margin-bottom:1.2rem; }
+    .cert-desc { font-size:0.8rem; color:var(--txt-2); line-height:1.6; margin-bottom:1.2rem; text-align:justify; hyphens:auto; }
     .cert-acts { display:flex; gap:0.6rem; }
     .cbtn {
       display:inline-flex; align-items:center; gap:0.4rem;
@@ -558,7 +558,7 @@
     }
     .mgimg:hover .mgimg-ov { opacity:1; }
     .mgimg-ov i { font-size:1.4rem; color:var(--b); }
-    .modal-desc { font-size:0.86rem; color:var(--txt-2); line-height:1.75; margin-bottom:1.5rem; }
+    .modal-desc { font-size:0.86rem; color:var(--txt-2); line-height:1.75; margin-bottom:1.5rem; text-align:justify; hyphens:auto; }
     .modal-desc p { margin-bottom:0.8rem; }
     .modal-tech { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.8rem; }
     .tc { font-family:var(--mono); font-size:0.72rem; padding:0.26rem 0.7rem; border-radius:var(--r-sm); background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.28); color:var(--a); }
