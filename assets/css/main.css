@@ -265,7 +265,7 @@
     .tab-content {
       display:none; min-height:calc(100vh - 64px);
       padding:3.5rem 3rem 6rem;
-      max-width:960px; margin:0 auto;
+      max-width:1300px; margin:0 auto;
     }
     .tab-content.active { display:block; animation: fadeUp 0.45s var(--ease) both; }
 
