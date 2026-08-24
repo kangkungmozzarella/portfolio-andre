@@ -23,27 +23,33 @@
 
   scene.add(new THREE.AmbientLight(0xffffff, 1));
 
-  const loader = new THREE.TextureLoader();
-
-  function makeFloater(url, w, h, x, y, z) {
-    const tex = loader.load(url);
-    if ('colorSpace' in tex) tex.colorSpace = THREE.SRGBColorSpace;
-    const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide, depthWrite: false });
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
-    mesh.position.set(x, y, z);
-    scene.add(mesh);
-    return mesh;
+  // Two tilted rings of glowing points orbiting the photo, spinning in
+  // opposite directions — replaces the old flat laptop/coffee/code-icon
+  // sprites with an abstract "orbit" motif matching the Constellation theme.
+  function makeRing(radius, count, color, size, tiltX, tiltZ) {
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * Math.PI * 2;
+      positions[i * 3] = Math.cos(a) * radius;
+      positions[i * 3 + 1] = Math.sin(a) * radius;
+      positions[i * 3 + 2] = 0;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const mat = new THREE.PointsMaterial({
+      color, size, transparent: true, opacity: 0.85,
+      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
+    });
+    const points = new THREE.Points(geo, mat);
+    points.rotation.x = tiltX;
+    points.rotation.z = tiltZ;
+    scene.add(points);
+    return points;
   }
 
-  // `spinZ` = how many radians this object spins in-plane (like a clock
-  // hand / pinwheel) per pixel scrolled. Rotating on Z keeps the flat image
-  // facing the camera at every angle, so it never shows its "edge" (no more
-  // flat/gepeng look) — each object spins at a slightly different rate so
-  // they don't move in lockstep.
-  const objs = [
-    { mesh: makeFloater('assets/images/floaters/laptop.svg', 1.5, 1.1, -1.9, 1.15, -1), baseY: 1.15, bobSpeed: 0.9, bobAmp: 0.1, offset: 0, spinZ: 0.0026 },
-    { mesh: makeFloater('assets/images/floaters/coffee.png', 0.85, 0.85, 1.85, -1.05, 0.5), baseY: -1.05, bobSpeed: 1.2, bobAmp: 0.08, offset: 2, spinZ: 0.0034 },
-    { mesh: makeFloater('assets/images/floaters/code-icon.png', 0.62, 0.62, -1.6, -1.15, 1), baseY: -1.15, bobSpeed: 1.5, bobAmp: 0.07, offset: 4, spinZ: -0.003 },
+  const rings = [
+    { mesh: makeRing(2.15, 64, 0x38bdf8, 0.05, Math.PI / 2.6, 0), spin: 0.00035, scrollSpin: 0.0022 },
+    { mesh: makeRing(1.7, 44, 0xa78bfa, 0.045, -Math.PI / 3.1, Math.PI / 5), spin: -0.00048, scrollSpin: -0.0018 },
   ];
 
   let mouseX = 0, mouseY = 0;
@@ -56,13 +62,12 @@
 
   function animate(t) {
     requestAnimationFrame(animate);
-    const s = t * 0.0006;
     const scrollDelta = window.scrollY - lastScrollY;
     lastScrollY = window.scrollY;
 
-    objs.forEach(o => {
-      o.mesh.position.y = o.baseY + Math.sin(s * o.bobSpeed + o.offset) * o.bobAmp;
-      o.mesh.rotation.z += scrollDelta * o.spinZ;
+    rings.forEach(r => {
+      r.mesh.rotation.y += r.spin * 16.6; // constant per-frame drift (~60fps)
+      r.mesh.rotation.y += scrollDelta * r.scrollSpin;
     });
 
     camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
