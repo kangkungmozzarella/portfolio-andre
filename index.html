@@ -9,7 +9,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
 
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="assets/css/main.css" />
 
@@ -18,6 +20,7 @@
 
 <!-- BG -->
 <div class="bg-mesh"></div>
+<canvas id="bgfx" class="bgfx-canvas" aria-hidden="true"></canvas>
 
 <div class="page">
 
@@ -54,7 +57,7 @@
     </div>
     <div class="hero-visual">
       <div class="hero-photo-wrap">
-        <img src="assets/images/profil.jpg" alt="Andrea Micola Azwir" />
+        <img src="assets/images/profil.png" alt="Andrea Micola Azwir" />
         <div class="hero-badge hero-badge-1"><i class="fas fa-code"></i> Web Dev</div>
         <div class="hero-badge hero-badge-2"><i class="fas fa-chart-line"></i> Data Science</div>
         <canvas id="hero3d" class="hero-3d" aria-hidden="true"></canvas>
@@ -68,27 +71,22 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     EDITOR SHELL — sidebar explorer + main content
+     SECTION SHELL — sticky pill nav + main content
 ════════════════════════════════════════════════════════════ -->
 <div class="editor-shell" id="tab-bar">
-<aside class="editor-sidebar">
-  <div class="sidebar-explorer-label">Explorer</div>
-  <div class="sidebar-folder"><i class="fas fa-chevron-down"></i> portfolio-andre</div>
-  <nav class="tab-list" role="tablist">
-    <button class="tab-btn active" data-tab="about"><i class="fas fa-file-alt"></i><span>about.md</span></button>
-    <button class="tab-btn" data-tab="projects"><i class="fas fa-folder"></i><span>projects/</span></button>
-    <button class="tab-btn" data-tab="certificates"><i class="fas fa-file-code"></i><span>certificates.json</span></button>
-    <button class="tab-btn" data-tab="experience"><i class="fas fa-file-alt"></i><span>experience.log</span></button>
-    <button class="tab-btn" data-tab="contact"><i class="fas fa-file-code"></i><span>contact.js</span></button>
-  </nav>
-</aside>
+<nav class="tab-pillbar" role="tablist">
+  <button class="tab-btn active" data-tab="about"><i class="fas fa-user"></i><span>About</span></button>
+  <button class="tab-btn" data-tab="projects"><i class="fas fa-diagram-project"></i><span>Projects</span></button>
+  <button class="tab-btn" data-tab="certificates"><i class="fas fa-certificate"></i><span>Certificates</span></button>
+  <button class="tab-btn" data-tab="experience"><i class="fas fa-briefcase"></i><span>Experience</span></button>
+  <button class="tab-btn" data-tab="contact"><i class="fas fa-envelope"></i><span>Contact</span></button>
+</nav>
 <main class="editor-main">
 
 <!-- ════════════════════════════════════════════════════════════
      ABOUT & SKILLS
 ════════════════════════════════════════════════════════════ -->
 <div class="tab-content active" id="tab-about">
-  <div class="code-file-bar"><i class="fas fa-file-alt"></i> about.md</div>
   <h2 class="sec-title">About <span>Me</span></h2>
   <div class="sec-divider"></div>
 
@@ -105,14 +103,10 @@
       </div>
     </div>
     <div class="about-img-panel">
-      <div class="about-img-wrap">
-        <img src="assets/images/profil lagi.jpg" alt="Andrea" />
-        <div class="about-img-glow"></div>
-      </div>
+      <canvas id="aboutOrbit" class="about-orbit-canvas" aria-hidden="true"></canvas>
     </div>
   </div>
 
-  <div class="code-file-bar"><i class="fas fa-file-code"></i> package.json</div>
   <p class="skills-heading"><i class="fas fa-layer-group" style="color:var(--a);margin-right:0.5rem;"></i>Skills &amp; Expertise</p>
   <div class="skills-grid">
     <div class="skill-card">
@@ -141,7 +135,6 @@
   <h2 class="sec-title">My <span>Projects</span></h2>
   <div class="sec-divider"></div>
   <p class="sec-sub">A selection of projects demonstrating my capabilities across web development and data science.</p>
-  <div class="code-file-bar"><i class="fas fa-folder-open"></i> projects/</div>
 
   <div class="projects-grid">
 
@@ -247,7 +240,6 @@
   <h2 class="sec-title">My <span>Certificates</span></h2>
   <div class="sec-divider"></div>
   <p class="sec-sub">Professional certifications and courses I've completed to sharpen my technical expertise.</p>
-  <div class="code-file-bar"><i class="fas fa-file-code"></i> certificates.json</div>
 
   <div class="cert-grid">
 
@@ -295,7 +287,6 @@
   <h2 class="sec-title">Work <span>Experience</span></h2>
   <div class="sec-divider"></div>
   <p class="sec-sub">My professional journey across different roles and industries.</p>
-  <div class="code-file-bar"><i class="fas fa-code-branch"></i> git log --oneline --graph</div>
 
   <div class="exp-list">
 
@@ -435,7 +426,6 @@
   <h2 class="sec-title">Let's <span>Connect</span></h2>
   <div class="sec-divider"></div>
   <p class="sec-sub">Ready to collaborate or just want to say hello? I'd love to hear from you.</p>
-  <div class="code-file-bar"><i class="fas fa-file-code"></i> contact.js</div>
 
   <div class="contact-layout">
     <div>
@@ -597,6 +587,7 @@
 </div><!-- .page -->
 
 <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+<script src="assets/js/bgfx.js"></script>
 <script src="assets/js/hero3d.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
