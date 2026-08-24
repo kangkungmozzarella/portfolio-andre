@@ -23,6 +23,11 @@
     dot.style.opacity = '1';
     ring.style.opacity = '1';
   }
+  function hide() {
+    shown = false;
+    dot.style.opacity = '0';
+    ring.style.opacity = '0';
+  }
 
   window.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
@@ -30,11 +35,14 @@
     show();
   });
 
-  document.addEventListener('mouseleave', () => {
-    dot.style.opacity = '0';
-    ring.style.opacity = '0';
-  });
+  document.addEventListener('mouseleave', hide);
   document.addEventListener('mouseenter', show);
+
+  // Alt-tabbing back to the page without moving the mouse fires neither of
+  // the above, so the native cursor (hidden via CSS) never gets a custom
+  // replacement drawn back in — force a re-check on refocus.
+  window.addEventListener('focus', show);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) show(); });
 
   function tick() {
     rx += (mx - rx) * 0.18;
