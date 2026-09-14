@@ -1,595 +1,114 @@
-<!DOCTYPE html>
+<!doctype html>
+<!-- Generated from content/portfolio.json. Edit content with npm run cms. -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andrea Micola Azwir | Portfolio</title>
-
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="assets/css/main.css" />
-
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#eeece5">
+  <meta name="description" content="Andrea Micola Azwir — frontend engineer based in Medan, Indonesia. Selected work in web development, data science, and decision support systems."><title>Andrea Micola Azwir — Developer &amp; curious mind</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon-32.png"><link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&amp;family=Manrope:wght@400;500;600;650;700;750;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css"><script src="assets/js/main.js" defer></script>
 </head>
 <body>
-
-<!-- BG -->
-<div class="bg-mesh"></div>
-<canvas id="bgfx" class="bgfx-canvas" aria-hidden="true"></canvas>
-
-<div class="page">
-
-<!-- ── NAV ──────────────────────────────────────────────────── -->
-<nav class="hero-nav" id="heroNav">
-  <div class="nav-logo">Andrea Micola Azwir</div>
-  <div class="nav-cta">
-    <a href="#hero">Home</a>
-    <a class="btn-cv" href="https://drive.google.com/file/d/1x8VweAJCgFTdH6yQoe-RPQPgMAi66PTM/view?usp=sharing" target="_blank">
-      <i class="fas fa-download"></i> Download CV
-    </a>
-  </div>
-</nav>
-
-<!-- ════════════════════════════════════════════════════════════
-     HERO
-════════════════════════════════════════════════════════════ -->
-<section id="hero">
-  <div class="hero-body">
-    <div class="hero-text">
-      <div class="hero-eyebrow"><span class="dot"></span> Frontend Engineer @ Kurosim</div>
-      <h1 class="hero-name">Andrea<br><span>Micola Azwir</span></h1>
-      <p class="hero-role">Data &amp; Web Development Enthusiast — passionate about crafting innovative solutions and turning complex problems into elegant, user-friendly experiences.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num" id="age-num">22</div><div class="hero-stat-lbl">Years Old</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">3.74</div><div class="hero-stat-lbl">GPA / 4.0</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">15+</div><div class="hero-stat-lbl">Projects</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">2024</div><div class="hero-stat-lbl">Graduate</div></div>
-      </div>
-      <div class="hero-actions">
-        <a href="#tab-bar" class="btn-primary" id="viewWorkBtn"><i class="fas fa-rocket"></i> View My Work</a>
-        <a href="#" class="btn-ghost" onclick="switchTab('contact');return false;"><i class="fas fa-envelope"></i> Get In Touch</a>
-      </div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="wordmark" href="#home" aria-label="Andrea Micola Azwir, back to home">andrea<span aria-hidden="true">✳</span></a>
+  <nav aria-label="Main navigation"><a href="#work">Work<span>05</span></a><a href="#about">About</a><a href="#experience">Experience</a></nav>
+  <a class="header-contact" href="#contact">Let’s talk <span aria-hidden="true">↗</span></a>
+</header>
+<main id="main">
+  <section class="hero wrap" id="home" aria-labelledby="hero-title">
+    <div class="hero-meta"><p class="eyebrow">Independent thinking. Thoughtful building.</p><p class="eyebrow hero-location">Medan, Indonesia <span class="local-time" data-timezone="Asia/Jakarta" aria-label="Local time in Medan, Indonesia"></span></p></div>
+    <h1 id="hero-title"><span class="title-line"><span>A curious mind.</span></span><span class="title-line"><span>A builder <em>at heart.</em></span></span></h1>
+    <div class="hero-bottom">
+      <a class="scroll-link" href="#work"><span class="scroll-circle" aria-hidden="true">↓</span><span>Scroll to explore<br><small>A selection of my work</small></span></a>
+      <div class="hero-intro"><span class="intro-line" aria-hidden="true"></span><p>I’m Andrea, a frontend engineer turning ideas and data into useful digital experiences.</p><a class="text-link" href="#about">A little about me <span aria-hidden="true">↗</span></a></div>
+      <div class="hero-stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 5v90M5 50h90M18 18l64 64M18 82l64-64M33 8l34 84M8 33l84 34M8 67l84-34M33 92l34-84"/></svg><span>Always curious.<br>Always building.</span></div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-photo-wrap">
-        <img src="assets/images/profil.png" alt="Andrea Micola Azwir" />
-        <div class="hero-badge hero-badge-1"><i class="fas fa-code"></i> Web Dev</div>
-        <div class="hero-badge hero-badge-2"><i class="fas fa-chart-line"></i> Data Science</div>
-        <canvas id="hero3d" class="hero-3d" aria-hidden="true"></canvas>
-      </div>
-    </div>
-  </div>
-  <div class="hero-scroll" onclick="document.getElementById('tab-bar').scrollIntoView({behavior:'smooth'})">
-    <span>Explore</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════════════════
-     SECTION SHELL — sticky pill nav + main content
-════════════════════════════════════════════════════════════ -->
-<div class="editor-shell" id="tab-bar">
-<nav class="tab-pillbar" role="tablist">
-  <button class="tab-btn active" data-tab="about"><i class="fas fa-user"></i><span>About</span></button>
-  <button class="tab-btn" data-tab="projects"><i class="fas fa-diagram-project"></i><span>Projects</span></button>
-  <button class="tab-btn" data-tab="certificates"><i class="fas fa-certificate"></i><span>Certificates</span></button>
-  <button class="tab-btn" data-tab="experience"><i class="fas fa-briefcase"></i><span>Experience</span></button>
-  <button class="tab-btn" data-tab="contact"><i class="fas fa-envelope"></i><span>Contact</span></button>
-</nav>
-<main class="editor-main">
-
-<!-- ════════════════════════════════════════════════════════════
-     ABOUT & SKILLS
-════════════════════════════════════════════════════════════ -->
-<div class="tab-content active" id="tab-about">
-  <h2 class="sec-title">About <span>Me</span></h2>
-  <div class="sec-divider"></div>
-
-  <div class="about-grid">
-    <div class="about-text">
-      <p>I'm a 2024 graduate from Malikussaleh University with a deep interest in web development and data science. I specialize in both front-end and back-end development, building interactive, dynamic web applications using cutting-edge frameworks.</p>
-      <p>I'm also proficient in managing databases and performing data analysis using advanced tools and techniques. Constantly curious and eager to learn, I thrive on tackling new challenges and expanding my knowledge horizons.</p>
-      <p>My technical background spans Python, PHP, Laravel, machine learning libraries, and GIS tools. I enjoy bridging the gap between raw data and actionable insight through well-crafted applications.</p>
-      <div class="about-highlights">
-        <div class="ahi"><div class="ahi-icon">🎓</div><div class="ahi-val">3.74</div><div class="ahi-lbl">GPA out of 4.0</div></div>
-        <div class="ahi"><div class="ahi-icon">💼</div><div class="ahi-val">15+</div><div class="ahi-lbl">Projects Completed</div></div>
-        <div class="ahi"><div class="ahi-icon">📍</div><div class="ahi-val">Medan</div><div class="ahi-lbl">North Sumatra, ID</div></div>
-        <div class="ahi"><div class="ahi-icon">🏢</div><div class="ahi-val">Kurosim</div><div class="ahi-lbl">Frontend Engineer</div></div>
-      </div>
-    </div>
-    <div class="about-img-panel">
-      <canvas id="aboutOrbit" class="about-orbit-canvas" aria-hidden="true"></canvas>
-    </div>
-  </div>
-
-  <p class="skills-heading"><i class="fas fa-layer-group" style="color:var(--a);margin-right:0.5rem;"></i>Skills &amp; Expertise</p>
-  <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-card-head"><div class="sk-icon vi"><i class="fas fa-code"></i></div><h4>Languages</h4></div>
-      <div class="stags"><span class="stag">Python</span><span class="stag">PHP</span><span class="stag">JavaScript</span><span class="stag">TypeScript</span><span class="stag">SQL</span><span class="stag">HTML5</span><span class="stag">CSS3</span></div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-head"><div class="sk-icon cy"><i class="fas fa-layer-group"></i></div><h4>Frameworks</h4></div>
-      <div class="stags"><span class="stag">Next.js</span><span class="stag">React.js</span><span class="stag">React Native</span><span class="stag">Laravel</span><span class="stag">Flask</span><span class="stag">Node.js</span><span class="stag">Tailwind CSS</span><span class="stag">Bootstrap</span><span class="stag">jQuery</span></div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-head"><div class="sk-icon ro"><i class="fas fa-tools"></i></div><h4>Tools</h4></div>
-      <div class="stags"><span class="stag">VS Code</span><span class="stag">Git</span><span class="stag">GitHub</span><span class="stag">MySQL</span><span class="stag">Tableau</span><span class="stag">Jupyter</span><span class="stag">Google Colab</span></div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-head"><div class="sk-icon mi"><i class="fas fa-chart-bar"></i></div><h4>Data Science</h4></div>
-      <div class="stags"><span class="stag">Machine Learning</span><span class="stag">LSTM</span><span class="stag">PyTorch</span><span class="stag">HuggingFace</span><span class="stag">NLP</span><span class="stag">Pandas</span><span class="stag">Scikit-learn</span><span class="stag">Data Visualization</span><span class="stag">Statistical Analysis</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════
-     PROJECTS
-════════════════════════════════════════════════════════════ -->
-<div class="tab-content" id="tab-projects">
-  <h2 class="sec-title">My <span>Projects</span></h2>
-  <div class="sec-divider"></div>
-  <p class="sec-sub">A selection of projects demonstrating my capabilities across web development and data science.</p>
-
-  <div class="projects-grid">
-
-    <div class="proj-card" onclick="openModal('m1')">
-      <div class="proj-img">
-        <img src="assets/images/gallery/spk-maut/dashboard.png" alt="DSS MAUT" />
-        <div class="proj-img-overlay"></div>
-        <div class="proj-ov">
-          <div class="proj-ov-btn" onclick="event.stopPropagation();openModal('m1')"><i class="fas fa-eye"></i></div>
-          <a class="proj-ov-btn" href="https://github.com/kangkungmozzarella" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div class="proj-path">~/projects/dss-maut.php</div>
-        <h3 class="proj-title">Decision Support System – MAUT Method</h3>
-        <p class="proj-desc">Comprehensive system for selecting the best accommodation using Multi-Attribute Utility Theory, evaluating multiple weighted criteria.</p>
-        <div class="proj-tags"><span class="ptag">PHP</span><span class="ptag">MySQL</span><span class="ptag">Bootstrap</span><span class="ptag">MAUT</span></div>
-      </div>
-    </div>
-
-    <div class="proj-card" onclick="openModal('m2')">
-      <div class="proj-img">
-        <img src="assets/images/gallery/travel/1.png" alt="Travel System" />
-        <div class="proj-img-overlay"></div>
-        <div class="proj-ov">
-          <div class="proj-ov-btn" onclick="event.stopPropagation();openModal('m2')"><i class="fas fa-eye"></i></div>
-          <a class="proj-ov-btn" href="https://github.com/kangkungmozzarella" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div class="proj-path">~/projects/travel-system.php</div>
-        <h3 class="proj-title">Travel Information System</h3>
-        <p class="proj-desc">Full-featured travel management platform built with Laravel 10 — booking, admin dashboard, payment tracking, and itinerary management.</p>
-        <div class="proj-tags"><span class="ptag">Laravel 10</span><span class="ptag">MySQL</span><span class="ptag">Tailwind CSS</span></div>
-      </div>
-    </div>
-
-    <div class="proj-card" onclick="openModal('m3')">
-      <div class="proj-img">
-        <img src="assets/images/gallery/ml/1.png" alt="LSTM" />
-        <div class="proj-img-overlay"></div>
-        <div class="proj-ov">
-          <div class="proj-ov-btn" onclick="event.stopPropagation();openModal('m3')"><i class="fas fa-eye"></i></div>
-          <a class="proj-ov-btn" href="https://github.com/kangkungmozzarella" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div class="proj-path">~/projects/stock-lstm.py</div>
-        <h3 class="proj-title">Stock Price Prediction – LSTM</h3>
-        <p class="proj-desc">Deep learning model for predicting mutual fund stock prices using Long Short-Term Memory networks with interactive visualizations.</p>
-        <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">TensorFlow</span><span class="ptag">LSTM</span><span class="ptag">Matplotlib</span></div>
-      </div>
-    </div>
-
-    <div class="proj-card" onclick="openModal('m4')">
-      <div class="proj-img">
-        <img src="assets/images/gallery/alumni/1.png" alt="Alumni" />
-        <div class="proj-img-overlay"></div>
-        <div class="proj-ov">
-          <div class="proj-ov-btn" onclick="event.stopPropagation();openModal('m4')"><i class="fas fa-eye"></i></div>
-          <a class="proj-ov-btn" href="https://github.com/kangkungmozzarella" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div class="proj-path">~/projects/alumni-system.php</div>
-        <h3 class="proj-title">Alumni Information System</h3>
-        <p class="proj-desc">Platform for managing alumni data, career tracking, and networking — enabling institutions to maintain connection with graduates.</p>
-        <div class="proj-tags"><span class="ptag">PHP</span><span class="ptag">MySQL</span><span class="ptag">jQuery</span><span class="ptag">Bootstrap</span></div>
-      </div>
-    </div>
-
-    <div class="proj-card" onclick="openModal('m5')">
-      <div class="proj-img">
-        <img src="assets/images/gallery/spk-smart/1.png" alt="SMART" />
-        <div class="proj-img-overlay"></div>
-        <div class="proj-ov">
-          <div class="proj-ov-btn" onclick="event.stopPropagation();openModal('m5')"><i class="fas fa-eye"></i></div>
-          <a class="proj-ov-btn" href="https://github.com/kangkungmozzarella" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div class="proj-path">~/projects/laptop-dss.php</div>
-        <h3 class="proj-title">Laptop Selection DSS – SMART Method</h3>
-        <p class="proj-desc">Decision support system for selecting optimal laptops for students using SMART algorithm with customizable weighted criteria.</p>
-        <div class="proj-tags"><span class="ptag">PHP</span><span class="ptag">MySQL</span><span class="ptag">SMART</span><span class="ptag">Chart.js</span></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="proj-github-footer">
-    <a href="https://github.com/kangkungmozzarella" target="_blank" class="btn-github">
-      <i class="fab fa-github" style="font-size:1.2rem;"></i>
-      <div><div style="font-weight:600;">See All Projects</div><div style="font-size:0.75rem;opacity:0.6;">Visit my GitHub Profile</div></div>
-    </a>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════
-     CERTIFICATES
-════════════════════════════════════════════════════════════ -->
-<div class="tab-content" id="tab-certificates">
-  <h2 class="sec-title">My <span>Certificates</span></h2>
-  <div class="sec-divider"></div>
-  <p class="sec-sub">Professional certifications and courses I've completed to sharpen my technical expertise.</p>
-
-  <div class="cert-grid">
-
-    <div class="cert-card" onclick="openModal('cm1')">
-      <div class="cert-hdr vi">
-        <div class="cert-ico vi"><i class="fab fa-react"></i></div>
-        <h3>Frontend Certificate</h3>
-      </div>
-      <div class="cert-body">
-        <div class="cert-name">Frontend Engineering</div>
-        <div class="cert-org">PT Ruang Raya Indonesia</div>
-        <div class="cert-date"><i class="fas fa-calendar-alt" style="margin-right:0.4rem;opacity:0.6;"></i>2022</div>
-        <div class="cert-desc">Applied Tailwind CSS, HTML5, JavaScript, and React.js to build responsive user interfaces. Covered Node.js backend and Git version control.</div>
-        <div class="cert-acts">
-          <span class="cbtn cbtn-p" onclick="event.stopPropagation();openModal('cm1')"><i class="fas fa-eye"></i> Preview</span>
-          <a class="cbtn cbtn-g" href="https://drive.google.com/file/d/18R6a9aIwQ0DEZMqfcDK0LApWYMuEXgEF/view?usp=sharing" target="_blank" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Open</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="cert-card" onclick="openModal('cm2')">
-      <div class="cert-hdr cy">
-        <div class="cert-ico cy"><i class="fas fa-chart-line"></i></div>
-        <h3>Data Analytics Certification</h3>
-      </div>
-      <div class="cert-body">
-        <div class="cert-name">Google Data Analytics</div>
-        <div class="cert-org">Coursera · Digitalent · Kominfo</div>
-        <div class="cert-date"><i class="fas fa-calendar-alt" style="margin-right:0.4rem;opacity:0.6;"></i>2023 – 2024</div>
-        <div class="cert-desc">Advanced certification covering data analysis with Python, pandas, NumPy, R, Tableau — including statistical analysis, visualization, and predictive modeling.</div>
-        <div class="cert-acts">
-          <span class="cbtn cbtn-p" onclick="event.stopPropagation();openModal('cm2')"><i class="fas fa-eye"></i> Preview</span>
-          <a class="cbtn cbtn-g" href="https://drive.google.com/file/d/1lh8DgH_rO12OUcIb5Iu33yYKkeSO-c5t/view?usp=sharing" target="_blank" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Open</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════
-     EXPERIENCE
-════════════════════════════════════════════════════════════ -->
-<div class="tab-content" id="tab-experience">
-  <h2 class="sec-title">Work <span>Experience</span></h2>
-  <div class="sec-divider"></div>
-  <p class="sec-sub">My professional journey across different roles and industries.</p>
-
-  <div class="exp-list">
-
-    <div class="exp-card">
-      <div class="exp-top">
-        <div class="exp-top-left">
-          <div class="exp-logo has-img"><img src="assets/images/logos/kurosim.png" alt="Kurosim" /></div>
-          <div>
-            <div class="exp-title">Frontend Engineer</div>
-            <div class="exp-company">Kurosim</div>
-            <div class="exp-meta">
-              <span class="exp-badge ebp"><i class="fas fa-clock"></i> May 2026 – Present</span>
-              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Medan</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul class="exp-bullets">
-        <li>Building and maintaining frontend features across Kurosim's product suite, translating designs into responsive, accessible interfaces.</li>
-        <li>Collaborating closely with product and backend teams to ship features end-to-end, from UI implementation to API integration.</li>
-        <li>Focusing on code quality, performance, and consistent UI patterns across the codebase.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card">
-      <div class="exp-top">
-        <div class="exp-top-left">
-          <div class="exp-logo has-img zoom"><img src="assets/images/logos/tcmw.jpg" alt="PT TCMW" /></div>
-          <div>
-            <div class="exp-title">Call Center Staff</div>
-            <div class="exp-company">PT TUNAS CAHAYA MANDIRI WIDYATAMA</div>
-            <div class="exp-meta">
-              <span class="exp-badge ebp"><i class="fas fa-clock"></i> May 2025 – Apr 2026</span>
-              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Palembang</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul class="exp-bullets">
-        <li>Monitored and managed trouble tickets from multiple tower providers (TBG, TIS/IBS, Persada Sokka, Smartfren) across Sumatra and Kalimantan, ensuring 100% SLA compliance from 2-hour emergency to 7-day minor cases.</li>
-        <li>Coordinated field team responses across 5 regions via TOTI system, implementing systematic escalation from Supervisor to General Manager level with real-time GPS tracking.</li>
-        <li>Maintained comprehensive evidence databases and reporting systems with 100% accuracy across Telkomsel, XL, Smartfren, and Indosat operators.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card">
-      <div class="exp-top">
-        <div class="exp-top-left">
-          <div class="exp-logo has-img fill"><img src="assets/images/logos/freelance.png" alt="Freelance" /></div>
-          <div>
-            <div class="exp-title">Freelance Web Developer</div>
-            <div class="exp-company">Freelance</div>
-            <div class="exp-meta">
-              <span class="exp-badge ebp"><i class="fas fa-clock"></i> Dec 2023 – Present</span>
-              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Remote</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul class="exp-bullets">
-        <li>Designed and built data-driven web solutions using modern technologies to optimize performance and accessibility.</li>
-        <li>Collaborated directly with clients to understand needs, design intuitive interfaces, and ensure efficient data management.</li>
-        <li>Delivered responsive, user-friendly web applications enhancing user experience across various contexts.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card">
-      <div class="exp-top">
-        <div class="exp-top-left">
-          <div class="exp-logo has-img"><img src="assets/images/logos/gunungsari.png" alt="PT Gunung Sari Indonesia" /></div>
-          <div>
-            <div class="exp-title">Internal Audit</div>
-            <div class="exp-company">PT GUNUNG SARI INDONESIA</div>
-            <div class="exp-meta">
-              <span class="exp-badge ebp"><i class="fas fa-clock"></i> Nov 2024 – Mar 2025</span>
-              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Medan</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul class="exp-bullets">
-        <li>Supported the internal audit team in reviewing financial reports, ensuring compliance with applicable accounting standards.</li>
-        <li>Conducted financial and non-financial data analysis to identify potential discrepancies and operational inefficiencies.</li>
-        <li>Managed collection and validation of supporting documents including invoices, bank statements, and transaction records.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card">
-      <div class="exp-top">
-        <div class="exp-top-left">
-          <div class="exp-logo has-img"><img src="assets/images/logos/coursera.png" alt="Coursera" /></div>
-          <div>
-            <div class="exp-title">Data Analytics</div>
-            <div class="exp-company">Coursera · Google · Digitalent</div>
-            <div class="exp-meta">
-              <span class="exp-badge ebp"><i class="fas fa-clock"></i> Apr 2024 – Jul 2024</span>
-              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Jakarta</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul class="exp-bullets">
-        <li>Performed data cleaning using spreadsheets, SQL, R, and Tableau to produce accurate, analysis-ready datasets.</li>
-        <li>Designed and visualized data through interactive dashboards supporting effective data-driven decision-making.</li>
-        <li>Mastered analytical tools like R and Tableau for optimal data management and visualization.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card">
-      <div class="exp-top">
-        <div class="exp-top-left">
-          <div class="exp-logo has-img zoom"><img src="assets/images/logos/ruangguru.jpg" alt="Ruangguru" /></div>
-          <div>
-            <div class="exp-title">Frontend Engineering</div>
-            <div class="exp-company">PT RUANG RAYA INDONESIA</div>
-            <div class="exp-meta">
-              <span class="exp-badge ebp"><i class="fas fa-clock"></i> Aug 2022 – Dec 2022</span>
-              <span class="exp-badge ebl"><i class="fas fa-map-marker-alt"></i> Jakarta</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul class="exp-bullets">
-        <li>Applied Tailwind CSS, HTML5, JavaScript, and React.js to build responsive and efficient user interfaces in web development projects.</li>
-        <li>Used OOP principles for structured application development and managed deployment through Git and GitHub.</li>
-        <li>Utilized Node.js to build backend functionality supporting the effective and integrated operation of projects.</li>
-      </ul>
-    </div>
-
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════
-     CONTACT
-════════════════════════════════════════════════════════════ -->
-<div class="tab-content" id="tab-contact">
-  <h2 class="sec-title">Let's <span>Connect</span></h2>
-  <div class="sec-divider"></div>
-  <p class="sec-sub">Ready to collaborate or just want to say hello? I'd love to hear from you.</p>
-
-  <div class="contact-layout">
-    <div>
-      <div class="contact-info-block">
-        <div class="ci"><div class="ci-icon vi"><i class="fas fa-envelope"></i></div><div><div class="ci-lbl">Email</div><div class="ci-val">andreamicolaazwir@gmail.com</div></div></div>
-        <div class="ci"><div class="ci-icon ro"><i class="fas fa-map-marker-alt"></i></div><div><div class="ci-lbl">Location</div><div class="ci-val">Medan, North Sumatra</div></div></div>
-        <div class="ci"><div class="ci-icon mi"><i class="fas fa-graduation-cap"></i></div><div><div class="ci-lbl">Education</div><div class="ci-val">Malikussaleh University</div></div></div>
-      </div>
-      <div class="contact-socials">
-        <h4>Find me on</h4>
-        <div class="social-row">
-          <a href="https://github.com/kangkungmozzarella" target="_blank" class="soc-btn"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/andreamicolaazwir/" target="_blank" class="soc-btn li"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://www.instagram.com/andreamicolaazwir/" target="_blank" class="soc-btn ig"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="contact-map-wrap">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127540.84734756158!2d98.58193584726562!3d3.595196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30313167d1b9b7c3%3A0x5c1e9ea45c709e8!2sMedan%2C%20Kota%20Medan%2C%20Sumatera%20Utara!5e0!3m2!1sen!2sid!4v1732626000000!5m2!1sen!2sid" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Medan Map"></iframe>
-    </div>
-  </div>
-</div>
-
+    <div class="hero-footer"><span><span class="status-dot"></span>Currently building at Kurosim</span><span>Web development &amp; data science</span><span>Portfolio / <span data-year>2026</span></span></div>
+  </section>
+  <section class="work-section wrap section-space" id="work" aria-labelledby="work-title">
+    <div class="section-heading reveal"><div><p class="eyebrow section-index">01 / SELECTED WORK</p><h2 id="work-title">Ideas made <em>real.</em></h2></div><p>From a question to a working product.<br>A few things I’ve built along the way.</p></div>
+    <div class="work-toolbar"><span class="eyebrow">A collection of 5 projects</span><a class="text-link" href="https://github.com/kangkungmozzarella" target="_blank" rel="noopener noreferrer">More on GitHub ↗</a></div>
+    <div class="project-grid"><article class="project reveal project-featured" data-category="Web development">
+      <button class="project-open" data-detail="project-travel" aria-label="Explore Travel information system">
+        <span class="project-image sand"><span class="image-index">PROJECT / 01</span><img src="assets/images/gallery/travel/1.png" alt="Travel information system interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
+        <span class="project-caption"><span><span class="eyebrow">Web development / 01</span><span class="project-title">Travel, without the friction.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
+      </button><p class="project-subtitle">Travel information system <span>— Laravel · MySQL · Tailwind CSS</span></p>
+    </article>
+<article class="project reveal " data-category="Decision systems">
+      <button class="project-open" data-detail="project-maut" aria-label="Explore Accommodation decision support">
+        <span class="project-image sage"><span class="image-index">PROJECT / 02</span><img src="assets/images/gallery/spk-maut/dashboard.png" alt="Accommodation decision support interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
+        <span class="project-caption"><span><span class="eyebrow">Decision systems / 02</span><span class="project-title">A better way to decide.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
+      </button><p class="project-subtitle">Accommodation decision support <span>— PHP · MySQL · MAUT</span></p>
+    </article>
+<article class="project reveal " data-category="Data science">
+      <button class="project-open" data-detail="project-lstm" aria-label="Explore Stock price prediction">
+        <span class="project-image rose"><span class="image-index">PROJECT / 03</span><img src="assets/images/gallery/ml/1.png" alt="Stock price prediction interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
+        <span class="project-caption"><span><span class="eyebrow">Data science / 03</span><span class="project-title">Finding signals in the numbers.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
+      </button><p class="project-subtitle">Stock price prediction <span>— Python · TensorFlow · LSTM</span></p>
+    </article>
+<article class="project reveal " data-category="Web development">
+      <button class="project-open" data-detail="project-alumni" aria-label="Explore Alumni information system">
+        <span class="project-image blue"><span class="image-index">PROJECT / 04</span><img src="assets/images/gallery/alumni/1.png" alt="Alumni information system interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
+        <span class="project-caption"><span><span class="eyebrow">Web development / 04</span><span class="project-title">Keeping a community connected.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
+      </button><p class="project-subtitle">Alumni information system <span>— PHP · MySQL · jQuery</span></p>
+    </article>
+<article class="project reveal " data-category="Decision systems">
+      <button class="project-open" data-detail="project-smart" aria-label="Explore Laptop selection system">
+        <span class="project-image sand"><span class="image-index">PROJECT / 05</span><img src="assets/images/gallery/spk-smart/1.png" alt="Laptop selection system interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
+        <span class="project-caption"><span><span class="eyebrow">Decision systems / 05</span><span class="project-title">The right laptop, for you.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
+      </button><p class="project-subtitle">Laptop selection system <span>— PHP · MySQL · SMART</span></p>
+    </article></div>
+  </section>
+  <section class="about-section" id="about" aria-labelledby="about-title"><div class="wrap about-layout section-space">
+    <div class="about-photo reveal"><div class="portrait-frame"><img src="assets/images/profil.png" alt="Andrea Micola Azwir" width="502" height="900" loading="lazy"><span class="portrait-mark" aria-hidden="true">a.</span></div><p><span>Andrea Micola Azwir</span><span>Developer / Indonesia</span></p></div>
+    <div class="about-copy"><p class="eyebrow section-index reveal">02 / THE PERSON BEHIND THE WORK</p><h2 id="about-title" class="reveal">Good work starts<br>with <em>curiosity.</em></h2><div class="about-prose reveal"><p>I like understanding how things work — then figuring out how to make them work better.</p><p>I’m a frontend engineer at Kurosim and a 2024 Informatics graduate from Malikussaleh University. My work sits between web development and data science: building interfaces, working with databases, and finding meaning in data.</p><p>From freelance projects to product teams, I care about the details that make an application feel clear and easy to use.</p></div>
+    <a class="text-link reveal" href="https://drive.google.com/file/d/1x8VweAJCgFTdH6yQoe-RPQPgMAi66PTM/view?usp=sharing" target="_blank" rel="noopener noreferrer">Take a look at my CV ↗</a><dl class="about-facts reveal"><div><dt>Education</dt><dd>Informatics, ’24</dd></div><div><dt>GPA</dt><dd>3.74 / 4.00</dd></div><div><dt>Based in</dt><dd>Medan, ID</dd></div></dl></div>
+    <div class="toolbox reveal"><p class="eyebrow">THE TOOLS I WORK WITH</p><div><h3>Build</h3><p>JavaScript · TypeScript · React · Next.js · React Native · HTML &amp; CSS · Tailwind · PHP · Laravel · Flask · Node.js</p></div><div><h3>Explore</h3><p>Python · SQL · Pandas · Scikit-learn · PyTorch · HuggingFace · LSTM · Tableau</p></div><div><h3>Collaborate</h3><p>Git · GitHub · VS Code · MySQL · Jupyter · Google Colab</p></div></div>
+  </div></section>
+  <section class="wrap section-space experience-section" id="experience" aria-labelledby="experience-title">
+    <div class="section-heading reveal"><div><p class="eyebrow section-index">03 / THE JOURNEY</p><h2 id="experience-title">Learning by <em>doing.</em></h2></div><p>Different roles. New perspectives.<br>Something to take from every chapter.</p></div>
+    <div class="experience-list"><details class="experience-row reveal" open>
+    <summary><span class="experience-date">May 2026 – Present</span><span class="experience-heading"><span class="experience-logo"><img src="assets/images/logos/kurosim.png" alt="" width="48" height="48" loading="lazy"></span><span class="experience-role">Frontend Engineer<span>Kurosim</span></span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+    <div class="experience-content"><ul><li>Building and maintaining frontend features across Kurosim&#39;s product suite, translating designs into responsive, accessible interfaces.</li><li>Collaborating closely with product and backend teams to ship features end-to-end, from UI implementation to API integration.</li><li>Focusing on code quality, performance, and consistent UI patterns across the codebase.</li></ul></div>
+  </details>
+<details class="experience-row reveal" >
+    <summary><span class="experience-date">May 2025 – Apr 2026</span><span class="experience-heading"><span class="experience-logo"><img src="assets/images/logos/tcmw.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="experience-role">Call Center Staff<span>PT TUNAS CAHAYA MANDIRI WIDYATAMA</span></span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+    <div class="experience-content"><ul><li>Monitored and managed trouble tickets from multiple tower providers (TBG, TIS/IBS, Persada Sokka, Smartfren) across Sumatra and Kalimantan, ensuring 100% SLA compliance from 2-hour emergency to 7-day minor cases.</li><li>Coordinated field team responses across 5 regions via TOTI system, implementing systematic escalation from Supervisor to General Manager level with real-time GPS tracking.</li><li>Maintained comprehensive evidence databases and reporting systems with 100% accuracy across Telkomsel, XL, Smartfren, and Indosat operators.</li></ul></div>
+  </details>
+<details class="experience-row reveal" >
+    <summary><span class="experience-date">Dec 2023 – Present</span><span class="experience-heading"><span class="experience-logo"><img src="assets/images/logos/freelance.png" alt="" width="48" height="48" loading="lazy"></span><span class="experience-role">Freelance Web Developer<span>Freelance</span></span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+    <div class="experience-content"><ul><li>Designed and built data-driven web solutions using modern technologies to optimize performance and accessibility.</li><li>Collaborated directly with clients to understand needs, design intuitive interfaces, and ensure efficient data management.</li><li>Delivered responsive, user-friendly web applications enhancing user experience across various contexts.</li></ul></div>
+  </details>
+<details class="experience-row reveal" >
+    <summary><span class="experience-date">Nov 2024 – Mar 2025</span><span class="experience-heading"><span class="experience-logo"><img src="assets/images/logos/gunungsari.png" alt="" width="48" height="48" loading="lazy"></span><span class="experience-role">Internal Audit<span>PT GUNUNG SARI INDONESIA</span></span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+    <div class="experience-content"><ul><li>Supported the internal audit team in reviewing financial reports, ensuring compliance with applicable accounting standards.</li><li>Conducted financial and non-financial data analysis to identify potential discrepancies and operational inefficiencies.</li><li>Managed collection and validation of supporting documents including invoices, bank statements, and transaction records.</li></ul></div>
+  </details>
+<details class="experience-row reveal" >
+    <summary><span class="experience-date">Apr 2024 – Jul 2024</span><span class="experience-heading"><span class="experience-logo"><img src="assets/images/logos/coursera.png" alt="" width="48" height="48" loading="lazy"></span><span class="experience-role">Data Analytics<span>Coursera · Google · Digitalent</span></span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+    <div class="experience-content"><ul><li>Performed data cleaning using spreadsheets, SQL, R, and Tableau to produce accurate, analysis-ready datasets.</li><li>Designed and visualized data through interactive dashboards supporting effective data-driven decision-making.</li><li>Mastered analytical tools like R and Tableau for optimal data management and visualization.</li></ul></div>
+  </details>
+<details class="experience-row reveal" >
+    <summary><span class="experience-date">Aug 2022 – Dec 2022</span><span class="experience-heading"><span class="experience-logo"><img src="assets/images/logos/ruangguru.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="experience-role">Frontend Engineering<span>PT RUANG RAYA INDONESIA</span></span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+    <div class="experience-content"><ul><li>Applied Tailwind CSS, HTML5, JavaScript, and React.js to build responsive and efficient user interfaces in web development projects.</li><li>Used OOP principles for structured application development and managed deployment through Git and GitHub.</li><li>Utilized Node.js to build backend functionality supporting the effective and integrated operation of projects.</li></ul></div>
+  </details></div>
+    <div class="certificates reveal"><p class="eyebrow">A LITTLE STRUCTURED LEARNING, TOO</p><a href="assets/images/sertifikat/RG.jpg" data-detail="certificate-frontend"><span class="certificate-year">2022</span><span><strong>Frontend Engineering</strong><small>PT Ruang Raya Indonesia</small></span><span aria-hidden="true">↗</span></a><a href="assets/images/sertifikat/DA.jpg" data-detail="certificate-analytics"><span class="certificate-year">2023–24</span><span><strong>Google Data Analytics</strong><small>Coursera · Digitalent · Kominfo</small></span><span aria-hidden="true">↗</span></a></div>
+  </section>
+  <section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="wrap">
+    <div class="contact-top reveal"><p class="eyebrow">04 / NEXT CHAPTER</p><p>Have an idea, a question,<br>or something interesting in mind?</p></div>
+    <h2 id="contact-title" class="reveal"><a href="mailto:andreamicolaazwir@gmail.com">Let’s make<br><em>something matter.</em><span class="contact-arrow" aria-hidden="true">↗</span></a></h2>
+    <div class="contact-bottom reveal"><a class="email-link" href="mailto:andreamicolaazwir@gmail.com">andreamicolaazwir@gmail.com ↗</a><div class="social-links"><a class="" href="https://github.com/kangkungmozzarella" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a class="" href="https://www.linkedin.com/in/andreamicolaazwir/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a class="" href="https://www.instagram.com/andreamicolaazwir/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div></div>
+    <footer><span>© <span data-year>2026</span> Andrea Micola Azwir</span><span>Built with care, in Medan.</span><a href="#home">Back to top ↑</a></footer>
+  </div></section>
 </main>
-</div><!-- .editor-shell -->
-
-<!-- ════════════════════════════════════════════════════════════
-     PROJECT MODALS
-════════════════════════════════════════════════════════════ -->
-<!-- m1 -->
-<div class="modal-bd" id="m1">
-  <div class="modal-box">
-    <button class="modal-x" onclick="closeModal('m1')"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Decision Support System – MAUT Method</div>
-    <div class="modal-sub">Sistem Pengambilan Keputusan Penginapan Terbaik</div>
-    <div class="modal-gallery">
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/spk-maut/dashboard.png','assets/images/gallery/spk-maut/data kriteria.png','assets/images/gallery/spk-maut/perankingan.png','assets/images/gallery/spk-maut/data penginapan.png'],0)"><img src="assets/images/gallery/spk-maut/dashboard.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/spk-maut/dashboard.png','assets/images/gallery/spk-maut/data kriteria.png','assets/images/gallery/spk-maut/perankingan.png','assets/images/gallery/spk-maut/data penginapan.png'],1)"><img src="assets/images/gallery/spk-maut/data kriteria.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/spk-maut/dashboard.png','assets/images/gallery/spk-maut/data kriteria.png','assets/images/gallery/spk-maut/perankingan.png','assets/images/gallery/spk-maut/data penginapan.png'],2)"><img src="assets/images/gallery/spk-maut/perankingan.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/spk-maut/dashboard.png','assets/images/gallery/spk-maut/data kriteria.png','assets/images/gallery/spk-maut/perankingan.png','assets/images/gallery/spk-maut/data penginapan.png'],3)"><img src="assets/images/gallery/spk-maut/data penginapan.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-    </div>
-    <div class="modal-desc"><p>A comprehensive decision support system for selecting the best accommodation using Multi-Attribute Utility Theory (MAUT). Evaluates multiple criteria such as price, location, facilities, and ratings.</p><p>Features include data management, criteria weighting, MAUT calculation engine, and interactive ranking visualization.</p></div>
-    <div class="modal-tech"><span class="tc">PHP Native</span><span class="tc">MySQL</span><span class="tc">Bootstrap 4</span><span class="tc">JavaScript</span><span class="tc">MAUT Algorithm</span></div>
-    <div class="modal-acts"><a href="https://github.com/kangkungmozzarella" target="_blank" class="btn-primary"><i class="fab fa-github"></i> View Source Code</a></div>
-  </div>
-</div>
-<!-- m2 -->
-<div class="modal-bd" id="m2">
-  <div class="modal-box">
-    <button class="modal-x" onclick="closeModal('m2')"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Travel Information System</div>
-    <div class="modal-sub">Website Sistem Informasi Travel – Laravel 10</div>
-    <div class="modal-gallery">
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/travel/1.png','assets/images/gallery/travel/2.png','assets/images/gallery/travel/3.png','assets/images/gallery/travel/4.png'],0)"><img src="assets/images/gallery/travel/1.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/travel/1.png','assets/images/gallery/travel/2.png','assets/images/gallery/travel/3.png','assets/images/gallery/travel/4.png'],1)"><img src="assets/images/gallery/travel/2.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/travel/1.png','assets/images/gallery/travel/2.png','assets/images/gallery/travel/3.png','assets/images/gallery/travel/4.png'],2)"><img src="assets/images/gallery/travel/3.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/travel/1.png','assets/images/gallery/travel/2.png','assets/images/gallery/travel/3.png','assets/images/gallery/travel/4.png'],3)"><img src="assets/images/gallery/travel/4.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-    </div>
-    <div class="modal-desc"><p>Complete travel management system built with Laravel 10. Users can browse destinations, make reservations, and manage itineraries. Admin panel covers booking oversight, payment tracking, and CRM.</p></div>
-    <div class="modal-tech"><span class="tc">Laravel 10</span><span class="tc">MySQL</span><span class="tc">Tailwind CSS</span></div>
-    <div class="modal-acts"><a href="https://github.com/kangkungmozzarella" target="_blank" class="btn-primary"><i class="fab fa-github"></i> View Source Code</a></div>
-  </div>
-</div>
-<!-- m3 -->
-<div class="modal-bd" id="m3">
-  <div class="modal-box">
-    <button class="modal-x" onclick="closeModal('m3')"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Stock Price Prediction – LSTM</div>
-    <div class="modal-sub">Prediksi Harga Saham Reksa Dana menggunakan Long Short-Term Memory</div>
-    <div class="modal-gallery">
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/ml/1.png','assets/images/gallery/ml/2.png','assets/images/gallery/ml/3.png','assets/images/gallery/ml/4.png'],0)"><img src="assets/images/gallery/ml/1.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/ml/1.png','assets/images/gallery/ml/2.png','assets/images/gallery/ml/3.png','assets/images/gallery/ml/4.png'],1)"><img src="assets/images/gallery/ml/2.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/ml/1.png','assets/images/gallery/ml/2.png','assets/images/gallery/ml/3.png','assets/images/gallery/ml/4.png'],2)"><img src="assets/images/gallery/ml/3.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/ml/1.png','assets/images/gallery/ml/2.png','assets/images/gallery/ml/3.png','assets/images/gallery/ml/4.png'],3)"><img src="assets/images/gallery/ml/4.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-    </div>
-    <div class="modal-desc"><p>Advanced machine learning model for predicting mutual fund stock prices using LSTM networks. Features comprehensive data preprocessing, LSTM architecture, training optimization, and interactive prediction visualizations.</p></div>
-    <div class="modal-tech"><span class="tc">Python</span><span class="tc">TensorFlow / Keras</span><span class="tc">LSTM</span><span class="tc">Pandas</span><span class="tc">NumPy</span><span class="tc">Matplotlib</span></div>
-    <div class="modal-acts"><a href="https://github.com/kangkungmozzarella" target="_blank" class="btn-primary"><i class="fab fa-github"></i> View Source Code</a></div>
-  </div>
-</div>
-<!-- m4 -->
-<div class="modal-bd" id="m4">
-  <div class="modal-box">
-    <button class="modal-x" onclick="closeModal('m4')"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Alumni Information System</div>
-    <div class="modal-sub">Website Sistem Informasi Alumni</div>
-    <div class="modal-gallery">
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/alumni/1.png','assets/images/gallery/alumni/2.png','assets/images/gallery/alumni/3.png','assets/images/gallery/alumni/4.png'],0)"><img src="assets/images/gallery/alumni/1.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/alumni/1.png','assets/images/gallery/alumni/2.png','assets/images/gallery/alumni/3.png','assets/images/gallery/alumni/4.png'],1)"><img src="assets/images/gallery/alumni/2.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/alumni/1.png','assets/images/gallery/alumni/2.png','assets/images/gallery/alumni/3.png','assets/images/gallery/alumni/4.png'],2)"><img src="assets/images/gallery/alumni/3.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/alumni/1.png','assets/images/gallery/alumni/2.png','assets/images/gallery/alumni/3.png','assets/images/gallery/alumni/4.png'],3)"><img src="assets/images/gallery/alumni/4.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-    </div>
-    <div class="modal-desc"><p>Comprehensive platform for managing alumni data, career tracking, and networking. Enables educational institutions to maintain connections with graduates and track their professional development.</p></div>
-    <div class="modal-tech"><span class="tc">PHP</span><span class="tc">MySQL</span><span class="tc">jQuery</span><span class="tc">Bootstrap</span></div>
-    <div class="modal-acts"><a href="https://github.com/kangkungmozzarella" target="_blank" class="btn-primary"><i class="fab fa-github"></i> View Source Code</a></div>
-  </div>
-</div>
-<!-- m5 -->
-<div class="modal-bd" id="m5">
-  <div class="modal-box">
-    <button class="modal-x" onclick="closeModal('m5')"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Laptop Selection DSS – SMART Method</div>
-    <div class="modal-sub">Sistem Pengambilan Keputusan Laptop Terbaik – Metode SMART</div>
-    <div class="modal-gallery">
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/spk-smart/1.png','assets/images/gallery/spk-smart/2.png','assets/images/gallery/spk-smart/3.png','assets/images/gallery/spk-smart/4.png'],0)"><img src="assets/images/gallery/spk-smart/1.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/spk-smart/1.png','assets/images/gallery/spk-smart/2.png','assets/images/gallery/spk-smart/3.png','assets/images/gallery/spk-smart/4.png'],1)"><img src="assets/images/gallery/spk-smart/2.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/spk-smart/1.png','assets/images/gallery/spk-smart/2.png','assets/images/gallery/spk-smart/3.png','assets/images/gallery/spk-smart/4.png'],2)"><img src="assets/images/gallery/spk-smart/3.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-      <div class="mgimg" onclick="openLB(['assets/images/gallery/spk-smart/1.png','assets/images/gallery/spk-smart/2.png','assets/images/gallery/spk-smart/3.png','assets/images/gallery/spk-smart/4.png'],3)"><img src="assets/images/gallery/spk-smart/4.png" alt="" /><div class="mgimg-ov"><i class="fas fa-search-plus"></i></div></div>
-    </div>
-    <div class="modal-desc"><p>Decision support system for selecting optimal laptops for Informatics and Management students using SMART. Evaluates laptops on performance, price, and academic suitability with customizable criteria weighting.</p></div>
-    <div class="modal-tech"><span class="tc">PHP</span><span class="tc">MySQL</span><span class="tc">SMART Algorithm</span><span class="tc">Bootstrap</span><span class="tc">Chart.js</span></div>
-    <div class="modal-acts"><a href="https://github.com/kangkungmozzarella" target="_blank" class="btn-primary"><i class="fab fa-github"></i> View Source Code</a><a href="#" class="btn-ghost"><i class="fas fa-external-link-alt"></i> Live Demo</a></div>
-  </div>
-</div>
-
-<!-- CERT MODALS -->
-<div class="modal-bd" id="cm1">
-  <div class="modal-box">
-    <button class="modal-x" onclick="closeModal('cm1')"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Frontend Engineering</div>
-    <div class="modal-sub">PT RUANG RAYA INDONESIA · 2022</div>
-    <div class="modal-gallery" style="grid-template-columns:1fr;">
-      <div class="mgimg" style="aspect-ratio:unset;" onclick="openLB(['assets/images/sertifikat/RG.jpg'],0)">
-        <img src="assets/images/sertifikat/RG.jpg" alt="Certificate" style="height:360px;width:100%;object-fit:contain;background:#111;" />
-        <div class="mgimg-ov"><i class="fas fa-search-plus"></i></div>
-      </div>
-    </div>
-    <div class="modal-desc"><p><strong>Skills Covered:</strong> HTML, Node.JS, Git, React.JS, JavaScript, API Development</p></div>
-    <div class="modal-acts"><a href="https://drive.google.com/file/d/18R6a9aIwQ0DEZMqfcDK0LApWYMuEXgEF/view?usp=sharing" target="_blank" class="btn-ghost"><i class="fas fa-download"></i> Download</a></div>
-  </div>
-</div>
-<div class="modal-bd" id="cm2">
-  <div class="modal-box">
-    <button class="modal-x" onclick="closeModal('cm2')"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Google Data Analytics</div>
-    <div class="modal-sub">Coursera · Digitalent · Kominfo · 2023–2024</div>
-    <div class="modal-gallery" style="grid-template-columns:1fr;">
-      <div class="mgimg" style="aspect-ratio:unset;" onclick="openLB(['assets/images/sertifikat/DA.jpg'],0)">
-        <img src="assets/images/sertifikat/DA.jpg" alt="Certificate" style="height:360px;width:100%;object-fit:contain;background:#111;" />
-        <div class="mgimg-ov"><i class="fas fa-search-plus"></i></div>
-      </div>
-    </div>
-    <div class="modal-desc"><p><strong>Skills Covered:</strong> Python, Pandas, NumPy, Machine Learning, R, Tableau, Data Visualization</p></div>
-    <div class="modal-acts"><a href="https://drive.google.com/file/d/1lh8DgH_rO12OUcIb5Iu33yYKkeSO-c5t/view?usp=sharing" target="_blank" class="btn-ghost"><i class="fas fa-download"></i> Download</a></div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════
-     LIGHTBOX
-════════════════════════════════════════════════════════════ -->
-<div class="lightbox" id="lightbox">
-  <button class="lb-close" onclick="closeLB()"><i class="fas fa-times"></i></button>
-  <button class="lb-nav lb-prev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
-  <div class="lb-wrap"><img id="lb-img" src="" alt="lightbox" /></div>
-  <button class="lb-nav lb-next" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
-  <div class="lb-counter"><span id="lb-cur">1</span> / <span id="lb-tot">1</span></div>
-</div>
-
-</div><!-- .page -->
-
-<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-<script src="assets/js/bgfx.js"></script>
-<script src="assets/js/hero3d.js"></script>
-<script src="assets/js/cursor.js"></script>
-<script src="assets/js/main.js"></script>
+<dialog class="project-dialog" aria-labelledby="dialog-title"><div class="dialog-toolbar"><span class="eyebrow">A CLOSER LOOK</span><button class="dialog-close" aria-label="Close project details">Close <span aria-hidden="true">×</span></button></div><div class="dialog-content"></div><div class="gallery-controls"><button class="gallery-prev" aria-label="Previous image">←</button><p class="gallery-count" aria-live="polite"></p><button class="gallery-next" aria-label="Next image">→</button></div></dialog>
+<template id="detail-project-travel"><p class="eyebrow">Web development</p><h2>Travel information system</h2><p class="detail-description">A travel management platform connecting destination discovery with booking, payment tracking, and itinerary management.</p><p class="detail-stack">Laravel · MySQL · Tailwind CSS</p><div class="gallery-images"><img src="assets/images/gallery/travel/1.png" alt="Travel information system, screenshot 1" width="1446" height="788"><img src="assets/images/gallery/travel/2.png" alt="Travel information system, screenshot 2" width="1446" height="788"><img src="assets/images/gallery/travel/3.png" alt="Travel information system, screenshot 3" width="1446" height="788"><img src="assets/images/gallery/travel/4.png" alt="Travel information system, screenshot 4" width="1446" height="788"></div><a class="text-link" href="https://github.com/kangkungmozzarella" target="_blank" rel="noopener noreferrer">Visit my GitHub ↗</a></template>
+<template id="detail-project-maut"><p class="eyebrow">Decision systems</p><h2>Accommodation decision support</h2><p class="detail-description">A decision support system that compares accommodation across weighted criteria using Multi-Attribute Utility Theory.</p><p class="detail-stack">PHP · MySQL · MAUT</p><div class="gallery-images"><img src="assets/images/gallery/spk-maut/dashboard.png" alt="Accommodation decision support, screenshot 1" width="1446" height="788"><img src="assets/images/gallery/spk-maut/data kriteria.png" alt="Accommodation decision support, screenshot 2" width="1446" height="788"><img src="assets/images/gallery/spk-maut/perankingan.png" alt="Accommodation decision support, screenshot 3" width="1446" height="788"><img src="assets/images/gallery/spk-maut/data penginapan.png" alt="Accommodation decision support, screenshot 4" width="1446" height="788"></div><a class="text-link" href="https://github.com/kangkungmozzarella" target="_blank" rel="noopener noreferrer">Visit my GitHub ↗</a></template>
+<template id="detail-project-lstm"><p class="eyebrow">Data science</p><h2>Stock price prediction</h2><p class="detail-description">An exploration of mutual fund stock price prediction using Long Short-Term Memory networks and visualizations.</p><p class="detail-stack">Python · TensorFlow · LSTM</p><div class="gallery-images"><img src="assets/images/gallery/ml/1.png" alt="Stock price prediction, screenshot 1" width="1446" height="788"><img src="assets/images/gallery/ml/2.png" alt="Stock price prediction, screenshot 2" width="1446" height="788"><img src="assets/images/gallery/ml/3.png" alt="Stock price prediction, screenshot 3" width="1446" height="788"><img src="assets/images/gallery/ml/4.png" alt="Stock price prediction, screenshot 4" width="1446" height="788"></div><a class="text-link" href="https://github.com/kangkungmozzarella" target="_blank" rel="noopener noreferrer">Visit my GitHub ↗</a></template>
+<template id="detail-project-alumni"><p class="eyebrow">Web development</p><h2>Alumni information system</h2><p class="detail-description">A platform for managing alumni information, tracking careers, and helping institutions stay connected with their graduates.</p><p class="detail-stack">PHP · MySQL · jQuery</p><div class="gallery-images"><img src="assets/images/gallery/alumni/1.png" alt="Alumni information system, screenshot 1" width="1446" height="788"><img src="assets/images/gallery/alumni/2.png" alt="Alumni information system, screenshot 2" width="1446" height="788"><img src="assets/images/gallery/alumni/3.png" alt="Alumni information system, screenshot 3" width="1446" height="788"><img src="assets/images/gallery/alumni/4.png" alt="Alumni information system, screenshot 4" width="1446" height="788"></div><a class="text-link" href="https://github.com/kangkungmozzarella" target="_blank" rel="noopener noreferrer">Visit my GitHub ↗</a></template>
+<template id="detail-project-smart"><p class="eyebrow">Decision systems</p><h2>Laptop selection system</h2><p class="detail-description">A laptop selection tool for students, comparing performance, price, and academic needs with customizable criteria weights.</p><p class="detail-stack">PHP · MySQL · SMART</p><div class="gallery-images"><img src="assets/images/gallery/spk-smart/1.png" alt="Laptop selection system, screenshot 1" width="1446" height="788"><img src="assets/images/gallery/spk-smart/2.png" alt="Laptop selection system, screenshot 2" width="1446" height="788"><img src="assets/images/gallery/spk-smart/3.png" alt="Laptop selection system, screenshot 3" width="1446" height="788"><img src="assets/images/gallery/spk-smart/4.png" alt="Laptop selection system, screenshot 4" width="1446" height="788"></div><a class="text-link" href="https://github.com/kangkungmozzarella" target="_blank" rel="noopener noreferrer">Visit my GitHub ↗</a></template><template id="detail-certificate-frontend"><p class="eyebrow">Certificate / 2022</p><h2>Frontend Engineering</h2><p class="detail-description">PT Ruang Raya Indonesia — responsive interfaces with HTML, CSS, JavaScript, and React.</p><div class="gallery-images certificate-gallery"><img src="assets/images/sertifikat/RG.jpg" alt="Andrea Micola Azwir — Frontend Engineering" width="1280" height="850"></div><a class="text-link" href="https://drive.google.com/file/d/18R6a9aIwQ0DEZMqfcDK0LApWYMuEXgEF/view?usp=sharing" target="_blank" rel="noopener noreferrer">Open certificate ↗</a></template>
+<template id="detail-certificate-analytics"><p class="eyebrow">Certificate / 2023–24</p><h2>Google Data Analytics</h2><p class="detail-description">Coursera · Digitalent · Kominfo — data cleaning, analysis, and visualization.</p><div class="gallery-images certificate-gallery"><img src="assets/images/sertifikat/DA.jpg" alt="Andrea Micola Azwir — Google Data Analytics" width="1280" height="850"></div><a class="text-link" href="https://drive.google.com/file/d/1lh8DgH_rO12OUcIb5Iu33yYKkeSO-c5t/view?usp=sharing" target="_blank" rel="noopener noreferrer">Open certificate ↗</a></template>
+<noscript><p class="noscript-note">Enable JavaScript to open project galleries. Profile, experience, and contact links are available above.</p></noscript>
 </body>
 </html>

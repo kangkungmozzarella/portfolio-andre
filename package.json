@@ -1,0 +1,12 @@
+{
+  "name": "andrea-portfolio",
+  "private": true,
+  "scripts": {
+    "cms": "node cms/server.mjs",
+    "build": "node cms/build.mjs",
+    "test": "node --test cms/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
