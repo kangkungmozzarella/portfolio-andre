@@ -1,0 +1,259 @@
+{
+  "profile": {
+    "name": "Andrea Micola Azwir",
+    "brand": "andrea",
+    "pageTitle": "Andrea Micola Azwir — Developer & curious mind",
+    "description": "Andrea Micola Azwir — frontend engineer based in Medan, Indonesia. Selected work in web development, data science, and decision support systems.",
+    "location": "Medan, Indonesia",
+    "timezone": "Asia/Jakarta",
+    "email": "andreamicolaazwir@gmail.com",
+    "github": "https://github.com/kangkungmozzarella",
+    "linkedin": "https://www.linkedin.com/in/andreamicolaazwir/",
+    "instagram": "https://www.instagram.com/andreamicolaazwir/",
+    "cv": "https://drive.google.com/file/d/1x8VweAJCgFTdH6yQoe-RPQPgMAi66PTM/view?usp=sharing",
+    "footer": "Built with care, in Medan."
+  },
+  "hero": {
+    "eyebrow": "Independent thinking. Thoughtful building.",
+    "line1": "A curious mind.",
+    "line2": "A builder",
+    "accent": "at heart.",
+    "intro": "I’m Andrea, a frontend engineer turning ideas and data into useful digital experiences.",
+    "status": "Currently building at Kurosim",
+    "specialty": "Web development & data science",
+    "stamp": "Always curious.\nAlways building."
+  },
+  "about": {
+    "heading": "Good work starts",
+    "line2": "with",
+    "accent": "curiosity.",
+    "portrait": "assets/images/profil.png",
+    "caption": "Developer / Indonesia",
+    "mark": "a.",
+    "paragraphs": [
+      "I like understanding how things work — then figuring out how to make them work better.",
+      "I’m a frontend engineer at Kurosim and a 2024 Informatics graduate from Malikussaleh University. My work sits between web development and data science: building interfaces, working with databases, and finding meaning in data.",
+      "From freelance projects to product teams, I care about the details that make an application feel clear and easy to use."
+    ],
+    "facts": [
+      {
+        "label": "Education",
+        "value": "Informatics, ’24"
+      },
+      {
+        "label": "GPA",
+        "value": "3.74 / 4.00"
+      },
+      {
+        "label": "Based in",
+        "value": "Medan, ID"
+      }
+    ],
+    "skills": [
+      {
+        "label": "Build",
+        "value": "JavaScript · TypeScript · React · Next.js · React Native · HTML & CSS · Tailwind · PHP · Laravel · Flask · Node.js"
+      },
+      {
+        "label": "Explore",
+        "value": "Python · SQL · Pandas · Scikit-learn · PyTorch · HuggingFace · LSTM · Tableau"
+      },
+      {
+        "label": "Collaborate",
+        "value": "Git · GitHub · VS Code · MySQL · Jupyter · Google Colab"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "travel",
+      "title": "Travel, without the friction.",
+      "name": "Travel information system",
+      "category": "Web development",
+      "stack": "Laravel · MySQL · Tailwind CSS",
+      "description": "A travel management platform connecting destination discovery with booking, payment tracking, and itinerary management.",
+      "color": "sand",
+      "images": [
+        "assets/images/gallery/travel/1.png",
+        "assets/images/gallery/travel/2.png",
+        "assets/images/gallery/travel/3.png",
+        "assets/images/gallery/travel/4.png"
+      ],
+      "url": "https://github.com/kangkungmozzarella",
+      "linkLabel": "Visit my GitHub"
+    },
+    {
+      "id": "maut",
+      "title": "A better way to decide.",
+      "name": "Accommodation decision support",
+      "category": "Decision systems",
+      "stack": "PHP · MySQL · MAUT",
+      "description": "A decision support system that compares accommodation across weighted criteria using Multi-Attribute Utility Theory.",
+      "color": "sage",
+      "images": [
+        "assets/images/gallery/spk-maut/dashboard.png",
+        "assets/images/gallery/spk-maut/data kriteria.png",
+        "assets/images/gallery/spk-maut/perankingan.png",
+        "assets/images/gallery/spk-maut/data penginapan.png"
+      ],
+      "url": "https://github.com/kangkungmozzarella",
+      "linkLabel": "Visit my GitHub"
+    },
+    {
+      "id": "lstm",
+      "title": "Finding signals in the numbers.",
+      "name": "Stock price prediction",
+      "category": "Data science",
+      "stack": "Python · TensorFlow · LSTM",
+      "description": "An exploration of mutual fund stock price prediction using Long Short-Term Memory networks and visualizations.",
+      "color": "rose",
+      "images": [
+        "assets/images/gallery/ml/1.png",
+        "assets/images/gallery/ml/2.png",
+        "assets/images/gallery/ml/3.png",
+        "assets/images/gallery/ml/4.png"
+      ],
+      "url": "https://github.com/kangkungmozzarella",
+      "linkLabel": "Visit my GitHub"
+    },
+    {
+      "id": "alumni",
+      "title": "Keeping a community connected.",
+      "name": "Alumni information system",
+      "category": "Web development",
+      "stack": "PHP · MySQL · jQuery",
+      "description": "A platform for managing alumni information, tracking careers, and helping institutions stay connected with their graduates.",
+      "color": "blue",
+      "images": [
+        "assets/images/gallery/alumni/1.png",
+        "assets/images/gallery/alumni/2.png",
+        "assets/images/gallery/alumni/3.png",
+        "assets/images/gallery/alumni/4.png"
+      ],
+      "url": "https://github.com/kangkungmozzarella",
+      "linkLabel": "Visit my GitHub"
+    },
+    {
+      "id": "smart",
+      "title": "The right laptop, for you.",
+      "name": "Laptop selection system",
+      "category": "Decision systems",
+      "stack": "PHP · MySQL · SMART",
+      "description": "A laptop selection tool for students, comparing performance, price, and academic needs with customizable criteria weights.",
+      "color": "sand",
+      "images": [
+        "assets/images/gallery/spk-smart/1.png",
+        "assets/images/gallery/spk-smart/2.png",
+        "assets/images/gallery/spk-smart/3.png",
+        "assets/images/gallery/spk-smart/4.png"
+      ],
+      "url": "https://github.com/kangkungmozzarella",
+      "linkLabel": "Visit my GitHub"
+    }
+  ],
+  "experience": [
+    {
+      "id": "experience-1",
+      "role": "Frontend Engineer",
+      "company": "Kurosim",
+      "period": "May 2026 – Present",
+      "logo": "assets/images/logos/kurosim.png",
+      "bullets": [
+        "Building and maintaining frontend features across Kurosim's product suite, translating designs into responsive, accessible interfaces.",
+        "Collaborating closely with product and backend teams to ship features end-to-end, from UI implementation to API integration.",
+        "Focusing on code quality, performance, and consistent UI patterns across the codebase."
+      ]
+    },
+    {
+      "id": "experience-2",
+      "role": "Call Center Staff",
+      "company": "PT TUNAS CAHAYA MANDIRI WIDYATAMA",
+      "period": "May 2025 – Apr 2026",
+      "logo": "assets/images/logos/tcmw.jpg",
+      "bullets": [
+        "Monitored and managed trouble tickets from multiple tower providers (TBG, TIS/IBS, Persada Sokka, Smartfren) across Sumatra and Kalimantan, ensuring 100% SLA compliance from 2-hour emergency to 7-day minor cases.",
+        "Coordinated field team responses across 5 regions via TOTI system, implementing systematic escalation from Supervisor to General Manager level with real-time GPS tracking.",
+        "Maintained comprehensive evidence databases and reporting systems with 100% accuracy across Telkomsel, XL, Smartfren, and Indosat operators."
+      ]
+    },
+    {
+      "id": "experience-3",
+      "role": "Freelance Web Developer",
+      "company": "Freelance",
+      "period": "Dec 2023 – Present",
+      "logo": "assets/images/logos/freelance.png",
+      "bullets": [
+        "Designed and built data-driven web solutions using modern technologies to optimize performance and accessibility.",
+        "Collaborated directly with clients to understand needs, design intuitive interfaces, and ensure efficient data management.",
+        "Delivered responsive, user-friendly web applications enhancing user experience across various contexts."
+      ]
+    },
+    {
+      "id": "experience-4",
+      "role": "Internal Audit",
+      "company": "PT GUNUNG SARI INDONESIA",
+      "period": "Nov 2024 – Mar 2025",
+      "logo": "assets/images/logos/gunungsari.png",
+      "bullets": [
+        "Supported the internal audit team in reviewing financial reports, ensuring compliance with applicable accounting standards.",
+        "Conducted financial and non-financial data analysis to identify potential discrepancies and operational inefficiencies.",
+        "Managed collection and validation of supporting documents including invoices, bank statements, and transaction records."
+      ]
+    },
+    {
+      "id": "experience-5",
+      "role": "Data Analytics",
+      "company": "Coursera · Google · Digitalent",
+      "period": "Apr 2024 – Jul 2024",
+      "logo": "assets/images/logos/coursera.png",
+      "bullets": [
+        "Performed data cleaning using spreadsheets, SQL, R, and Tableau to produce accurate, analysis-ready datasets.",
+        "Designed and visualized data through interactive dashboards supporting effective data-driven decision-making.",
+        "Mastered analytical tools like R and Tableau for optimal data management and visualization."
+      ]
+    },
+    {
+      "id": "experience-6",
+      "role": "Frontend Engineering",
+      "company": "PT RUANG RAYA INDONESIA",
+      "period": "Aug 2022 – Dec 2022",
+      "logo": "assets/images/logos/ruangguru.jpg",
+      "bullets": [
+        "Applied Tailwind CSS, HTML5, JavaScript, and React.js to build responsive and efficient user interfaces in web development projects.",
+        "Used OOP principles for structured application development and managed deployment through Git and GitHub.",
+        "Utilized Node.js to build backend functionality supporting the effective and integrated operation of projects."
+      ]
+    }
+  ],
+  "certificates": [
+    {
+      "id": "frontend",
+      "title": "Frontend Engineering",
+      "organization": "PT Ruang Raya Indonesia",
+      "period": "2022",
+      "description": "PT Ruang Raya Indonesia — responsive interfaces with HTML, CSS, JavaScript, and React.",
+      "image": "assets/images/sertifikat/RG.jpg",
+      "url": "https://drive.google.com/file/d/18R6a9aIwQ0DEZMqfcDK0LApWYMuEXgEF/view?usp=sharing"
+    },
+    {
+      "id": "analytics",
+      "title": "Google Data Analytics",
+      "organization": "Coursera · Digitalent · Kominfo",
+      "period": "2023–24",
+      "description": "Coursera · Digitalent · Kominfo — data cleaning, analysis, and visualization.",
+      "image": "assets/images/sertifikat/DA.jpg",
+      "url": "https://drive.google.com/file/d/1lh8DgH_rO12OUcIb5Iu33yYKkeSO-c5t/view?usp=sharing"
+    }
+  ],
+  "sections": {
+    "workHeading": "Ideas made",
+    "workAccent": "real.",
+    "workIntro": "From a question to a working product.\nA few things I’ve built along the way.",
+    "experienceHeading": "Learning by",
+    "experienceAccent": "doing.",
+    "experienceIntro": "Different roles. New perspectives.\nSomething to take from every chapter.",
+    "contactIntro": "Have an idea, a question,\nor something interesting in mind?",
+    "contactHeading": "Let’s make",
+    "contactAccent": "something matter."
+  }
+}

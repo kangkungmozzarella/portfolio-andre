@@ -1,151 +1,218 @@
-  /* ── TAB SYSTEM ─────────────────────────────────────────── */
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  function switchTab(name) {
-    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
-    tabContents.forEach(c => c.classList.toggle('active', c.id === 'tab-' + name));
-
-    // Measure from #hero (never sticky) instead of #tab-bar: once tab-bar is
-    // stuck, its own getBoundingClientRect() reports the stuck offset, not
-    // its natural flow position, which throws off the scroll target.
-    const hero = document.getElementById('hero');
-    const navHeight = document.getElementById('heroNav').offsetHeight;
-    const targetY = hero.offsetTop + hero.offsetHeight - navHeight;
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
+(() => {
+  "use strict";
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const header = document.querySelector(".site-header");
+  let scrollPending = false;
+  function updateHeader() {
+    header.classList.toggle("scrolled", window.scrollY > 24);
+    scrollPending = false;
   }
-  tabBtns.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
-  document.getElementById('viewWorkBtn').addEventListener('click', e => { e.preventDefault(); switchTab('about'); });
-
-  /* ── NAVBAR SCROLL ──────────────────────────────────────── */
-  window.addEventListener('scroll', () => {
-    document.getElementById('heroNav').classList.toggle('scrolled', window.scrollY > 40);
-  });
-
-  /* ── SCROLL REVEAL (cards fade + slide up into view) ────── */
-  const revealEls = document.querySelectorAll(
-    '.skill-card, .proj-card, .cert-card, .exp-card, .ci, .ahi'
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!scrollPending) {
+        scrollPending = true;
+        requestAnimationFrame(updateHeader);
+      }
+    },
+    { passive: true },
   );
-  revealEls.forEach((el, i) => {
-    el.classList.add('reveal');
-    el.style.animationDelay = `${(i % 4) * 0.08}s`;
-  });
+  updateHeader();
 
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  revealEls.forEach(el => revealObserver.observe(el));
-
-  /* ── PARALLAX: MOUSE TILT (hero photo) ──────────────────── */
-  const heroSection = document.getElementById('hero');
-  const heroVisual = document.querySelector('.hero-visual');
-  const photoWrap = document.querySelector('.hero-photo-wrap');
-
-  if (heroSection && heroVisual && photoWrap) {
-    let tiltTicking = false, tiltX = 0, tiltY = 0;
-
-    heroSection.addEventListener('mousemove', e => {
-      const r = heroSection.getBoundingClientRect();
-      tiltX = ((e.clientX - r.left) / r.width - 0.5) * 2;
-      tiltY = ((e.clientY - r.top) / r.height - 0.5) * 2;
-      if (tiltTicking) return;
-      tiltTicking = true;
-      requestAnimationFrame(() => {
-        photoWrap.style.transform = `rotateY(${tiltX * 8}deg) rotateX(${-tiltY * 8}deg)`;
-        heroVisual.style.transform = `translate(${tiltX * -12}px, ${tiltY * -8}px)`;
-        tiltTicking = false;
-      });
+  // Keep content visible by default; enhance only when observation is available.
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08 },
+    );
+    document
+      .querySelectorAll(".reveal")
+      .forEach((el) => revealObserver.observe(el));
+    if (!motion.matches)
+      document.documentElement.classList.add("motion-enabled");
+    motion.addEventListener("change", (event) => {
+      document.documentElement.classList.toggle(
+        "motion-enabled",
+        !event.matches,
+      );
     });
 
-    heroSection.addEventListener('mouseleave', () => {
-      photoWrap.style.transform = 'rotateY(0deg) rotateX(0deg)';
-      heroVisual.style.transform = 'translate(0,0)';
+    const navLinks = [...document.querySelectorAll(".site-header nav a")];
+    const sections = [...document.querySelectorAll("main > section")];
+    const visibleSections = new Set();
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.isIntersecting
+            ? visibleSections.add(entry.target)
+            : visibleSections.delete(entry.target);
+        });
+        const current = sections.find((section) =>
+          visibleSections.has(section),
+        );
+        navLinks.forEach((link) => {
+          if (current && link.hash === "#" + current.id)
+            link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+      },
+      { rootMargin: "-15% 0px -50% 0px" },
+    );
+    sections.forEach((section) => sectionObserver.observe(section));
+  }
+
+  function updateTime() {
+    const now = new Date();
+    document.querySelectorAll("[data-year]").forEach((el) => {
+      el.textContent = now.getFullYear();
     });
+    document.querySelector(".local-time").textContent = new Intl.DateTimeFormat(
+      "en-GB",
+      {
+        timeZone:
+          document.querySelector(".local-time").dataset.timezone ||
+          "Asia/Jakarta",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      },
+    ).format(now);
   }
+  updateTime();
+  setInterval(updateTime, 60000);
 
-  /* ── TYPEWRITER: hero name ──────────────────────────────── */
-  (function () {
-    const el = document.querySelector('.hero-name');
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const line1 = 'Andrea';
-    const line2 = 'Micola Azwir';
-    el.innerHTML = '<span class="tw-l1"></span><br><span class="tw-l2"></span>';
-    const l1 = el.querySelector('.tw-l1');
-    const l2 = el.querySelector('.tw-l2');
-    let i = 0;
-    function typeLine1() {
-      if (i <= line1.length) {
-        l1.textContent = line1.slice(0, i++);
-        setTimeout(typeLine1, 75);
-      } else {
-        i = 0;
-        setTimeout(typeLine2, 150);
+  // Animate the measured height in both directions while retaining native
+  // summary keyboard support and a usable details element without JavaScript.
+  document.querySelectorAll(".experience-row").forEach((row) => {
+    const summary = row.querySelector("summary");
+    let expanded = row.open;
+    let animation = null;
+
+    function settle() {
+      if (animation) {
+        animation.onfinish = null;
+        animation.cancel();
+        animation = null;
       }
+      row.open = expanded;
+      row.dataset.expanded = String(expanded);
+      row.style.removeProperty("height");
+      row.style.removeProperty("overflow");
     }
-    function typeLine2() {
-      if (i <= line2.length) {
-        l2.textContent = line2.slice(0, i++);
-        setTimeout(typeLine2, 75);
+
+    summary.addEventListener("click", (event) => {
+      event.preventDefault();
+      expanded = !expanded;
+      if (motion.matches || typeof row.animate !== "function") {
+        settle();
+        return;
       }
+
+      // Read the current animated height before cancelling so rapid clicks
+      // reverse from the current position instead of jumping to an endpoint.
+      const from = row.getBoundingClientRect().height;
+      if (animation) {
+        animation.onfinish = null;
+        animation.cancel();
+      }
+      row.style.removeProperty("height");
+      row.open = true;
+      row.dataset.expanded = String(expanded);
+      const border = parseFloat(getComputedStyle(row).borderBottomWidth);
+      const to = expanded
+        ? row.getBoundingClientRect().height
+        : summary.getBoundingClientRect().height + border;
+      row.style.height = `${from}px`;
+      row.style.overflow = "clip";
+      animation = row.animate(
+        { height: [`${from}px`, `${to}px`] },
+        { duration: 420, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+      );
+      animation.onfinish = settle;
+    });
+
+    window.addEventListener("resize", () => {
+      if (animation) settle();
+    });
+    motion.addEventListener("change", () => {
+      if (motion.matches) settle();
+    });
+  });
+
+  // One native dialog provides focus trapping, Escape, and focus restoration.
+  const dialog = document.querySelector(".project-dialog");
+  const content = dialog.querySelector(".dialog-content");
+  const controls = dialog.querySelector(".gallery-controls");
+  const count = dialog.querySelector(".gallery-count");
+  let images = [];
+  let imageIndex = 0;
+  function showImage(index) {
+    if (!images.length) return;
+    imageIndex = (index + images.length) % images.length;
+    images.forEach((image, i) => {
+      image.hidden = i !== imageIndex;
+    });
+    count.textContent = `${imageIndex + 1} / ${images.length}`;
+  }
+  document.querySelectorAll("[data-detail]").forEach((trigger) => {
+    trigger.addEventListener("click", (event) => {
+      const template = document.getElementById(
+        "detail-" + trigger.dataset.detail,
+      );
+      if (!template || typeof dialog.showModal !== "function") return;
+      event.preventDefault();
+      content.replaceChildren(template.content.cloneNode(true));
+      content.querySelector("h2").id = "dialog-title";
+      images = [...content.querySelectorAll(".gallery-images img")];
+      controls.hidden = images.length < 2;
+      showImage(0);
+      dialog.showModal();
+      document.body.classList.add("dialog-open");
+      dialog.scrollTop = 0;
+      dialog.querySelector(".dialog-close").focus({ preventScroll: true });
+    });
+  });
+  dialog
+    .querySelector(".dialog-close")
+    .addEventListener("click", () => dialog.close());
+  dialog.addEventListener("close", () =>
+    document.body.classList.remove("dialog-open"),
+  );
+  let startedOnBackdrop = false;
+  function outsideDialog(event) {
+    const box = dialog.getBoundingClientRect();
+    return (
+      event.clientX < box.left ||
+      event.clientX > box.right ||
+      event.clientY < box.top ||
+      event.clientY > box.bottom
+    );
+  }
+  dialog.addEventListener("pointerdown", (event) => {
+    startedOnBackdrop = outsideDialog(event);
+  });
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog && startedOnBackdrop && outsideDialog(event))
+      dialog.close();
+    startedOnBackdrop = false;
+  });
+  dialog
+    .querySelector(".gallery-prev")
+    .addEventListener("click", () => showImage(imageIndex - 1));
+  dialog
+    .querySelector(".gallery-next")
+    .addEventListener("click", () => showImage(imageIndex + 1));
+  dialog.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      showImage(imageIndex + (event.key === "ArrowRight" ? 1 : -1));
     }
-    typeLine1();
-  })();
-
-  /* ── AGE ────────────────────────────────────────────────── */
-  (function(){
-    const d = new Date('2002-08-15'), n = new Date();
-    let a = n.getFullYear() - d.getFullYear();
-    if (n.getMonth() < d.getMonth() || (n.getMonth()===d.getMonth() && n.getDate()<d.getDate())) a--;
-    document.getElementById('age-num').textContent = a;
-  })();
-
-  /* ── MODAL ──────────────────────────────────────────────── */
-  function openModal(id) {
-    const el = document.getElementById(id);
-    if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; }
-  }
-  function closeModal(id) {
-    const el = document.getElementById(id);
-    if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
-  }
-  document.querySelectorAll('.modal-bd').forEach(b => {
-    b.addEventListener('click', e => { if (e.target === b) closeModal(b.id); });
   });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-bd.open').forEach(b => closeModal(b.id));
-      closeLB();
-    }
-  });
-
-  /* ── LIGHTBOX ───────────────────────────────────────────── */
-  let lbImgs = [], lbIdx = 0;
-  function openLB(imgs, idx) {
-    lbImgs = imgs; lbIdx = idx;
-    document.getElementById('lb-img').src = imgs[idx];
-    document.getElementById('lb-cur').textContent = idx + 1;
-    document.getElementById('lb-tot').textContent = imgs.length;
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLB() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  function lbNav(dir) {
-    lbIdx = (lbIdx + dir + lbImgs.length) % lbImgs.length;
-    document.getElementById('lb-img').src = lbImgs[lbIdx];
-    document.getElementById('lb-cur').textContent = lbIdx + 1;
-  }
-  document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLB(); });
-  document.addEventListener('keydown', e => {
-    if (!document.getElementById('lightbox').classList.contains('open')) return;
-    if (e.key === 'ArrowRight') lbNav(1);
-    if (e.key === 'ArrowLeft')  lbNav(-1);
-  });
+})();

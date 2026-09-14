@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#eeece5" />
+    <title>Studio konten — Andrea</title>
+    <link rel="icon" href="/assets/images/favicon-32.png" />
+    <link rel="stylesheet" href="/admin/admin.css" />
+    <script type="module" src="/admin/admin.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#editor">Langsung ke editor</a>
+    <aside class="sidebar">
+      <a class="brand" href="/" target="_blank" rel="noopener"
+        >andrea<span>✳</span></a
+      >
+      <p class="sidebar-caption">STUDIO KONTEN <span>LOKAL</span></p>
+      <nav id="section-nav" aria-label="Bagian konten"></nav>
+      <div class="sidebar-note">
+        <span class="dot"></span>
+        <div>
+          <strong>Ruang kerja pribadi</strong>
+          <p>Simpan di laptop, lalu publish lewat Git saat sudah siap.</p>
+        </div>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div class="save-state" id="save-state" role="status">
+          Menghubungkan…
+        </div>
+        <div class="actions">
+          <a href="/" target="_blank" rel="noopener" class="button ghost"
+            >Lihat portfolio ↗</a
+          ><button class="button primary" id="save" disabled>
+            Simpan perubahan
+          </button>
+        </div>
+      </header>
+      <main id="editor" tabindex="-1">
+        <div
+          id="connection-error"
+          class="notice error"
+          role="alert"
+          hidden
+        ></div>
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow" id="section-index">KONTEN PORTFOLIO</p>
+            <h1 id="section-title">Studio konten</h1>
+            <p id="section-description">Memuat konten dari laptop…</p>
+          </div>
+          <button class="button ghost" id="discard" disabled>
+            Batalkan perubahan
+          </button>
+        </div>
+        <div
+          class="notice"
+          id="message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+        <form id="content-form" autocomplete="off"></form>
+        <p class="editor-footer">
+          Perubahan baru tampil di portfolio setelah disimpan.
+        </p>
+      </main>
+    </div>
+    <dialog id="media-dialog" aria-labelledby="media-title">
+      <div class="media-header">
+        <div>
+          <p class="eyebrow">PUSTAKA MEDIA</p>
+          <h2 id="media-title">Pilih gambar</h2>
+        </div>
+        <button
+          class="icon-button"
+          id="close-media"
+          aria-label="Tutup pustaka media"
+        >
+          ×
+        </button>
+      </div>
+      <div class="media-tools">
+        <label class="search-field"
+          ><span class="sr-only">Cari gambar</span
+          ><input
+            id="media-search"
+            type="search"
+            placeholder="Cari nama gambar…" /></label
+        ><label class="button primary upload-label"
+          >Unggah gambar<input
+            id="upload"
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/gif"
+        /></label>
+      </div>
+      <p class="media-help">
+        PNG, JPG, WebP, atau GIF · Maksimal 10 MB per gambar.
+      </p>
+      <p
+        class="notice"
+        id="media-message"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></p>
+      <div id="media-grid" class="media-grid"></div>
+    </dialog>
+    <noscript
+      ><p class="notice error">
+        Aktifkan JavaScript untuk menggunakan CMS.
+      </p></noscript
+    >
+  </body>
+</html>
