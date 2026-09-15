@@ -19,6 +19,47 @@
   );
   updateHeader();
 
+  // Keep tall CMS content readable and reveal covered cards on keyboard focus.
+  const projectStack = document.querySelector(".project-grid");
+  if (projectStack) {
+    const cards = [...projectStack.querySelectorAll(".project")];
+    function updateStack() {
+      const top =
+        parseFloat(
+          getComputedStyle(projectStack).getPropertyValue("--stack-top"),
+        ) || 100;
+      projectStack.classList.toggle(
+        "stack-unavailable",
+        cards.some((card) => card.offsetHeight > window.innerHeight - top - 20),
+      );
+    }
+    if ("ResizeObserver" in window) {
+      const sizeObserver = new ResizeObserver(updateStack);
+      cards.forEach((card) => sizeObserver.observe(card));
+    }
+    window.addEventListener("resize", updateStack);
+    projectStack.addEventListener("focusin", (event) => {
+      const card = event.target.closest(".project");
+      if (
+        !card ||
+        !event.target.matches(":focus-visible") ||
+        getComputedStyle(card).position !== "sticky"
+      )
+        return;
+      const top = parseFloat(getComputedStyle(card).top);
+      const gap = parseFloat(getComputedStyle(projectStack).rowGap) || 0;
+      const precedingHeight = cards
+        .slice(0, cards.indexOf(card))
+        .reduce((height, item) => height + item.offsetHeight + gap, 0);
+      const naturalTop =
+        projectStack.getBoundingClientRect().top +
+        window.scrollY +
+        precedingHeight;
+      window.scrollTo({ top: naturalTop - top, behavior: "instant" });
+    });
+    updateStack();
+  }
+
   // Keep content visible by default; enhance only when observation is available.
   if ("IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(
@@ -145,7 +186,10 @@
       const nextExpanded = !expanded;
       if (nextExpanded) {
         experiencePanels.forEach((setOtherExpanded, otherRow) => {
-          if (otherRow !== row && otherRow.parentElement === row.parentElement) {
+          if (
+            otherRow !== row &&
+            otherRow.parentElement === row.parentElement
+          ) {
             setOtherExpanded(false);
           }
         });

@@ -18,11 +18,15 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 105px;
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
 }
-/* Settle near section starts without locking long sections to one screen. */
+html.section-stepping {
+  scroll-snap-type: none;
+}
+/* Native touch snapping; wheel gestures use measured reading stops. */
 main > section {
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 body {
   margin: 0;
@@ -1283,5 +1287,175 @@ footer {
   .motion-enabled .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Full-hero website assembly: decorative and driven by scroll progress. */
+.hero-scroll.is-pinned > .hero {
+  position: sticky;
+  top: var(--hero-pin-top, 70px);
+}
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+.hero > :not(.hero-motion) {
+  position: relative;
+  z-index: 1;
+}
+.hero-motion {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.36;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 8%,
+    #000 86%,
+    transparent
+  );
+}
+.web-assembly {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.web-surface {
+  fill: #e8e9df;
+  stroke: #96a284;
+  stroke-width: 1.5;
+}
+.web-line {
+  stroke: #9aa88a;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.web-heading {
+  stroke: #71825c;
+  stroke-width: 13;
+  stroke-linecap: round;
+}
+.web-label {
+  fill: #6b785b;
+  font:
+    10px ui-monospace,
+    monospace;
+  letter-spacing: 2px;
+}
+.web-shell {
+  opacity: 0.08;
+}
+@media (max-width: 700px) {
+  .hero-motion {
+    opacity: 0.25;
+    inset: 0 -30%;
+  }
+  .site-header .wordmark {
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 170px);
+  }
+  .site-header nav,
+  .header-contact {
+    flex-shrink: 0;
+  }
+}
+
+/* Each opaque project stays in place until the following card covers it. */
+.project-grid {
+  --stack-top: 100px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(70px, 16vh, 160px);
+  padding-bottom: 25px;
+  isolation: isolate;
+}
+.project-grid > .project {
+  position: sticky;
+  top: var(--stack-top);
+  align-self: start;
+  grid-column: 1;
+  min-width: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow:
+    0 -8px 28px #292c220c,
+    0 12px 35px #292c2208;
+  scroll-margin-top: var(--stack-top);
+}
+.project-grid .project-image {
+  height: clamp(180px, 48svh, 480px);
+  aspect-ratio: auto;
+  padding: 40px 9%;
+  border-radius: 6px;
+}
+.project-grid .project-image img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.project-grid .project-caption {
+  padding: 22px 15px 0;
+}
+.project-grid .project-subtitle {
+  padding-inline: 15px;
+  padding-bottom: 9px;
+}
+.project-grid .project-subtitle span {
+  display: inline;
+}
+.project-grid.stack-unavailable > .project {
+  position: relative;
+  top: auto;
+}
+@media (max-width: 700px) {
+  .project-grid {
+    --stack-top: 88px;
+    gap: 80px;
+  }
+  .project-grid > .project {
+    padding: 10px;
+    border-radius: 9px;
+  }
+  .project-grid .project-image {
+    height: clamp(170px, 34svh, 320px);
+    padding: 32px 18px;
+  }
+  .project-grid .project-caption {
+    padding: 18px 8px 0;
+    gap: 12px;
+  }
+  .project-grid .project-title {
+    font-size: 23px;
+  }
+  .project-grid .round-arrow {
+    width: 32px;
+    height: 32px;
+  }
+  .project-grid .project-subtitle {
+    padding-inline: 8px;
+    padding-bottom: 5px;
+  }
+  .project-grid .project-subtitle span {
+    display: block;
+  }
+}
+@media (max-height: 600px), (prefers-reduced-motion: reduce) {
+  .project-grid > .project {
+    position: relative;
+    top: auto;
+  }
+  .project-grid {
+    gap: 50px;
   }
 }

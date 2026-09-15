@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="assets/images/favicon-32.png"><link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&amp;family=Manrope:wght@400;500;600;650;700;750;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css"><script src="assets/js/main.js" defer></script>
+  <link rel="stylesheet" href="assets/css/main.css"><script src="assets/js/main.js" defer></script><script src="assets/js/hero-motion.js" defer></script><script src="assets/js/section-scroll.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -17,7 +17,21 @@
   <a class="header-contact" href="#contact">Let’s talk <span aria-hidden="true">↗</span></a>
 </header>
 <main id="main">
-  <section class="hero wrap" id="home" aria-labelledby="hero-title">
+  <section class="hero-scroll" id="home" aria-labelledby="hero-title"><div class="hero wrap">
+    <div class="hero-motion" aria-hidden="true">
+<svg class="web-assembly" viewBox="0 0 1400 900" fill="none">
+<defs><pattern id="web-grid" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#7e896b" opacity=".25"/></pattern></defs>
+<rect width="1400" height="900" fill="url(#web-grid)"/>
+<g class="web-guides" stroke="#8a9777" stroke-dasharray="4 10" opacity=".4"><path d="M60 450H1340M700 60V840"/><rect x="280" y="155" width="840" height="570" rx="20"/></g>
+<g class="web-shell"><rect x="270" y="145" width="860" height="590" rx="22" fill="#f6f4ed" stroke="#899778"/><rect x="281" y="156" width="838" height="568" rx="14" stroke="#c1c8b4"/></g>
+<g class="web-piece" data-x="-145" data-y="-90" data-angle="-9" data-cx="700" data-cy="200" transform="translate(-145 -90) rotate(-9 700 200)"><rect class="web-surface" x="295" y="170" width="810" height="60" rx="10"/><circle cx="325" cy="200" r="7" fill="#a9674e"/><circle cx="348" cy="200" r="7" fill="#d1bb8b"/><circle cx="371" cy="200" r="7" fill="#879774"/><path d="M425 200H570M820 200H875M910 200H965" class="web-line"/><rect x="1000" y="189" width="80" height="22" rx="11" fill="#71805b"/></g>
+<g class="web-piece" data-x="-190" data-y="100" data-angle="12" data-cx="365" data-cy="470" transform="translate(-190 100) rotate(12 365 470)"><rect class="web-surface" x="295" y="245" width="140" height="465" rx="10"/><rect x="318" y="272" width="92" height="40" rx="6" fill="#bbc5a9"/><path class="web-line" d="M322 345H402M322 383H384M322 421H396M322 459H380"/><circle cx="346" cy="661" r="16" fill="#b8bea9"/><path d="M374 655H407M374 667H398" class="web-line"/></g>
+<g class="web-piece" data-x="70" data-y="-150" data-angle="7" data-cx="775" data-cy="300" transform="translate(70 -150) rotate(7 775 300)"><rect class="web-surface" x="450" y="245" width="655" height="115" rx="10"/><text x="477" y="273" class="web-label">FROM AN IDEA / TO AN INTERFACE</text><path class="web-heading" d="M479 302H785"/><path class="web-line" d="M479 327H697"/><rect x="930" y="280" width="145" height="48" rx="8" fill="#b6c2a2"/><path d="M978 303h44m-8-8 8 8-8 8" stroke="#5a6846" stroke-width="3"/></g>
+<g class="web-piece" data-x="-200" data-y="185" data-angle="-12" data-cx="660" data-cy="473" transform="translate(-200 185) rotate(-12 660 473)"><rect class="web-surface" x="450" y="375" width="415" height="200" rx="10"/><text x="477" y="404" class="web-label">INSIGHTS</text><path d="M479 435H835M479 479H835M479 523H835" stroke="#c9cebf"/><path d="M479 540 538 495 596 509 655 451 715 469 775 421 835 434" stroke="#6d8058" stroke-width="4"/><path d="m479 540 59-45 58 14 59-58 60 18 60-48 60 13v119H479Z" fill="#abb998" opacity=".3"/><circle cx="775" cy="421" r="6" fill="#ad7056"/></g>
+<g class="web-piece" data-x="220" data-y="-45" data-angle="14" data-cx="990" data-cy="473" transform="translate(220 -45) rotate(14 990 473)"><rect class="web-surface" x="880" y="375" width="225" height="200" rx="10"/><rect x="895" y="390" width="195" height="170" rx="7" fill="#d7c8ac"/><circle cx="1038" cy="426" r="20" fill="#eee7d6"/><path d="m895 522 60-64 53 45 38-24 44 43v38H895Z" fill="#98a383"/><path d="m895 546 51-34 55 33 48-27 41 22v20H895Z" fill="#748367"/></g>
+<g class="web-piece" data-x="110" data-y="180" data-angle="8" data-cx="778" data-cy="650" transform="translate(110 180) rotate(8 778 650)"><rect class="web-surface" x="450" y="590" width="655" height="120" rx="10"/><rect x="472" y="610" width="184" height="78" rx="7" fill="#dce1d2"/><path d="M490 633h62M490 658h109" class="web-line"/><circle cx="628" cy="631" r="7" fill="#879675"/><rect x="682" y="610" width="184" height="78" rx="7" fill="#ded0ba"/><path d="M700 633h62M700 658h109" class="web-line"/><circle cx="838" cy="631" r="7" fill="#879675"/><rect x="892" y="610" width="184" height="78" rx="7" fill="#dce1d2"/><path d="M910 633h62M910 658h109" class="web-line"/><circle cx="1048" cy="631" r="7" fill="#879675"/></g>
+<g class="web-guides" fill="#748260"><text x="55" y="75" class="web-label">01 — COMPONENTS</text><text x="1090" y="835" class="web-label">02 — SOMETHING USEFUL</text><path d="M62 805v20m-10-10h20M1320 80v20m-10-10h20" stroke="currentColor"/></g>
+</svg></div>
     <div class="hero-meta"><p class="eyebrow">Independent thinking. Thoughtful building.</p><p class="eyebrow hero-location">Medan, Indonesia <span class="local-time" data-timezone="Asia/Jakarta" aria-label="Local time in Medan, Indonesia"></span></p></div>
     <h1 id="hero-title"><span class="title-line"><span>A curious mind.</span></span><span class="title-line"><span>A builder <em>at heart.</em></span></span></h1>
     <div class="hero-bottom">
@@ -26,35 +40,35 @@
       <div class="hero-stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 5v90M5 50h90M18 18l64 64M18 82l64-64M33 8l34 84M8 33l84 34M8 67l84-34M33 92l34-84"/></svg><span>Always curious.<br>Always building.</span></div>
     </div>
     <div class="hero-footer"><span><span class="status-dot"></span>Currently building at Kurosim</span><span>Web development &amp; data science</span><span>Portfolio / <span data-year>2026</span></span></div>
-  </section>
+  </div></section>
   <section class="work-section wrap section-space" id="work" aria-labelledby="work-title">
     <div class="section-heading reveal"><div><p class="eyebrow section-index">01 / SELECTED WORK</p><h2 id="work-title">Ideas made <em>real.</em></h2></div><p>From a question to a working product.<br>A few things I’ve built along the way.</p></div>
     <div class="work-toolbar"><span class="eyebrow">A collection of 5 projects</span><a class="text-link" href="https://github.com/kangkungmozzarella" target="_blank" rel="noopener noreferrer">More on GitHub ↗</a></div>
-    <div class="project-grid"><article class="project reveal project-featured" data-category="Web development">
+    <div class="project-grid"><article class="project project-featured" data-category="Web development">
       <button class="project-open" data-detail="project-travel" aria-label="Explore Travel information system">
         <span class="project-image sand"><span class="image-index">PROJECT / 01</span><img src="assets/images/gallery/travel/1.png" alt="Travel information system interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
         <span class="project-caption"><span><span class="eyebrow">Web development / 01</span><span class="project-title">Travel, without the friction.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
       </button><p class="project-subtitle">Travel information system <span>— Laravel · MySQL · Tailwind CSS</span></p>
     </article>
-<article class="project reveal " data-category="Decision systems">
+<article class="project " data-category="Decision systems">
       <button class="project-open" data-detail="project-maut" aria-label="Explore Accommodation decision support">
         <span class="project-image sage"><span class="image-index">PROJECT / 02</span><img src="assets/images/gallery/spk-maut/dashboard.png" alt="Accommodation decision support interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
         <span class="project-caption"><span><span class="eyebrow">Decision systems / 02</span><span class="project-title">A better way to decide.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
       </button><p class="project-subtitle">Accommodation decision support <span>— PHP · MySQL · MAUT</span></p>
     </article>
-<article class="project reveal " data-category="Data science">
+<article class="project " data-category="Data science">
       <button class="project-open" data-detail="project-lstm" aria-label="Explore Stock price prediction">
         <span class="project-image rose"><span class="image-index">PROJECT / 03</span><img src="assets/images/gallery/ml/1.png" alt="Stock price prediction interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
         <span class="project-caption"><span><span class="eyebrow">Data science / 03</span><span class="project-title">Finding signals in the numbers.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
       </button><p class="project-subtitle">Stock price prediction <span>— Python · TensorFlow · LSTM</span></p>
     </article>
-<article class="project reveal " data-category="Web development">
+<article class="project " data-category="Web development">
       <button class="project-open" data-detail="project-alumni" aria-label="Explore Alumni information system">
         <span class="project-image blue"><span class="image-index">PROJECT / 04</span><img src="assets/images/gallery/alumni/1.png" alt="Alumni information system interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
         <span class="project-caption"><span><span class="eyebrow">Web development / 04</span><span class="project-title">Keeping a community connected.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
       </button><p class="project-subtitle">Alumni information system <span>— PHP · MySQL · jQuery</span></p>
     </article>
-<article class="project reveal " data-category="Decision systems">
+<article class="project " data-category="Decision systems">
       <button class="project-open" data-detail="project-smart" aria-label="Explore Laptop selection system">
         <span class="project-image sand"><span class="image-index">PROJECT / 05</span><img src="assets/images/gallery/spk-smart/1.png" alt="Laptop selection system interface" loading="lazy" width="1446" height="788"><span class="project-open-label">Explore project <span aria-hidden="true">↗</span></span></span>
         <span class="project-caption"><span><span class="eyebrow">Decision systems / 05</span><span class="project-title">The right laptop, for you.</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>

@@ -1,3 +1,4 @@
+import { heroArt } from "./hero-art.mjs";
 import { validateContent } from "./schema.mjs";
 export const escapeHTML = (value) =>
   String(value).replace(
@@ -31,7 +32,7 @@ export function renderPortfolio(input) {
   const projectCards = projects
     .map((project, i) => {
       const n = String(i + 1).padStart(2, "0");
-      return `<article class="project reveal ${i === 0 ? "project-featured" : ""}" data-category="${e(project.category)}">
+      return `<article class="project ${i === 0 ? "project-featured" : ""}" data-category="${e(project.category)}">
       <button class="project-open" data-detail="project-${e(project.id)}" aria-label="Explore ${e(project.name)}">
         <span class="project-image ${e(project.color)}"><span class="image-index">PROJECT / ${n}</span>${image(project.images[0], `${project.name} interface`, 'loading="lazy" width="1446" height="788"')}<span class="project-open-label">Explore project ${arrow}</span></span>
         <span class="project-caption"><span><span class="eyebrow">${e(project.category)} / ${n}</span><span class="project-title">${e(project.title)}</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
@@ -78,7 +79,7 @@ export function renderPortfolio(input) {
   <link rel="icon" type="image/png" href="assets/images/favicon-32.png"><link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&amp;family=Manrope:wght@400;500;600;650;700;750;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css"><script src="assets/js/main.js" defer></script>
+  <link rel="stylesheet" href="assets/css/main.css"><script src="assets/js/main.js" defer></script><script src="assets/js/hero-motion.js" defer></script><script src="assets/js/section-scroll.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -88,7 +89,8 @@ export function renderPortfolio(input) {
   <a class="header-contact" href="#contact">Let’s talk ${arrow}</a>
 </header>
 <main id="main">
-  <section class="hero wrap" id="home" aria-labelledby="hero-title">
+  <section class="hero-scroll" id="home" aria-labelledby="hero-title"><div class="hero wrap">
+    ${heroArt}
     <div class="hero-meta"><p class="eyebrow">${e(h.eyebrow)}</p><p class="eyebrow hero-location">${e(p.location)} <span class="local-time" data-timezone="${e(p.timezone)}" aria-label="Local time in ${e(p.location)}"></span></p></div>
     <h1 id="hero-title"><span class="title-line"><span>${e(h.line1)}</span></span><span class="title-line"><span>${e(h.line2)} <em>${e(h.accent)}</em></span></span></h1>
     <div class="hero-bottom">
@@ -97,7 +99,7 @@ export function renderPortfolio(input) {
       <div class="hero-stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 5v90M5 50h90M18 18l64 64M18 82l64-64M33 8l34 84M8 33l84 34M8 67l84-34M33 92l34-84"/></svg><span>${lines(h.stamp)}</span></div>
     </div>
     <div class="hero-footer"><span><span class="status-dot"></span>${e(h.status)}</span><span>${e(h.specialty)}</span><span>Portfolio / <span data-year>${new Date().getFullYear()}</span></span></div>
-  </section>
+  </div></section>
   <section class="work-section wrap section-space" id="work" aria-labelledby="work-title">
     <div class="section-heading reveal"><div><p class="eyebrow section-index">01 / SELECTED WORK</p><h2 id="work-title">${e(s.workHeading)} <em>${e(s.workAccent)}</em></h2></div><p>${lines(s.workIntro)}</p></div>
     <div class="work-toolbar"><span class="eyebrow">A collection of ${projects.length} ${projects.length === 1 ? "project" : "projects"}</span>${external(p.github, "More on GitHub")}</div>
