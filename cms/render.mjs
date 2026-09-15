@@ -33,10 +33,10 @@ export function renderPortfolio(input) {
     .map((project, i) => {
       const n = String(i + 1).padStart(2, "0");
       return `<article class="project ${i === 0 ? "project-featured" : ""}" data-category="${e(project.category)}">
-      <button class="project-open" data-detail="project-${e(project.id)}" aria-label="Explore ${e(project.name)}">
+      <button class="project-open reveal" data-detail="project-${e(project.id)}" aria-label="Explore ${e(project.name)}">
         <span class="project-image ${e(project.color)}"><span class="image-index">PROJECT / ${n}</span>${image(project.images[0], `${project.name} interface`, 'loading="lazy" width="1446" height="788"')}<span class="project-open-label">Explore project ${arrow}</span></span>
         <span class="project-caption"><span><span class="eyebrow">${e(project.category)} / ${n}</span><span class="project-title">${e(project.title)}</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
-      </button><p class="project-subtitle">${e(project.name)} <span>— ${e(project.stack)}</span></p>
+      </button><p class="project-subtitle reveal">${e(project.name)} <span>— ${e(project.stack)}</span></p>
     </article>`;
     })
     .join("\n");
@@ -79,7 +79,7 @@ export function renderPortfolio(input) {
   <link rel="icon" type="image/png" href="assets/images/favicon-32.png"><link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&amp;family=Manrope:wght@400;500;600;650;700;750;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css"><script src="assets/js/main.js" defer></script><script src="assets/js/hero-motion.js" defer></script><script src="assets/js/section-scroll.js" defer></script>
+  <link rel="stylesheet" href="assets/css/main.css"><script src="assets/js/main.js" defer></script><script src="assets/js/hero-motion.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>

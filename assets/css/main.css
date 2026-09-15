@@ -18,15 +18,6 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 105px;
-  scroll-snap-type: y mandatory;
-}
-html.section-stepping {
-  scroll-snap-type: none;
-}
-/* Native touch snapping; wheel gestures use measured reading stops. */
-main > section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 body {
   margin: 0;
@@ -961,14 +952,11 @@ footer {
 }
 .motion-enabled .reveal {
   opacity: 0;
-  transform: translateY(25px);
-  transition:
-    opacity 0.9s var(--ease),
-    transform 0.9s var(--ease);
+  transition: opacity 0.7s var(--ease);
 }
-.motion-enabled .reveal.is-visible {
+.motion-enabled .reveal.is-visible,
+.motion-enabled .reveal:focus-within {
   opacity: 1;
-  transform: none;
 }
 @media (min-width: 1600px) {
   .hero {
@@ -1286,7 +1274,6 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-    scroll-snap-type: none;
   }
   *,
   *::before,
