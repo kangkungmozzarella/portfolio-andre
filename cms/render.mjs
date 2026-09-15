@@ -12,11 +12,23 @@ const e = escapeHTML;
 const lines = (value) => e(value).replace(/\n/g, "<br>");
 const external = (url, text, cls = "text-link") =>
   url
-    ? `<a class="${cls}" href="${e(url)}" target="_blank" rel="noopener noreferrer">${e(text)} ↗</a>`
+    ? `<a class="${cls}" href="${e(url)}" target="_blank" rel="noopener noreferrer">${e(text)} ${icon("arrow")}</a>`
     : "";
 const image = (path, alt, extra = "") =>
   `<img src="${e(path)}" alt="${e(alt)}" ${extra}>`;
-const arrow = '<span aria-hidden="true">↗</span>';
+const iconPaths = {
+  arrow: "M5 19 19 5M5 5h14v14",
+  down: "M12 4v16M5 13l7 7 7-7",
+  up: "M12 20V4M5 11l7-7 7 7",
+  left: "M20 12H4m7-7-7 7 7 7",
+  right: "M4 12h16m-7-7 7 7-7 7",
+  star: "M12 2v20M2 12h20M5 5l14 14M5 19 19 5",
+  plus: "M12 5v14M5 12h14",
+  close: "m6 6 12 12M6 18 18 6",
+};
+const icon = (name) =>
+  `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="${iconPaths[name]}"/></svg>`;
+const arrow = `<span aria-hidden="true">${icon("arrow")}</span>`;
 
 export function renderPortfolio(input) {
   const {
@@ -35,7 +47,7 @@ export function renderPortfolio(input) {
       return `<article class="project ${i === 0 ? "project-featured" : ""}" data-category="${e(project.category)}">
       <button class="project-open reveal" data-detail="project-${e(project.id)}" aria-label="Explore ${e(project.name)}">
         <span class="project-image ${e(project.color)}"><span class="image-index">PROJECT / ${n}</span>${image(project.images[0], `${project.name} interface`, 'loading="lazy" width="1446" height="788"')}<span class="project-open-label">Explore project ${arrow}</span></span>
-        <span class="project-caption"><span><span class="eyebrow">${e(project.category)} / ${n}</span><span class="project-title">${e(project.title)}</span></span><span class="round-arrow" aria-hidden="true">↗</span></span>
+        <span class="project-caption"><span><span class="eyebrow">${e(project.category)} / ${n}</span><span class="project-title">${e(project.title)}</span></span><span class="round-arrow" aria-hidden="true">${icon("arrow")}</span></span>
       </button><p class="project-subtitle reveal">${e(project.name)} <span>— ${e(project.stack)}</span></p>
     </article>`;
     })
@@ -46,7 +58,7 @@ export function renderPortfolio(input) {
         item,
         i,
       ) => `<details class="experience-row reveal" ${i === 0 ? "open" : ""}>
-    <summary><span class="experience-date">${e(item.period)}</span><span class="experience-heading"><span class="experience-logo">${image(item.logo, "", 'width="48" height="48" loading="lazy"')}</span><span class="experience-role">${e(item.role)}<span>${e(item.company)}</span></span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+    <summary><span class="experience-date">${e(item.period)}</span><span class="experience-heading"><span class="experience-logo">${image(item.logo, "", 'width="48" height="48" loading="lazy"')}</span><span class="experience-role">${e(item.role)}<span>${e(item.company)}</span></span></span><span class="expand-icon" aria-hidden="true">${icon("plus")}</span></summary>
     <div class="experience-content"><ul>${item.bullets.map((b) => `<li>${e(b)}</li>`).join("")}</ul></div>
   </details>`,
     )
@@ -84,7 +96,7 @@ export function renderPortfolio(input) {
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
-  <a class="wordmark" href="#home" aria-label="${e(p.name)}, back to home">${e(p.brand)}<span aria-hidden="true">✳</span></a>
+  <a class="wordmark" href="#home" aria-label="${e(p.name)}, back to home">${e(p.brand)}<span aria-hidden="true">${icon("star")}</span></a>
   <nav aria-label="Main navigation"><a href="#work">Work<span>${count}</span></a><a href="#about">About</a><a href="#experience">Experience</a></nav>
   <a class="header-contact" href="#contact">Let’s talk ${arrow}</a>
 </header>
@@ -95,7 +107,7 @@ export function renderPortfolio(input) {
     <h1 id="hero-title"><span class="title-line"><span>${e(h.line1)}</span></span><span class="title-line"><span>${e(h.line2)} <em>${e(h.accent)}</em></span></span></h1>
     <div class="hero-bottom">
       <div class="hero-intro"><span class="intro-line" aria-hidden="true"></span><p>${e(h.intro)}</p><a class="text-link" href="#about">A little about me ${arrow}</a></div>
-      <a class="scroll-link" href="#work"><span class="scroll-circle" aria-hidden="true">↓</span><span>Scroll to explore<br><small>A selection of my work</small></span></a>
+      <a class="scroll-link" href="#work"><span class="scroll-circle" aria-hidden="true">${icon("down")}</span><span>Scroll to explore<br><small>A selection of my work</small></span></a>
       <div class="hero-stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 5v90M5 50h90M18 18l64 64M18 82l64-64M33 8l34 84M8 33l84 34M8 67l84-34M33 92l34-84"/></svg><span>${lines(h.stamp)}</span></div>
     </div>
     <div class="hero-footer"><span><span class="status-dot"></span>${e(h.status)}</span><span>${e(h.specialty)}</span><span>Portfolio / <span data-year>${new Date().getFullYear()}</span></span></div>
@@ -118,12 +130,12 @@ export function renderPortfolio(input) {
   </section>
   <section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="wrap">
     <div class="contact-top reveal"><p class="eyebrow">04 / NEXT CHAPTER</p><p>${lines(s.contactIntro)}</p></div>
-    <h2 id="contact-title" class="reveal"><a href="mailto:${e(p.email)}">${e(s.contactHeading)}<br><em>${e(s.contactAccent)}</em><span class="contact-arrow" aria-hidden="true">↗</span></a></h2>
-    <div class="contact-bottom reveal"><a class="email-link" href="mailto:${e(p.email)}">${e(p.email)} ↗</a><div class="social-links">${external(p.github, "GitHub", "")}${external(p.linkedin, "LinkedIn", "")}${external(p.instagram, "Instagram", "")}</div></div>
-    <footer><span>© <span data-year>${new Date().getFullYear()}</span> ${e(p.name)}</span><span>${e(p.footer)}</span><a href="#home">Back to top ↑</a></footer>
+    <h2 id="contact-title" class="reveal"><a href="mailto:${e(p.email)}">${e(s.contactHeading)}<br><em>${e(s.contactAccent)}</em><span class="contact-arrow" aria-hidden="true">${icon("arrow")}</span></a></h2>
+    <div class="contact-bottom reveal"><a class="email-link" href="mailto:${e(p.email)}">${e(p.email)} ${icon("arrow")}</a><div class="social-links">${external(p.github, "GitHub", "")}${external(p.linkedin, "LinkedIn", "")}${external(p.instagram, "Instagram", "")}</div></div>
+    <footer><span>© <span data-year>${new Date().getFullYear()}</span> ${e(p.name)}</span><span>${e(p.footer)}</span><a href="#home">Back to top ${icon("up")}</a></footer>
   </div></section>
 </main>
-<dialog class="project-dialog" aria-labelledby="dialog-title"><div class="dialog-toolbar"><span class="eyebrow">A CLOSER LOOK</span><button class="dialog-close" aria-label="Close project details">Close <span aria-hidden="true">×</span></button></div><div class="dialog-content"></div><div class="gallery-controls"><button class="gallery-prev" aria-label="Previous image">←</button><p class="gallery-count" aria-live="polite"></p><button class="gallery-next" aria-label="Next image">→</button></div></dialog>
+<dialog class="project-dialog" aria-labelledby="dialog-title"><div class="dialog-toolbar"><span class="eyebrow">A CLOSER LOOK</span><button class="dialog-close" aria-label="Close project details">Close <span aria-hidden="true">${icon("close")}</span></button></div><div class="dialog-content"></div><div class="gallery-controls"><button class="gallery-prev" aria-label="Previous image">${icon("left")}</button><p class="gallery-count" aria-live="polite"></p><button class="gallery-next" aria-label="Next image">${icon("right")}</button></div></dialog>
 ${templates}
 <noscript><p class="noscript-note">Enable JavaScript to open project galleries. Profile, experience, and contact links are available above.</p></noscript>
 </body>
