@@ -133,6 +133,18 @@ button:disabled {
   font-size: 30px;
   letter-spacing: -2px;
 }
+.ui-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  vertical-align: -0.125em;
+}
+.scroll-circle .ui-icon,
+.round-arrow .ui-icon,
+.header-contact > span .ui-icon {
+  display: block;
+}
 .wordmark span {
   display: inline-block;
   font-size: 12px;
