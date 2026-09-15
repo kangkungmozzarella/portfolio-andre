@@ -94,8 +94,8 @@ export function renderPortfolio(input) {
     <div class="hero-meta"><p class="eyebrow">${e(h.eyebrow)}</p><p class="eyebrow hero-location">${e(p.location)} <span class="local-time" data-timezone="${e(p.timezone)}" aria-label="Local time in ${e(p.location)}"></span></p></div>
     <h1 id="hero-title"><span class="title-line"><span>${e(h.line1)}</span></span><span class="title-line"><span>${e(h.line2)} <em>${e(h.accent)}</em></span></span></h1>
     <div class="hero-bottom">
-      <a class="scroll-link" href="#work"><span class="scroll-circle" aria-hidden="true">↓</span><span>Scroll to explore<br><small>A selection of my work</small></span></a>
       <div class="hero-intro"><span class="intro-line" aria-hidden="true"></span><p>${e(h.intro)}</p><a class="text-link" href="#about">A little about me ${arrow}</a></div>
+      <a class="scroll-link" href="#work"><span class="scroll-circle" aria-hidden="true">↓</span><span>Scroll to explore<br><small>A selection of my work</small></span></a>
       <div class="hero-stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 5v90M5 50h90M18 18l64 64M18 82l64-64M33 8l34 84M8 33l84 34M8 67l84-34M33 92l34-84"/></svg><span>${lines(h.stamp)}</span></div>
     </div>
     <div class="hero-footer"><span><span class="status-dot"></span>${e(h.status)}</span><span>${e(h.specialty)}</span><span>Portfolio / <span data-year>${new Date().getFullYear()}</span></span></div>

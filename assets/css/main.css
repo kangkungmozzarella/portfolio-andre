@@ -151,11 +151,16 @@ button:disabled {
 }
 .site-header nav {
   display: flex;
+  align-items: center;
   gap: 32px;
   font-size: 13px;
 }
 .site-header nav a {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  line-height: 1;
   padding-block: 10px;
 }
 .site-header nav a::after {
@@ -176,7 +181,8 @@ button:disabled {
 }
 .site-header nav span {
   font-size: 9px;
-  vertical-align: super;
+  line-height: 1;
+  transform: translateY(-4px);
   margin-left: 4px;
   color: var(--muted);
 }
@@ -185,6 +191,8 @@ button:disabled {
   align-items: center;
   gap: 22px;
   font-size: 13px;
+  min-height: 44px;
+  line-height: 1;
 }
 .header-contact > span {
   background: var(--ink);
@@ -245,13 +253,14 @@ button:disabled {
 }
 .hero-bottom {
   display: grid;
-  grid-template-columns: 1fr 1.1fr 0.65fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 36px;
   align-items: center;
   margin-bottom: 50px;
 }
 .scroll-link {
   display: flex;
+  justify-self: center;
   align-items: center;
   gap: 17px;
   font-size: 12px;
@@ -972,14 +981,14 @@ footer {
     margin-top: 70px;
   }
   .hero-bottom {
-    grid-template-columns: 0.8fr 1.2fr;
+    grid-template-columns: 1.2fr 0.8fr;
     gap: 30px;
   }
   .hero-stamp {
     display: none;
   }
   .hero-intro {
-    justify-self: end;
+    justify-self: start;
   }
   .about-layout {
     column-gap: 6%;
@@ -1014,6 +1023,7 @@ footer {
   }
   .site-header {
     height: 76px;
+    gap: 14px;
   }
   .site-header.scrolled {
     height: 64px;
@@ -1022,7 +1032,7 @@ footer {
     font-size: 27px;
   }
   .site-header nav {
-    gap: 18px;
+    gap: 14px;
     font-size: 11px;
   }
   .site-header nav a:last-child {
@@ -1359,7 +1369,8 @@ footer {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: calc(100% - 170px);
+    min-width: 0;
+    flex: 1;
   }
   .site-header nav,
   .header-contact {
