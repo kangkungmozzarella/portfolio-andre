@@ -1349,13 +1349,6 @@ footer {
   stroke-width: 13;
   stroke-linecap: round;
 }
-.web-label {
-  fill: #6b785b;
-  font:
-    10px ui-monospace,
-    monospace;
-  letter-spacing: 2px;
-}
 .web-shell {
   opacity: 0.08;
 }
