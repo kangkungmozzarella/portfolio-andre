@@ -18,6 +18,11 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 105px;
+  scroll-snap-type: y proximity;
+}
+/* Settle near section starts without locking long sections to one screen. */
+main > section {
+  scroll-snap-align: start;
 }
 body {
   margin: 0;
@@ -1267,6 +1272,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-snap-type: none;
   }
   *,
   *::before,
