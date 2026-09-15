@@ -90,6 +90,7 @@
 
   // Animate the measured height in both directions while retaining native
   // summary keyboard support and a usable details element without JavaScript.
+  const experiencePanels = new Map();
   document.querySelectorAll(".experience-row").forEach((row) => {
     const summary = row.querySelector("summary");
     let expanded = row.open;
@@ -107,9 +108,9 @@
       row.style.removeProperty("overflow");
     }
 
-    summary.addEventListener("click", (event) => {
-      event.preventDefault();
-      expanded = !expanded;
+    function setExpanded(nextExpanded) {
+      if (expanded === nextExpanded) return;
+      expanded = nextExpanded;
       if (motion.matches || typeof row.animate !== "function") {
         settle();
         return;
@@ -136,6 +137,20 @@
         { duration: 420, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
       );
       animation.onfinish = settle;
+    }
+
+    experiencePanels.set(row, setExpanded);
+    summary.addEventListener("click", (event) => {
+      event.preventDefault();
+      const nextExpanded = !expanded;
+      if (nextExpanded) {
+        experiencePanels.forEach((setOtherExpanded, otherRow) => {
+          if (otherRow !== row && otherRow.parentElement === row.parentElement) {
+            setOtherExpanded(false);
+          }
+        });
+      }
+      setExpanded(nextExpanded);
     });
 
     window.addEventListener("resize", () => {
