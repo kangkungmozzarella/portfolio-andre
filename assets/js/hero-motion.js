@@ -14,16 +14,23 @@
   const shell = art.querySelector(".web-shell");
   let frame = 0;
   let distance = 0;
+  let holdDistance = 0;
   let pinTop = 0;
   function measure() {
+    track.style.setProperty("--hero-viewport", `${innerHeight}px`);
+    track.style.setProperty("--hero-header-height", `${header?.offsetHeight || 0}px`);
     pinTop = Math.min(
       header?.offsetHeight || 0,
       innerHeight - hero.offsetHeight,
     );
-    distance = reduced.matches ? 0 : Math.round(innerHeight * 0.65);
+    distance = reduced.matches ? 0 : Math.round(innerHeight * 0.85);
+    // Keep the completed website in view before the sticky hero releases.
+    holdDistance = reduced.matches ? 0 : Math.round(innerHeight * 0.25);
     track.style.setProperty("--hero-pin-top", `${pinTop}px`);
     track.style.setProperty("--hero-range", `${distance}px`);
-    track.style.height = distance ? `${hero.offsetHeight + distance}px` : "";
+    track.style.height = distance
+      ? `${hero.offsetHeight + distance + holdDistance}px`
+      : "";
     track.classList.toggle("is-pinned", distance > 0);
     schedule();
   }

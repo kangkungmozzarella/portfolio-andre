@@ -1303,6 +1303,7 @@ footer {
 .hero-scroll.is-pinned > .hero {
   position: sticky;
   top: var(--hero-pin-top, 70px);
+  min-height: calc(var(--hero-viewport, 100svh) - var(--hero-header-height, 70px));
 }
 .hero {
   position: relative;
