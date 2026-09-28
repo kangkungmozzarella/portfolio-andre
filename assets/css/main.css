@@ -121,11 +121,25 @@ button:disabled {
   z-index: 10;
   transition:
     height 0.4s var(--ease),
-    box-shadow 0.4s;
+    box-shadow 0.4s,
+    background-color 0.4s;
 }
 .site-header.scrolled {
   height: 70px;
   box-shadow: 0 4px 18px #292c2205;
+}
+/* Glass accent 1 of 2: once scrolled, the header lets the stacked project
+   cards and olive About section show through, so position stays readable.
+   80% paper keeps ink text above 7:1 even over the darkest content. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header.scrolled {
+    background-color: rgb(238 236 229 / 0.8);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+  .site-header.scrolled nav span {
+    color: var(--ink);
+  }
 }
 .wordmark {
   font-family: "Manrope", sans-serif;
@@ -395,14 +409,6 @@ h2 {
 .work-toolbar .eyebrow {
   color: var(--muted);
 }
-.project-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px 30px;
-}
-.project-featured {
-  grid-column: 1/-1;
-}
 .project-open {
   display: block;
   width: 100%;
@@ -418,10 +424,6 @@ h2 {
   aspect-ratio: 1.35;
   overflow: hidden;
   padding: 52px 35px;
-}
-.project-featured .project-image {
-  aspect-ratio: 2.1;
-  padding: 62px 10%;
 }
 .sand {
   background: #dbd3c3;
@@ -440,14 +442,10 @@ h2 {
   height: auto;
   box-shadow: 0 20px 45px #292c2220;
   transition: transform 1s var(--ease);
-  transform: rotate(-2deg) scale(0.98);
-}
-.project:nth-child(even) .project-image img {
-  transform: rotate(2deg) scale(0.98);
 }
 .project-open:hover .project-image img,
 .project-open:focus-visible .project-image img {
-  transform: rotate(0) scale(1.025);
+  transform: scale(1.03);
 }
 .image-index {
   position: absolute;
@@ -520,12 +518,6 @@ h2 {
   color: var(--muted);
   line-height: 1.8;
   margin-top: 9px;
-}
-.project-subtitle span {
-  display: block;
-}
-.project-featured .project-subtitle span {
-  display: inline;
 }
 .about-section {
   background: var(--olive);
@@ -843,9 +835,12 @@ footer {
   overscroll-behavior: contain;
   box-shadow: 0 20px 100px #0003;
 }
+/* Glass accent 2 of 2: the page stays visible but soft behind the gallery,
+   keeping the visitor oriented to the project they opened. */
 .project-dialog::backdrop {
-  background: #24291fe0;
-  backdrop-filter: blur(5px);
+  background: #24291fa6;
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  backdrop-filter: blur(18px) saturate(1.2);
 }
 .project-dialog[open] {
   animation: dialog-enter 0.4s var(--ease);
@@ -1119,30 +1114,6 @@ footer {
   .work-toolbar .text-link {
     font-size: 10px;
   }
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: 38px;
-  }
-  .project-featured {
-    grid-column: auto;
-  }
-  .project-image,
-  .project-featured .project-image {
-    aspect-ratio: 1.4;
-    padding: 42px 25px;
-  }
-  .project-title {
-    font-size: 26px;
-  }
-  .project-caption {
-    padding-top: 18px;
-  }
-  .project-subtitle {
-    font-size: 10px;
-  }
-  .project-featured .project-subtitle span {
-    display: block;
-  }
   .project-open-label {
     display: none;
   }
@@ -1352,6 +1323,66 @@ footer {
 .web-shell {
   opacity: 0.08;
 }
+
+/* Opening sequence, played once: the title leads, then the supporting text
+   arrives in reading order, ending on the scroll cue. The accent rule and the
+   footer rule draw themselves instead of fading, so the rhythm is not one
+   repeated fade. */
+.hero-motion {
+  animation: hero-fade 1.6s var(--ease) both;
+}
+.hero-meta {
+  animation: hero-fade 0.8s var(--ease) 0.15s both;
+}
+.intro-line {
+  transform-origin: top;
+  animation: hero-draw-y 0.7s var(--ease) 0.5s both;
+}
+.hero-intro > :not(.intro-line) {
+  animation: hero-rise 0.9s var(--ease) 0.6s both;
+}
+.scroll-link,
+.hero-stamp {
+  animation: hero-fade 0.9s var(--ease) 0.85s both;
+}
+.hero-footer {
+  border-top-color: transparent;
+}
+.hero-footer::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+  transform-origin: left;
+  animation: hero-draw-x 1.3s var(--ease) 0.35s both;
+}
+.hero-footer > span {
+  animation: hero-fade 0.8s var(--ease) 0.95s both;
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@keyframes hero-draw-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes hero-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
 @media (max-width: 700px) {
   .hero-motion {
     opacity: 0.25;
@@ -1371,95 +1402,271 @@ footer {
   }
 }
 
-/* Each opaque project stays in place until the following card covers it. */
-.project-grid {
-  --stack-top: 100px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(70px, 16vh, 160px);
-  padding-bottom: 25px;
-  isolation: isolate;
+/* Parallax: the portrait moves slower than the page, the initial faster. */
+.portrait-frame img {
+  height: 114%;
+  translate: 0 calc(-6% - var(--shift, 0) * 6%);
 }
-.project-grid > .project {
-  position: sticky;
-  top: var(--stack-top);
-  align-self: start;
-  grid-column: 1;
-  min-width: 0;
+.portrait-mark {
+  translate: 0 calc(var(--shift, 0) * -16px);
+}
+
+/* Project deck. The cards are physical prints on a table: they pile up,
+   spread when asked, and float while spread. The shadow is the only
+   elevation on the page because these are the only objects lifted off it. */
+.deck-stage {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 36px;
+}
+.deck-controls {
+  display: none;
+}
+.deck-float {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 15px;
+  padding: 10px;
   box-shadow:
-    0 -8px 28px #292c220c,
-    0 12px 35px #292c2208;
-  scroll-margin-top: var(--stack-top);
+    0 18px 40px #292c2214,
+    0 2px 6px #292c220d;
 }
-.project-grid .project-image {
-  height: clamp(180px, 48svh, 480px);
-  aspect-ratio: auto;
-  padding: 40px 9%;
-  border-radius: 6px;
+.deck-card .project-image {
+  aspect-ratio: 1.45;
+  padding: 30px 22px;
+  border-radius: 7px;
 }
-.project-grid .project-image img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+.deck-card .project-caption {
+  padding: 16px 6px 0;
 }
-.project-grid .project-caption {
-  padding: 22px 15px 0;
+.deck-card .project-title {
+  font-size: clamp(19px, 1.6vw, 24px);
 }
-.project-grid .project-subtitle {
-  padding-inline: 15px;
-  padding-bottom: 9px;
+.deck-card .project-subtitle {
+  padding: 4px 6px 4px;
+  font-size: 10px;
 }
-.project-grid .project-subtitle span {
-  display: inline;
+.deck-card .round-arrow {
+  width: 34px;
+  height: 34px;
 }
-.project-grid.stack-unavailable > .project {
+
+/* Enhanced by project-deck.js. Position comes from --x/--y/--r, pointer
+   drift from --mx/--my on the stage, floating from a looped animation that
+   only runs while spread and pauses under the pointer. */
+.deck-ready .deck-stage {
+  --card-w: clamp(270px, 25vw, 370px);
+  display: block;
   position: relative;
-  top: auto;
+  isolation: isolate;
+}
+.deck-ready .deck-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--card-w);
+  z-index: var(--z, 1);
+  opacity: var(--o, 1);
+  transform: translate(-50%, -50%)
+    translate(calc(var(--x, 0px) + var(--drag, 0px)), var(--y, 0px))
+    rotate(calc(var(--r, 0deg) + var(--drag-r, 0deg)));
+  scale: var(--s, 1);
+  transition:
+    transform 0.9s var(--ease) var(--delay, 0ms),
+    scale 0.45s var(--ease),
+    opacity 0.3s;
+}
+.deck-ready .deck-card.is-dragging {
+  transition: none;
+}
+.deck-tilt {
+  transform: translate(
+    calc(var(--mx, 0) * var(--depth, 0) * 1px),
+    calc(var(--my, 0) * var(--depth, 0) * 1px)
+  );
+  transition: transform 0.7s var(--ease);
+}
+.project-deck[data-state="spread"] .deck-float {
+  animation: deck-float var(--float-duration, 6s) ease-in-out
+    var(--float-delay, 0s) infinite;
+}
+.project-deck[data-state="spread"] .deck-card:hover,
+.project-deck[data-state="spread"] .deck-card:focus-within {
+  z-index: 50;
+  scale: 1.05;
+}
+.project-deck[data-state="spread"] .deck-card:hover .deck-float,
+.project-deck[data-state="spread"] .deck-card:focus-within .deck-float {
+  animation-play-state: paused;
+}
+.project-deck[data-state="stacked"] .deck-stage {
+  cursor: pointer;
+}
+.project-deck[data-state="stacked"] .deck-card {
+  pointer-events: none;
+}
+/* Hovering the pile lifts the top card, hinting that it opens. */
+@media (hover: hover) and (min-width: 701px) {
+  .project-deck[data-state="stacked"] .deck-stage:hover .deck-card:first-child .deck-tilt {
+    transform: translateY(-10px) rotate(-1.5deg);
+  }
+}
+/* The controls are positioned, never in flow, so switching state cannot
+   change the section height: under the pile while piled, under the table
+   while spread. */
+.deck-ready {
+  position: relative;
+  padding-block: 24px 72px;
+}
+.deck-ready .deck-controls {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: calc(24px + var(--controls-top, 100%));
+  left: 0;
+  right: 0;
+  z-index: 60;
+  pointer-events: none;
+  transition: top 0.9s var(--ease);
+}
+.deck-ready .deck-controls button {
+  pointer-events: auto;
+}
+.deck-toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 13px;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+.deck-toggle:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.deck-swipe {
+  display: none;
+  align-items: center;
+  gap: 18px;
+}
+.deck-swipe button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: none;
+  font-size: 18px;
+}
+.deck-count {
+  min-width: 48px;
+  text-align: center;
+  font-size: 12px;
+}
+/* Landing slots behind the pile (drawn by project-deck.js). Threads draw
+   out from the pile in card order, then the outlines appear; the dashes
+   march only while the cards are piled and the table is on screen. */
+.deck-slots {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.deck-thread {
+  fill: none;
+  stroke: #b3b7a8;
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.2s var(--ease) calc(var(--i) * 110ms + 0.15s);
+}
+.deck-slot {
+  opacity: 0;
+  transition: opacity 0.7s var(--ease) calc(var(--i) * 110ms + 0.7s);
+}
+.deck-slot rect {
+  fill: #292c2205;
+  stroke: #a3a797;
+  stroke-width: 1.2;
+  stroke-dasharray: 7 7;
+}
+.deck-slot text {
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  fill: var(--muted);
+}
+.in-view[data-state="stacked"] .deck-thread {
+  stroke-dashoffset: 0;
+}
+.in-view[data-state="stacked"] .deck-slot {
+  opacity: 1;
+}
+.in-view[data-state="stacked"] .deck-slot rect {
+  animation: slot-march 1.4s linear infinite;
+}
+.project-deck[data-state="spread"] .deck-slot {
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+.project-deck[data-state="spread"] .deck-thread {
+  transition-duration: 0.6s;
+  transition-delay: 0s;
+}
+@keyframes slot-march {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+@keyframes deck-float {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  50% {
+    translate: 0 -12px;
+    rotate: 0.8deg;
+  }
+}
+@media (max-width: 1050px) {
+  .deck-ready .deck-stage {
+    --card-w: clamp(250px, 38vw, 340px);
+  }
 }
 @media (max-width: 700px) {
-  .project-grid {
-    --stack-top: 88px;
-    gap: 80px;
+  .deck-ready .deck-stage {
+    --card-w: min(84vw, 340px);
+    cursor: default;
   }
-  .project-grid > .project {
-    padding: 10px;
-    border-radius: 9px;
+  .deck-ready .deck-card {
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
   }
-  .project-grid .project-image {
-    height: clamp(170px, 34svh, 320px);
-    padding: 32px 18px;
+  .deck-ready .deck-card:not(.is-top) {
+    pointer-events: none;
   }
-  .project-grid .project-caption {
-    padding: 18px 8px 0;
-    gap: 12px;
+  .deck-ready .deck-card.is-top {
+    pointer-events: auto;
   }
-  .project-grid .project-title {
-    font-size: 23px;
+  .deck-slots {
+    display: none;
   }
-  .project-grid .round-arrow {
-    width: 32px;
-    height: 32px;
+  .deck-toggle {
+    display: none;
   }
-  .project-grid .project-subtitle {
-    padding-inline: 8px;
-    padding-bottom: 5px;
-  }
-  .project-grid .project-subtitle span {
-    display: block;
-  }
-}
-@media (max-height: 600px), (prefers-reduced-motion: reduce) {
-  .project-grid > .project {
-    position: relative;
-    top: auto;
-  }
-  .project-grid {
-    gap: 50px;
+  .deck-swipe {
+    display: flex;
   }
 }
