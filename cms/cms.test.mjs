@@ -24,7 +24,10 @@ async function fixture(t) {
   await mkdir(join(directory, "assets/images"), { recursive: true });
   const data = clone();
   data.about.portrait = "assets/images/test.png";
-  data.projects.forEach((x) => (x.images = ["assets/images/test.png"]));
+  data.projects.forEach((x) => {
+    x.images = ["assets/images/test.png"];
+    x.video = "";
+  });
   data.experience.forEach((x) => (x.logo = "assets/images/test.png"));
   data.certificates.forEach((x) => (x.image = "assets/images/test.png"));
   await writeFile(join(directory, "assets/images/test.png"), png);
@@ -48,6 +51,16 @@ test("renders original content and computes project count after add/remove", () 
   data.projects = [];
   assert.match(renderPortfolio(data), /Work<span>00<\/span>/);
 });
+test("project video replaces the gallery while keeping the cover image", () => {
+  const data = clone();
+  data.projects.find((project) => project.id === "travel").video = "https://example.com/travel-demo.mp4";
+  const html = renderPortfolio(data);
+  assert.match(html, /Watch introduction: Travel information system/);
+  assert.match(html, /<video controls preload="none" playsinline poster="assets\/images\/gallery\/travel\/1\.png"/);
+  assert.match(html, /<source src="https:\/\/example\.com\/travel-demo\.mp4" type="video\/mp4">/);
+  assert.doesNotMatch(html, /Travel information system, screenshot 2/);
+  assert.match(html, /Accommodation decision support, screenshot 2/);
+});
 test("escapes text and rejects unsafe URLs, IDs, timezone, and media paths", () => {
   const data = clone();
   data.hero.intro = "<img src=x onerror=alert(1)>";
@@ -59,6 +72,8 @@ test("escapes text and rejects unsafe URLs, IDs, timezone, and media paths", () 
     (x) => (x.about.portrait = "assets/images/../../secret.png"),
     (x) => (x.profile.timezone = "Nowhere/Invalid"),
     (x) => (x.projects[1].id = x.projects[0].id),
+    (x) => (x.projects[0].video = "javascript:alert(1)"),
+    (x) => (x.projects[0].video = "assets/videos/../secret.mp4"),
   ]) {
     const bad = clone();
     mutate(bad);

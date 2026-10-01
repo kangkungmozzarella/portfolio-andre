@@ -891,6 +891,16 @@ footer {
   margin-block: 24px;
   background: #dcded4;
 }
+.project-video {
+  margin-block: 24px;
+  background: #24291f;
+}
+.project-video video {
+  display: block;
+  width: 100%;
+  max-height: 54svh;
+  aspect-ratio: 16 / 9;
+}
 .gallery-images img {
   width: 100%;
   height: auto;

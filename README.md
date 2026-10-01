@@ -28,6 +28,8 @@ CMS harus dibuka dari server ini. Live Server dan membuka `admin/index.html` lan
 
 Proyek pertama tampil sebagai karya utama. Gambar pertama dalam galeri menjadi sampul. Jumlah proyek pada navigasi mengikuti jumlah item secara otomatis. Tautan proyek bisa diarahkan ke repositori atau demo masing-masing.
 
+Untuk menampilkan video perkenalan, isi **Video perkenalan** pada item proyek dengan URL HTTPS langsung ke file `.mp4`/`.webm`. Alternatifnya, letakkan file di `assets/videos/` dan isi path seperti `assets/videos/nama-proyek.mp4`. CMS belum mengunggah video otomatis; jika memakai file lokal, commit file video bersama perubahan konten. Saat video terisi, dialog proyek menampilkan video dengan kontrol putar; jika kosong, dialog menampilkan galeri gambar. Video tidak diputar otomatis dan berhenti saat dialog ditutup.
+
 **Simpan bersifat lokal, bukan publish online.** CMS tidak menjalankan perintah Git atau mengirim konten ke layanan lain. Jika konten berubah dari tab/editor lain, penyimpanan ditolak agar tidak menimpa perubahan; salin edit yang ingin dipertahankan sebelum memilih **Batalkan perubahan** untuk memuat versi terbaru.
 
 ## File yang berubah saat disimpan

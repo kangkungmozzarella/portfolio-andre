@@ -66,6 +66,21 @@
   },
   "projects": [
     {
+      "id": "kantor-ai",
+      "title": "An office you can explore.",
+      "name": "Kantor Kita",
+      "category": "Interactive 3D",
+      "stack": "JavaScript · Three.js · Node.js",
+      "description": "An interactive four-floor virtual office for a 13-person team. Explore the building, follow team routines, and manage tasks from the office interface.",
+      "color": "sand",
+      "images": [
+        "assets/images/gallery/kantor-ai/cover.jpg"
+      ],
+      "video": "assets/videos/kantor-ai-explainer-v2.mp4",
+      "url": "https://github.com/kangkungmozzarella/kantor-ai",
+      "linkLabel": "View the source code"
+    },
+    {
       "id": "travel",
       "title": "Travel, without the friction.",
       "name": "Travel information system",
@@ -80,7 +95,8 @@
         "assets/images/gallery/travel/4.png"
       ],
       "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub"
+      "linkLabel": "Visit my GitHub",
+      "video": ""
     },
     {
       "id": "maut",
@@ -97,7 +113,8 @@
         "assets/images/gallery/spk-maut/data penginapan.png"
       ],
       "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub"
+      "linkLabel": "Visit my GitHub",
+      "video": ""
     },
     {
       "id": "lstm",
@@ -114,7 +131,8 @@
         "assets/images/gallery/ml/4.png"
       ],
       "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub"
+      "linkLabel": "Visit my GitHub",
+      "video": ""
     },
     {
       "id": "alumni",
@@ -131,7 +149,8 @@
         "assets/images/gallery/alumni/4.png"
       ],
       "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub"
+      "linkLabel": "Visit my GitHub",
+      "video": ""
     },
     {
       "id": "smart",
@@ -148,7 +167,8 @@
         "assets/images/gallery/spk-smart/4.png"
       ],
       "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub"
+      "linkLabel": "Visit my GitHub",
+      "video": ""
     }
   ],
   "experience": [
