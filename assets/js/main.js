@@ -215,6 +215,7 @@
       );
       if (!template || typeof dialog.showModal !== "function") return;
       event.preventDefault();
+      content.querySelector("video")?.pause();
       content.replaceChildren(template.content.cloneNode(true));
       content.querySelector("h2").id = "dialog-title";
       images = [...content.querySelectorAll(".gallery-images img")];
@@ -229,9 +230,10 @@
   dialog
     .querySelector(".dialog-close")
     .addEventListener("click", () => dialog.close());
-  dialog.addEventListener("close", () =>
-    document.body.classList.remove("dialog-open"),
-  );
+  dialog.addEventListener("close", () => {
+    content.querySelector("video")?.pause();
+    document.body.classList.remove("dialog-open");
+  });
   let startedOnBackdrop = false;
   function outsideDialog(event) {
     const box = dialog.getBoundingClientRect();
@@ -257,7 +259,7 @@
     .querySelector(".gallery-next")
     .addEventListener("click", () => showImage(imageIndex + 1));
   dialog.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+    if (images.length && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
       event.preventDefault();
       showImage(imageIndex + (event.key === "ArrowRight" ? 1 : -1));
     }

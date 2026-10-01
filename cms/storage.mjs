@@ -44,6 +44,17 @@ export function createStorage(root) {
       ...content.projects.flatMap((x) => x.images),
     ]);
     await Promise.all([...paths].map(assertImage));
+    for (const video of content.projects.map((project) => project.video).filter((path) => path.startsWith("assets/videos/"))) {
+      let actual;
+      try {
+        actual = await realpath(resolve(root, video));
+      } catch {
+        throw new Error(`Video tidak ditemukan: ${video}.`);
+      }
+      const videoRoot = await realpath(resolve(root, "assets/videos"));
+      if (!actual.startsWith(videoRoot + sep) || !(await stat(actual)).isFile())
+        throw new Error("Lokasi video tidak valid.");
+    }
     return { content, html: renderPortfolio(content) };
   }
   async function save(input, expectedVersion) {

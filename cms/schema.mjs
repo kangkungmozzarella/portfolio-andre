@@ -119,6 +119,12 @@ export const schema = {
         max: 12,
         hint: "Gambar pertama dipakai sebagai sampul. Gunakan panah untuk mengubah urutannya.",
       },
+      video: text("Video perkenalan", {
+        type: "video",
+        required: false,
+        max: 2000,
+        hint: "Opsional. Isi URL HTTPS video MP4/WebM, atau path assets/videos/nama-file.mp4. Jika diisi, video menggantikan galeri saat proyek dibuka.",
+      }),
       url: url("Tautan proyek atau repositori", { required: false }),
       linkLabel: text("Teks tautan", { required: false }),
     },
@@ -236,6 +242,7 @@ export function validateContent(input) {
         ),
       );
     }
+    if (value === undefined && !field.required) value = "";
     if (typeof value !== "string") fail(label, "harus berupa teks.");
     value = value.trim();
     if (field.required && !value) fail(label, "wajib diisi.");
@@ -252,6 +259,15 @@ export function validateContent(input) {
       } catch {
         fail(label, "gunakan URL lengkap dengan https:// atau http://.");
       }
+    }
+    if (value && field.type === "video") {
+      const local = /^assets\/videos\/[a-zA-Z0-9_./-]+\.(mp4|webm)$/i.test(value) && !value.split("/").includes("..");
+      let remote = false;
+      try {
+        const parsed = new URL(value);
+        remote = parsed.protocol === "https:" && /\.(mp4|webm)$/i.test(parsed.pathname);
+      } catch { /* Local paths are checked above. */ }
+      if (!local && !remote) fail(label, "gunakan URL HTTPS atau path assets/videos/ yang berakhir .mp4 atau .webm.");
     }
     if (
       field.type === "email" &&

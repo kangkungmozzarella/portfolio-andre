@@ -21,6 +21,8 @@ export function createCmsServer({ directory = root } = {}) {
     ".gif": "image/gif",
     ".svg": "image/svg+xml",
     ".ico": "image/x-icon",
+    ".mp4": "video/mp4",
+    ".webm": "video/webm",
   };
   const json = (res, status, data) => {
     res.writeHead(status, {
