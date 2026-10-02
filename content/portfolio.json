@@ -94,6 +94,21 @@
       "video": "assets/videos/sig-penginapan-intro.mp4",
       "url": "https://github.com/kangkungmozzarella/sig-penginapan",
       "linkLabel": "View the source code"
+    },
+    {
+      "id": "si-kancil",
+      "title": "A folk tale you can play.",
+      "name": "Si Kancil: Petualangan di Kampung",
+      "category": "Interactive web",
+      "stack": "TypeScript · HTML5 Canvas · Web Audio · Capacitor",
+      "description": "A 2D platformer inspired by the Si Kancil folk tale, playable in the browser and on Android. Run through four levels, cross the river on crocodiles' backs, and listen to a gamelan soundtrack. Every sprite and sound is generated in code.",
+      "color": "sand",
+      "images": [
+        "assets/images/gallery/si-kancil/cover.jpg"
+      ],
+      "video": "assets/videos/si-kancil-promo.mp4",
+      "url": "https://github.com/kangkungmozzarella/si-kancil",
+      "linkLabel": "View the source code"
     }
   ],
   "experience": [
