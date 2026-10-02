@@ -69,7 +69,7 @@
       "id": "kantor-ai",
       "title": "An office you can explore.",
       "name": "Kantor Kita",
-      "category": "Interactive 3D",
+      "category": "Interactive web",
       "stack": "JavaScript · Three.js · Node.js",
       "description": "An interactive four-floor virtual office for a 13-person team. Explore the building, follow team routines, and manage tasks from the office interface.",
       "color": "sand",
@@ -81,94 +81,19 @@
       "linkLabel": "View the source code"
     },
     {
-      "id": "travel",
-      "title": "Travel, without the friction.",
-      "name": "Travel information system",
-      "category": "Web development",
-      "stack": "Laravel · MySQL · Tailwind CSS",
-      "description": "A travel management platform connecting destination discovery with booking, payment tracking, and itinerary management.",
-      "color": "sand",
-      "images": [
-        "assets/images/gallery/travel/1.png",
-        "assets/images/gallery/travel/2.png",
-        "assets/images/gallery/travel/3.png",
-        "assets/images/gallery/travel/4.png"
-      ],
-      "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub",
-      "video": ""
-    },
-    {
-      "id": "maut",
-      "title": "A better way to decide.",
-      "name": "Accommodation decision support",
-      "category": "Decision systems",
-      "stack": "PHP · MySQL · MAUT",
-      "description": "A decision support system that compares accommodation across weighted criteria using Multi-Attribute Utility Theory.",
-      "color": "sage",
-      "images": [
-        "assets/images/gallery/spk-maut/dashboard.png",
-        "assets/images/gallery/spk-maut/data kriteria.png",
-        "assets/images/gallery/spk-maut/perankingan.png",
-        "assets/images/gallery/spk-maut/data penginapan.png"
-      ],
-      "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub",
-      "video": ""
-    },
-    {
-      "id": "lstm",
-      "title": "Finding signals in the numbers.",
-      "name": "Stock price prediction",
-      "category": "Data science",
-      "stack": "Python · TensorFlow · LSTM",
-      "description": "An exploration of mutual fund stock price prediction using Long Short-Term Memory networks and visualizations.",
-      "color": "rose",
-      "images": [
-        "assets/images/gallery/ml/1.png",
-        "assets/images/gallery/ml/2.png",
-        "assets/images/gallery/ml/3.png",
-        "assets/images/gallery/ml/4.png"
-      ],
-      "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub",
-      "video": ""
-    },
-    {
-      "id": "alumni",
-      "title": "Keeping a community connected.",
-      "name": "Alumni information system",
-      "category": "Web development",
-      "stack": "PHP · MySQL · jQuery",
-      "description": "A platform for managing alumni information, tracking careers, and helping institutions stay connected with their graduates.",
+      "id": "sig-penginapan",
+      "title": "Where to stay, and how to get there.",
+      "name": "SIG Penginapan Banda Aceh",
+      "category": "Research",
+      "stack": "Laravel · MySQL · Leaflet.js · MAUT · A*",
+      "description": "A geographic information system that ranks accommodation in Banda Aceh with Multi-Attribute Utility Theory, then finds the shortest route from your location to the chosen place with the A* algorithm.",
       "color": "blue",
       "images": [
-        "assets/images/gallery/alumni/1.png",
-        "assets/images/gallery/alumni/2.png",
-        "assets/images/gallery/alumni/3.png",
-        "assets/images/gallery/alumni/4.png"
+        "assets/images/gallery/sig-penginapan/cover.jpg"
       ],
-      "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub",
-      "video": ""
-    },
-    {
-      "id": "smart",
-      "title": "The right laptop, for you.",
-      "name": "Laptop selection system",
-      "category": "Decision systems",
-      "stack": "PHP · MySQL · SMART",
-      "description": "A laptop selection tool for students, comparing performance, price, and academic needs with customizable criteria weights.",
-      "color": "sand",
-      "images": [
-        "assets/images/gallery/spk-smart/1.png",
-        "assets/images/gallery/spk-smart/2.png",
-        "assets/images/gallery/spk-smart/3.png",
-        "assets/images/gallery/spk-smart/4.png"
-      ],
-      "url": "https://github.com/kangkungmozzarella",
-      "linkLabel": "Visit my GitHub",
-      "video": ""
+      "video": "assets/videos/sig-penginapan-intro.mp4",
+      "url": "https://github.com/kangkungmozzarella/sig-penginapan",
+      "linkLabel": "View the source code"
     }
   ],
   "experience": [
