@@ -438,8 +438,10 @@ h2 {
   background: #cbd3d3;
 }
 .project-image img {
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
+  max-height: 100%;
   box-shadow: 0 20px 45px #292c2220;
   transition: transform 1s var(--ease);
 }
@@ -895,11 +897,14 @@ footer {
   margin-block: 24px;
   background: #24291f;
 }
+/* Videos keep their own ratio; the poster (same ratio) sizes the box before playback. */
 .project-video video {
   display: block;
-  width: 100%;
-  max-height: 54svh;
-  aspect-ratio: 16 / 9;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 70svh;
+  margin-inline: auto;
 }
 .gallery-images img {
   width: 100%;
