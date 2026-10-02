@@ -53,7 +53,14 @@ test("renders original content and computes project count after add/remove", () 
 });
 test("project video replaces the gallery while keeping the cover image", () => {
   const data = clone();
-  data.projects.find((project) => project.id === "travel").video = "https://example.com/travel-demo.mp4";
+  const project = (id, name, folder) => ({
+    id, name, title: name, category: "Test", stack: "Test", description: "Test", color: "sand",
+    images: [1, 2].map((n) => `assets/images/gallery/${folder}/${n}.png`), url: "", linkLabel: "", video: "",
+  });
+  data.projects = [
+    { ...project("travel", "Travel information system", "travel"), video: "https://example.com/travel-demo.mp4" },
+    project("maut", "Accommodation decision support", "spk-maut"),
+  ];
   const html = renderPortfolio(data);
   assert.match(html, /Watch introduction: Travel information system/);
   assert.match(html, /<video controls preload="none" playsinline poster="assets\/images\/gallery\/travel\/1\.png"/);
