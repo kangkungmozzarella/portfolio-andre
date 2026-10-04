@@ -10,6 +10,7 @@ const e = (value) =>
   );
 const form = $("#content-form");
 const mediaDialog = $("#media-dialog");
+const adjustDialog = $("#adjust-dialog");
 let content, baseline, version, token;
 let active = Object.keys(schema)[0];
 let busy = false,
@@ -17,6 +18,7 @@ let busy = false,
 let media = [],
   mediaCallback = null,
   mediaReturnPath = null;
+let adjustmentPath = null;
 let openItems = new Set();
 const fieldDefinitions = new Map();
 const get = (path) => path.split(".").reduce((obj, key) => obj[key], content);
@@ -28,6 +30,15 @@ function set(path, value) {
 const filename = (path) => path.split("/").pop();
 const imageURL = (path) =>
   "/" + path.split("/").map(encodeURIComponent).join("/");
+const imageData = (value) =>
+  typeof value === "string"
+    ? { src: value, fit: "contain", ratio: "auto", x: 50, y: 50, zoom: 100 }
+    : { src: "", fit: "contain", ratio: "auto", x: 50, y: 50, zoom: 100, ...value };
+const imageSrc = (value) => imageData(value).src;
+const imageStyle = (value) => {
+  const data = imageData(value);
+  return `--preview-fit:${data.fit};--preview-x:${data.x}%;--preview-y:${data.y}%;--preview-zoom:${data.zoom / 100};${data.ratio === "auto" ? "" : `aspect-ratio:${data.ratio};`}`;
+};
 function message(text, error = false, target = "#message") {
   const node = $(target);
   node.textContent = text;
@@ -95,10 +106,12 @@ function fieldHTML(field, path) {
   const attrs = `id="${id}" data-field="${path}" ${field.required ? "required" : ""} ${field.max && !["lines", "list", "images"].includes(field.type) ? `maxlength="${field.max}"` : ""} ${hint ? `aria-describedby="hint-${path}"` : ""}`;
   if (field.type === "list")
     return `<div class="collection-field">${label}${collectionHTML(field, path)}${hint}</div>`;
-  if (field.type === "image")
-    return `<div class="field wide">${label}<div class="image-field"><div class="image-preview">${value ? `<img src="${e(imageURL(value))}" alt="${e(field.label)}">` : '<span aria-hidden="true">＋</span>'}</div><div><p class="image-name">${e(value ? filename(value) : "Belum ada gambar dipilih")}</p><button type="button" class="button ghost" data-media-path="${path}" aria-label="Pilih ${e(field.label.toLowerCase())}">Pilih gambar</button></div></div>${hint}</div>`;
+  if (field.type === "image") {
+    const src = imageSrc(value);
+    return `<div class="field wide">${label}<div class="image-field"><div class="image-preview" style="${imageStyle(value)}">${src ? `<img src="${e(imageURL(src))}" alt="${e(field.label)}">` : '<span aria-hidden="true">＋</span>'}</div><div><p class="image-name">${e(src ? filename(src) : "Belum ada gambar dipilih")}</p><div class="image-buttons"><button type="button" class="button ghost" data-media-path="${path}" aria-label="Pilih ${e(field.label.toLowerCase())}">Pilih gambar</button>${src ? `<button type="button" class="button primary" data-adjust-image="${path}">Atur posisi</button>` : ""}</div></div></div>${hint}</div>`;
+  }
   if (field.type === "images")
-    return `<div class="field wide">${label}<div class="image-gallery">${value.map((src, i) => `<div class="gallery-card"><button type="button" class="gallery-image" data-media-path="${path}.${i}" aria-label="Ganti gambar ${i + 1}"><img src="${e(imageURL(src))}" alt="Gambar galeri ${i + 1}"><span>${i === 0 ? "Sampul" : `Gambar ${i + 1}`}</span></button><div class="gallery-actions"><button type="button" class="icon-button" data-move="${path}" data-index="${i}" data-direction="-1" ${i === 0 ? "disabled" : ""} aria-label="Geser gambar ${i + 1} ke kiri">←</button><button type="button" class="icon-button danger" data-remove="${path}" data-index="${i}" ${value.length <= field.min ? "disabled" : ""} aria-label="Hapus gambar ${i + 1}">×</button><button type="button" class="icon-button" data-move="${path}" data-index="${i}" data-direction="1" ${i === value.length - 1 ? "disabled" : ""} aria-label="Geser gambar ${i + 1} ke kanan">→</button></div></div>`).join("")}${value.length < field.max ? `<button type="button" class="gallery-add" data-add-image="${path}">＋ Tambah gambar</button>` : ""}</div>${hint}</div>`;
+    return `<div class="field wide">${label}<div class="image-gallery">${value.map((item, i) => { const src = imageSrc(item); return `<div class="gallery-card"><button type="button" class="gallery-image" data-media-path="${path}.${i}" aria-label="Ganti gambar ${i + 1}" style="${imageStyle(item)}"><img src="${e(imageURL(src))}" alt="Gambar galeri ${i + 1}"><span>${i === 0 ? "Sampul" : `Gambar ${i + 1}`}</span></button><button type="button" class="gallery-adjust" data-adjust-image="${path}.${i}">Atur posisi</button><div class="gallery-actions"><button type="button" class="icon-button" data-move="${path}" data-index="${i}" data-direction="-1" ${i === 0 ? "disabled" : ""} aria-label="Geser gambar ${i + 1} ke kiri">←</button><button type="button" class="icon-button danger" data-remove="${path}" data-index="${i}" ${value.length <= field.min ? "disabled" : ""} aria-label="Hapus gambar ${i + 1}">×</button><button type="button" class="icon-button" data-move="${path}" data-index="${i}" data-direction="1" ${i === value.length - 1 ? "disabled" : ""} aria-label="Geser gambar ${i + 1} ke kanan">→</button></div></div>`; }).join("")}${value.length < field.max ? `<button type="button" class="gallery-add" data-add-image="${path}">＋ Tambah gambar</button>` : ""}</div>${hint}</div>`;
   if (field.type === "select")
     return `<label class="field" for="${id}">${label}<select ${attrs}>${Object.entries(
       field.options,
@@ -188,9 +201,18 @@ form.addEventListener("click", (event) => {
   const button = event.target.closest("button");
   if (!button || busy) return;
   rememberOpen();
+  if (button.dataset.adjustImage) return openAdjustment(button.dataset.adjustImage);
   if (button.dataset.mediaPath)
     return openMedia(
-      (path) => set(button.dataset.mediaPath, path),
+      (path) => {
+        const current = get(button.dataset.mediaPath);
+        set(
+          button.dataset.mediaPath,
+          typeof current === "string"
+            ? path
+            : { ...imageData(current), src: path },
+        );
+      },
       button.dataset.mediaPath,
     );
   if (button.dataset.addImage)
@@ -231,6 +253,91 @@ form.addEventListener("click", (event) => {
     render();
     form.querySelector(`[data-item="${path}.${target}"] summary`)?.focus();
   }
+});
+
+function adjustmentData() {
+  return imageData(get(adjustmentPath));
+}
+function updateCropEditor() {
+  if (!adjustmentPath) return;
+  const data = adjustmentData();
+  const frame = $("#crop-frame");
+  const image = $("#crop-image");
+  const src = imageURL(data.src);
+  if (image.getAttribute("src") !== src) image.src = src;
+  image.style.objectFit = data.fit;
+  image.style.objectPosition = `${data.x}% ${data.y}%`;
+  image.style.transform = `scale(${data.zoom / 100})`;
+  frame.style.aspectRatio = data.ratio === "auto"
+    ? (image.naturalWidth && image.naturalHeight ? `${image.naturalWidth} / ${image.naturalHeight}` : "4 / 5")
+    : data.ratio;
+  $("#crop-ratio").value = data.ratio;
+  $("#crop-fit").value = data.fit;
+  $("#crop-zoom").value = data.zoom;
+  $("#crop-zoom-value").textContent = `${data.zoom}%`;
+}
+function updateAdjustment(patch) {
+  const data = { ...adjustmentData(), ...patch };
+  set(adjustmentPath, data);
+  updateCropEditor();
+  updateState();
+}
+function openAdjustment(path) {
+  adjustmentPath = path;
+  updateCropEditor();
+  adjustDialog.showModal();
+  $("#crop-frame").focus();
+}
+$("#crop-image").addEventListener("load", updateCropEditor);
+$("#crop-ratio").addEventListener("change", (event) => updateAdjustment({ ratio: event.target.value }));
+$("#crop-fit").addEventListener("change", (event) => updateAdjustment({ fit: event.target.value }));
+$("#crop-zoom").addEventListener("input", (event) => updateAdjustment({ zoom: Number(event.target.value) }));
+$("#reset-crop").addEventListener("click", () => updateAdjustment({ x: 50, y: 50, zoom: 100 }));
+function closeAdjustment() {
+  adjustDialog.close();
+  render();
+  form.querySelector(`[data-adjust-image="${adjustmentPath}"]`)?.focus();
+  adjustmentPath = null;
+}
+$("#close-adjust").addEventListener("click", closeAdjustment);
+$("#finish-adjust").addEventListener("click", closeAdjustment);
+adjustDialog.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeAdjustment();
+});
+const cropFrame = $("#crop-frame");
+let cropDrag = null;
+cropFrame.addEventListener("pointerdown", (event) => {
+  if (!adjustmentPath) return;
+  const data = adjustmentData();
+  cropDrag = { pointer: event.pointerId, clientX: event.clientX, clientY: event.clientY, x: data.x, y: data.y };
+  cropFrame.setPointerCapture(event.pointerId);
+  cropFrame.classList.add("dragging");
+});
+cropFrame.addEventListener("pointermove", (event) => {
+  if (!cropDrag || cropDrag.pointer !== event.pointerId) return;
+  const rect = cropFrame.getBoundingClientRect();
+  updateAdjustment({
+    x: Math.max(0, Math.min(100, cropDrag.x - ((event.clientX - cropDrag.clientX) / rect.width) * 100)),
+    y: Math.max(0, Math.min(100, cropDrag.y - ((event.clientY - cropDrag.clientY) / rect.height) * 100)),
+  });
+});
+function endCropDrag(event) {
+  if (!cropDrag || cropDrag.pointer !== event.pointerId) return;
+  cropDrag = null;
+  cropFrame.classList.remove("dragging");
+}
+cropFrame.addEventListener("pointerup", endCropDrag);
+cropFrame.addEventListener("pointercancel", endCropDrag);
+cropFrame.addEventListener("keydown", (event) => {
+  if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
+  event.preventDefault();
+  const data = adjustmentData();
+  const step = event.shiftKey ? 5 : 1;
+  updateAdjustment({
+    x: Math.max(0, Math.min(100, data.x + (event.key === "ArrowRight" ? step : event.key === "ArrowLeft" ? -step : 0))),
+    y: Math.max(0, Math.min(100, data.y + (event.key === "ArrowDown" ? step : event.key === "ArrowUp" ? -step : 0))),
+  });
 });
 async function save() {
   if (busy || !dirty) return;
