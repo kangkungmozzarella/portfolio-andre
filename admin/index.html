@@ -109,6 +109,31 @@
       ></p>
       <div id="media-grid" class="media-grid"></div>
     </dialog>
+    <dialog id="adjust-dialog" class="adjust-dialog" aria-labelledby="adjust-title">
+      <div class="media-header">
+        <div>
+          <p class="eyebrow">POSISI FOTO</p>
+          <h2 id="adjust-title">Atur foto dalam bingkai</h2>
+        </div>
+        <button class="icon-button" id="close-adjust" aria-label="Tutup pengaturan foto">×</button>
+      </div>
+      <div class="crop-editor">
+        <div>
+          <div id="crop-frame" class="crop-frame" tabindex="0" aria-label="Preview foto. Geser foto dengan mouse atau tombol panah.">
+            <img id="crop-image" alt="Preview posisi foto" draggable="false" />
+            <span class="crop-hint">Geser foto untuk mengatur posisi</span>
+          </div>
+        </div>
+        <div class="crop-controls">
+          <label><span>Rasio bingkai</span><select id="crop-ratio"><option value="auto">Asli</option><option value="1/1">Kotak 1:1</option><option value="4/3">Lanskap 4:3</option><option value="16/9">Lebar 16:9</option><option value="4/5">Potret 4:5</option></select></label>
+          <label><span>Tampilan foto</span><select id="crop-fit"><option value="cover">Penuhi bingkai</option><option value="contain">Tampil utuh</option></select></label>
+          <label class="adjust-range"><span>Zoom <output id="crop-zoom-value">100%</output></span><input id="crop-zoom" type="range" min="100" max="200" value="100" /></label>
+          <button type="button" class="button ghost" id="reset-crop">Kembalikan ke tengah</button>
+          <p>Tarik foto langsung di dalam bingkai. Kamu juga bisa memakai tombol panah saat preview terpilih.</p>
+        </div>
+      </div>
+      <div class="adjust-dialog-footer"><button type="button" class="button primary" id="finish-adjust">Selesai</button></div>
+    </dialog>
     <noscript
       ><p class="notice error">
         Aktifkan JavaScript untuk menggunakan CMS.

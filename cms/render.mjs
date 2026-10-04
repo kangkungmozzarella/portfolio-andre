@@ -14,8 +14,21 @@ const external = (url, text, cls = "text-link") =>
   url
     ? `<a class="${cls}" href="${e(url)}" target="_blank" rel="noopener noreferrer">${e(text)} ${icon("arrow")}</a>`
     : "";
-const image = (path, alt, extra = "") =>
-  `<img src="${e(path)}" alt="${e(alt)}" ${extra}>`;
+const imageData = (value) => typeof value === "string"
+  ? { src: value, ratio: "auto", zoom: 100 }
+  : value;
+const image = (value, alt, extra = "") => {
+  const data = imageData(value);
+  const style = typeof value === "string"
+    ? ""
+    : ` style="--image-fit:${data.fit};--image-x:${data.x}%;--image-y:${data.y}%;--image-zoom:${data.zoom / 100}"`;
+  return `<img src="${e(data.src)}" alt="${e(alt)}"${style} ${extra}>`;
+};
+const frameStyle = (value) => {
+  const ratio = imageData(value).ratio;
+  return ratio === "auto" ? "" : ` style="aspect-ratio:${e(ratio)}"`;
+};
+const imageSrc = (value) => imageData(value).src;
 const iconPaths = {
   arrow: "M5 19 19 5M5 5h14v14",
   down: "M12 4v16M5 13l7 7 7-7",
@@ -46,7 +59,7 @@ export function renderPortfolio(input) {
       const n = String(i + 1).padStart(2, "0");
       return `<article class="project deck-card" data-category="${e(project.category)}"><div class="deck-tilt"><div class="deck-float">
       <button class="project-open" data-detail="project-${e(project.id)}" aria-label="${project.video ? "Watch introduction" : "View screenshots"}: ${e(project.name)}">
-        <span class="project-image ${e(project.color)}"><span class="image-index">PROJECT / ${n}</span>${image(project.images[0], `${project.name} interface`, 'loading="lazy" width="1446" height="788" draggable="false"')}<span class="project-open-label">${project.video ? "Watch introduction" : "View screenshots"}</span></span>
+        <span class="project-image ${e(project.color)}"${frameStyle(project.images[0])}><span class="image-index">PROJECT / ${n}</span>${image(project.images[0], `${project.name} interface`, 'loading="lazy" width="1446" height="788" draggable="false"')}<span class="project-open-label">${project.video ? "Watch introduction" : "View screenshots"}</span></span>
         <span class="project-caption"><span><span class="eyebrow">${e(project.category)} / ${n}</span><span class="project-title">${e(project.title)}</span></span><span class="round-arrow" aria-hidden="true">${icon("arrow")}</span></span>
       </button><p class="project-subtitle">${e(project.name)} · ${e(project.stack)}</p>
     </div></div></article>`;
@@ -73,7 +86,7 @@ export function renderPortfolio(input) {
     projects
       .map(
         (item) =>
-          `<template id="detail-project-${e(item.id)}"><p class="eyebrow">${e(item.category)}</p><h2>${e(item.name)}</h2><p class="detail-description">${lines(item.description)}</p><p class="detail-stack">${e(item.stack)}</p>${item.video ? `<div class="project-video"><video controls preload="none" playsinline poster="${e(item.images[0])}" aria-label="Introduction to ${e(item.name)}"><source src="${e(item.video)}" type="video/${item.video.toLowerCase().split(/[?#]/)[0].endsWith(".webm") ? "webm" : "mp4"}">Your browser cannot play this video.</video></div>` : `<div class="gallery-images">${item.images.map((src, i) => image(src, `${item.name}, screenshot ${i + 1}`, 'width="1446" height="788"')).join("")}</div>`}${external(item.url, item.linkLabel || "View project")}</template>`,
+          `<template id="detail-project-${e(item.id)}"><p class="eyebrow">${e(item.category)}</p><h2>${e(item.name)}</h2><p class="detail-description">${lines(item.description)}</p><p class="detail-stack">${e(item.stack)}</p>${item.video ? `<div class="project-video"><video controls preload="none" playsinline poster="${e(imageSrc(item.images[0]))}" aria-label="Introduction to ${e(item.name)}"><source src="${e(item.video)}" type="video/${item.video.toLowerCase().split(/[?#]/)[0].endsWith(".webm") ? "webm" : "mp4"}">Your browser cannot play this video.</video></div>` : `<div class="gallery-images">${item.images.map((src, i) => image(src, `${item.name}, screenshot ${i + 1}`, 'width="1446" height="788"')).join("")}</div>`}${external(item.url, item.linkLabel || "View project")}</template>`,
       )
       .join("\n") +
     certificates
@@ -121,7 +134,7 @@ export function renderPortfolio(input) {
     </div>
   </section>
   <section class="about-section" id="about" aria-labelledby="about-title"><div class="wrap about-layout section-space">
-    <div class="about-photo reveal"><div class="portrait-frame">${image(a.portrait, p.name, 'width="502" height="900" loading="lazy"')}<span class="portrait-mark" aria-hidden="true">${e(a.mark)}</span></div><p><span>${e(p.name)}</span><span>${e(a.caption)}</span></p></div>
+    <div class="about-photo reveal"><div class="portrait-frame"${frameStyle(a.portrait)}>${image(a.portrait, p.name, 'width="502" height="900" loading="lazy"')}<span class="portrait-mark" aria-hidden="true">${e(a.mark)}</span></div><p><span>${e(p.name)}</span><span>${e(a.caption)}</span></p></div>
     <div class="about-copy"><p class="eyebrow section-index reveal">02 / THE PERSON BEHIND THE WORK</p><h2 id="about-title" class="reveal">${e(a.heading)}<br>${e(a.line2)} <em>${e(a.accent)}</em></h2><div class="about-prose reveal">${a.paragraphs.map((t) => `<p>${e(t)}</p>`).join("")}</div>
     ${external(p.cv, "Take a look at my CV", "text-link reveal")}<dl class="about-facts reveal">${a.facts.map((f) => `<div><dt>${e(f.label)}</dt><dd>${e(f.value)}</dd></div>`).join("")}</dl></div>
     <div class="toolbox reveal"><p class="eyebrow">THE TOOLS I WORK WITH</p>${a.skills.map((f) => `<div><h3>${e(f.label)}</h3><p>${e(f.value)}</p></div>`).join("")}</div>

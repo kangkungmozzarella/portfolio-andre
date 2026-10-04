@@ -10,6 +10,10 @@ const area = (label, extra = {}) =>
 const url = (label, extra = {}) =>
   text(label, { type: "url", max: 2000, ...extra });
 const image = (label) => text(label, { type: "image", max: 500 });
+const imageOptions = {
+  fits: ["contain", "cover"],
+  ratios: ["auto", "1/1", "4/3", "16/9", "4/5"],
+};
 const lines = (label, extra = {}) => ({
   type: "lines",
   label,
@@ -241,6 +245,23 @@ export function validateContent(input) {
           label,
         ),
       );
+    }
+    if (field.type === "image" && value && typeof value === "object" && !Array.isArray(value)) {
+      const result = {
+        src: validate(value.src, image(label), label),
+        fit: value.fit ?? "contain",
+        ratio: value.ratio ?? "auto",
+        x: Number(value.x ?? 50),
+        y: Number(value.y ?? 50),
+        zoom: Number(value.zoom ?? 100),
+      };
+      if (!imageOptions.fits.includes(result.fit)) fail(label, "mode tampilan tidak valid.");
+      if (!imageOptions.ratios.includes(result.ratio)) fail(label, "rasio gambar tidak valid.");
+      if (![result.x, result.y].every((number) => Number.isFinite(number) && number >= 0 && number <= 100))
+        fail(label, "posisi gambar harus antara 0 dan 100.");
+      if (!Number.isFinite(result.zoom) || result.zoom < 100 || result.zoom > 200)
+        fail(label, "zoom gambar harus antara 100 dan 200.");
+      return result;
     }
     if (value === undefined && !field.required) value = "";
     if (typeof value !== "string") fail(label, "harus berupa teks.");

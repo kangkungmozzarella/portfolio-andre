@@ -37,11 +37,12 @@ export function createStorage(root) {
   }
   async function prepare(input) {
     const content = validateContent(input);
+    const imagePath = (value) => typeof value === "string" ? value : value.src;
     const paths = new Set([
-      content.about.portrait,
-      ...content.experience.map((x) => x.logo),
-      ...content.certificates.map((x) => x.image),
-      ...content.projects.flatMap((x) => x.images),
+      imagePath(content.about.portrait),
+      ...content.experience.map((x) => imagePath(x.logo)),
+      ...content.certificates.map((x) => imagePath(x.image)),
+      ...content.projects.flatMap((x) => x.images.map(imagePath)),
     ]);
     await Promise.all([...paths].map(assertImage));
     for (const video of content.projects.map((project) => project.video).filter((path) => path.startsWith("assets/videos/"))) {

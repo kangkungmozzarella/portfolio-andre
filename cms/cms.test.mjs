@@ -68,6 +68,34 @@ test("project video replaces the gallery while keeping the cover image", () => {
   assert.doesNotMatch(html, /Travel information system, screenshot 2/);
   assert.match(html, /Accommodation decision support, screenshot 2/);
 });
+test("image adjustments are validated and rendered per image", () => {
+  const data = clone();
+  data.about.portrait = {
+    src: data.about.portrait,
+    fit: "contain",
+    ratio: "4/5",
+    x: 35,
+    y: 20,
+    zoom: 125,
+  };
+  data.projects[0].images[0] = {
+    src: data.projects[0].images[0],
+    fit: "cover",
+    ratio: "16/9",
+    x: 70,
+    y: 45,
+    zoom: 110,
+  };
+  const html = renderPortfolio(data);
+  assert.match(html, /class="portrait-frame" style="aspect-ratio:4\/5"/);
+  assert.match(html, /--image-fit:contain;--image-x:35%;--image-y:20%;--image-zoom:1\.25/);
+  assert.match(html, /class="project-image sand" style="aspect-ratio:16\/9"/);
+  assert.match(html, /poster="assets\/images\/gallery\/kantor-ai\/cover\.jpg"/);
+
+  const bad = clone();
+  bad.about.portrait = { src: bad.about.portrait, fit: "stretch", ratio: "auto", x: 50, y: 50, zoom: 100 };
+  assert.throws(() => validateContent(bad), /mode tampilan tidak valid/);
+});
 test("escapes text and rejects unsafe URLs, IDs, timezone, and media paths", () => {
   const data = clone();
   data.hero.intro = "<img src=x onerror=alert(1)>";
