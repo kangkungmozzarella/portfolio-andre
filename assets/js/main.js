@@ -1,200 +1,193 @@
 (() => {
   "use strict";
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const header = document.querySelector(".site-header");
-  let scrollPending = false;
-  function updateHeader() {
-    header.classList.toggle("scrolled", window.scrollY > 24);
-    scrollPending = false;
-  }
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!scrollPending) {
-        scrollPending = true;
-        requestAnimationFrame(updateHeader);
-      }
-    },
-    { passive: true },
-  );
-  updateHeader();
-
-  // Parallax: the portrait moves slower than the page. The value is written as
-  // a CSS variable; the stylesheet default leaves the image at rest.
-  const portrait = document.querySelector(".portrait-frame");
-  let sceneFrame = 0;
-  function renderScene() {
-    sceneFrame = 0;
-    if (!portrait) return;
-    const vh = window.innerHeight;
-    const box = portrait.getBoundingClientRect();
-    const offset = (box.top + box.height / 2 - vh / 2) / vh;
-    portrait.style.setProperty(
-      "--shift",
-      Math.min(1, Math.max(-1, offset)).toFixed(3),
-    );
-  }
-  function clearScene() {
-    portrait?.style.removeProperty("--shift");
-  }
-  function scheduleScene() {
-    if (!sceneFrame && !motion.matches)
-      sceneFrame = requestAnimationFrame(renderScene);
-  }
-  window.addEventListener("scroll", scheduleScene, { passive: true });
-  window.addEventListener("resize", scheduleScene, { passive: true });
-  motion.addEventListener("change", () =>
-    motion.matches ? clearScene() : scheduleScene(),
-  );
-  scheduleScene();
-
-  // Keep content visible by default; enhance only when observation is available.
-  if ("IntersectionObserver" in window) {
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08 },
-    );
-    document
-      .querySelectorAll(".reveal")
-      .forEach((el) => revealObserver.observe(el));
-    if (!motion.matches)
-      document.documentElement.classList.add("motion-enabled");
-    motion.addEventListener("change", (event) => {
-      document.documentElement.classList.toggle(
-        "motion-enabled",
-        !event.matches,
-      );
-    });
-
-    const navLinks = [...document.querySelectorAll(".site-header nav a")];
-    const sections = [...document.querySelectorAll("main > section")];
-    const visibleSections = new Set();
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.isIntersecting
-            ? visibleSections.add(entry.target)
-            : visibleSections.delete(entry.target);
-        });
-        const current = sections.find((section) =>
-          visibleSections.has(section),
-        );
-        navLinks.forEach((link) => {
-          if (current && link.hash === "#" + current.id)
-            link.setAttribute("aria-current", "location");
-          else link.removeAttribute("aria-current");
-        });
-      },
-      { rootMargin: "-15% 0px -50% 0px" },
-    );
-    sections.forEach((section) => sectionObserver.observe(section));
-  }
+  const saveData = navigator.connection?.saveData === true;
+  const body = document.body;
+  const topbar = document.querySelector(".topbar");
+  const dialog = document.querySelector(".project-dialog");
 
   function updateTime() {
     const now = new Date();
     document.querySelectorAll("[data-year]").forEach((el) => {
       el.textContent = now.getFullYear();
     });
-    document.querySelector(".local-time").textContent = new Intl.DateTimeFormat(
-      "en-GB",
-      {
-        timeZone:
-          document.querySelector(".local-time").dataset.timezone ||
-          "Asia/Jakarta",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      },
-    ).format(now);
+    const clock = document.querySelector(".local-time");
+    clock.textContent = new Intl.DateTimeFormat("en-GB", {
+      timeZone: clock.dataset.timezone || "Asia/Jakarta",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).format(now);
   }
   updateTime();
-  setInterval(updateTime, 60000);
+  setInterval(updateTime, 30000);
 
-  // Animate the measured height in both directions while retaining native
-  // summary keyboard support and a usable details element without JavaScript.
-  const experiencePanels = new Map();
-  document.querySelectorAll(".experience-row").forEach((row) => {
-    const summary = row.querySelector("summary");
-    let expanded = row.open;
-    let animation = null;
+  window.addEventListener(
+    "scroll",
+    () => topbar.classList.toggle("is-scrolled", window.scrollY > 24),
+    { passive: true },
+  );
 
-    function settle() {
-      if (animation) {
-        animation.onfinish = null;
-        animation.cancel();
-        animation = null;
-      }
-      row.open = expanded;
-      row.dataset.expanded = String(expanded);
-      row.style.removeProperty("height");
-      row.style.removeProperty("overflow");
+  // Tabs: Projects and Profile are two screens of one page, like a console home.
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const panelOf = (tab) =>
+    document.getElementById(tab.getAttribute("aria-controls"));
+  function showTab(name, { focus = false, target = null } = {}) {
+    tabs.forEach((tab) => {
+      const active = tab.getAttribute("aria-controls") === name;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+      panelOf(tab).hidden = !active;
+      if (active && focus) tab.focus();
+    });
+    body.dataset.tab = name;
+    syncStage();
+    if (target) target.scrollIntoView();
+    else window.scrollTo(0, 0);
+  }
+  // Old section links (#work, #about, #experience, #contact) still land in the right tab.
+  function route(id) {
+    if (id === "projects" || id === "work") {
+      showTab("projects");
+      return true;
     }
-
-    function setExpanded(nextExpanded) {
-      if (expanded === nextExpanded) return;
-      expanded = nextExpanded;
-      if (motion.matches || typeof row.animate !== "function") {
-        settle();
-        return;
-      }
-
-      // Read the current animated height before cancelling so rapid clicks
-      // reverse from the current position instead of jumping to an endpoint.
-      const from = row.getBoundingClientRect().height;
-      if (animation) {
-        animation.onfinish = null;
-        animation.cancel();
-      }
-      row.style.removeProperty("height");
-      row.open = true;
-      row.dataset.expanded = String(expanded);
-      const border = parseFloat(getComputedStyle(row).borderBottomWidth);
-      const to = expanded
-        ? row.getBoundingClientRect().height
-        : summary.getBoundingClientRect().height + border;
-      row.style.height = `${from}px`;
-      row.style.overflow = "clip";
-      animation = row.animate(
-        { height: [`${from}px`, `${to}px`] },
-        { duration: 420, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
-      );
-      animation.onfinish = settle;
+    const el = id && document.getElementById(id);
+    if (el && el.closest("#profile")) {
+      showTab("profile", { target: id === "profile" ? null : el });
+      return true;
     }
-
-    experiencePanels.set(row, setExpanded);
-    summary.addEventListener("click", (event) => {
+    return false;
+  }
+  tabs.forEach((tab, i) => {
+    tab.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
       event.preventDefault();
-      const nextExpanded = !expanded;
-      if (nextExpanded) {
-        experiencePanels.forEach((setOtherExpanded, otherRow) => {
-          if (
-            otherRow !== row &&
-            otherRow.parentElement === row.parentElement
-          ) {
-            setOtherExpanded(false);
-          }
-        });
-      }
-      setExpanded(nextExpanded);
+      const next = tabs[(i + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
+      showTab(next.getAttribute("aria-controls"), { focus: true });
+      history.replaceState(null, "", next.hash);
     });
+  });
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link || link.hash === "#main") return;
+    if (route(link.hash.slice(1))) {
+      event.preventDefault();
+      history.replaceState(null, "", link.hash);
+    }
+  });
+  window.addEventListener("hashchange", () => route(location.hash.slice(1)));
 
-    window.addEventListener("resize", () => {
-      if (animation) settle();
+  // Project selection drives the tiles, the info block, and the background stage.
+  const tiles = [...document.querySelectorAll(".tile[data-index]")];
+  const infos = [...document.querySelectorAll(".project-info")];
+  const slides = [...document.querySelectorAll(".stage-slide")];
+  const sound = document.querySelector(".sound-toggle");
+  let current = 0;
+  let soundOn = false;
+  const autoplay = () => !motion.matches && !saveData;
+
+  function select(index, { focus = false } = {}) {
+    if (!tiles.length) return;
+    current = (index + tiles.length) % tiles.length;
+    tiles.forEach((tile, i) => tile.setAttribute("aria-pressed", String(i === current)));
+    infos.forEach((info, i) => {
+      info.hidden = i !== current;
     });
-    motion.addEventListener("change", () => {
-      if (motion.matches) settle();
+    slides.forEach((slide, i) => slide.classList.toggle("is-active", i === current));
+    if (focus) tiles[current].focus({ preventScroll: true });
+    tiles[current].scrollIntoView({
+      block: "nearest",
+      inline: "nearest",
+      behavior: motion.matches ? "auto" : "smooth",
+    });
+    syncStage();
+  }
+
+  function syncStage() {
+    const live = body.dataset.tab === "projects" && !document.hidden && !dialog.open;
+    slides.forEach((slide, i) => {
+      const video = slide.querySelector("video");
+      if (!video) return;
+      if (i === current && live && autoplay() && !slide.classList.contains("has-error")) {
+        video.muted = !soundOn;
+        video.preload = "auto";
+        video.play().catch(() => {
+          // Browsers may refuse audible autoplay; fall back to a muted preview.
+          soundOn = false;
+          video.muted = true;
+          video.play().catch(() => {});
+          updateSound();
+        });
+      } else {
+        video.pause();
+      }
+    });
+    updateSound();
+  }
+
+  function updateSound() {
+    if (!sound) return;
+    const slide = slides[current];
+    sound.hidden = !(slide?.querySelector("video") && autoplay() && !slide.classList.contains("has-error"));
+    sound.setAttribute("aria-pressed", String(soundOn));
+    sound.setAttribute("aria-label", soundOn ? "Mute preview" : "Unmute preview");
+  }
+
+  slides.forEach((slide) => {
+    const backdrop = slide.querySelector(".stage-backdrop");
+    const markOrientation = () =>
+      slide.classList.toggle("is-portrait", backdrop.naturalHeight > backdrop.naturalWidth);
+    if (backdrop.complete) markOrientation();
+    else backdrop.addEventListener("load", markOrientation);
+    // A failed video keeps its poster and drops the sound control.
+    slide.querySelector("video source")?.addEventListener("error", () => {
+      slide.classList.add("has-error");
+      updateSound();
     });
   });
 
+  tiles.forEach((tile, i) => {
+    tile.addEventListener("click", () => {
+      // First press selects, a second press on the selected tile opens it.
+      if (i === current) infos[current].querySelector("[data-detail]").click();
+      else select(i);
+    });
+  });
+  document.querySelectorAll("[data-select]").forEach((card) => {
+    card.addEventListener("click", () => select(Number(card.dataset.select), { focus: true }));
+  });
+  sound?.addEventListener("click", () => {
+    soundOn = !soundOn;
+    syncStage();
+  });
+  document.addEventListener("visibilitychange", syncStage);
+  motion.addEventListener("change", syncStage);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || dialog.open) return;
+    const target = event.target;
+    if (target.closest("input, textarea, select, [contenteditable], [role='tab']")) return;
+    const key = event.key.toLowerCase();
+    if (key === "p") {
+      const next = body.dataset.tab === "projects" ? "profile" : "projects";
+      showTab(next);
+      history.replaceState(null, "", "#" + next);
+      return;
+    }
+    if (body.dataset.tab !== "projects" || !tiles.length) return;
+    if (key === "arrowright" || key === "arrowleft") {
+      event.preventDefault();
+      select(current + (key === "arrowright" ? 1 : -1), {
+        focus: target.classList.contains("tile"),
+      });
+    } else if (key === "m" && sound && !sound.hidden) {
+      sound.click();
+    } else if (key === "enter" && (target === body || target.id === "main")) {
+      infos[current].querySelector("[data-detail]").click();
+    }
+  });
+
   // One native dialog provides focus trapping, Escape, and focus restoration.
-  const dialog = document.querySelector(".project-dialog");
   const content = dialog.querySelector(".dialog-content");
   const controls = dialog.querySelector(".gallery-controls");
   const count = dialog.querySelector(".gallery-count");
@@ -210,9 +203,7 @@
   }
   document.querySelectorAll("[data-detail]").forEach((trigger) => {
     trigger.addEventListener("click", (event) => {
-      const template = document.getElementById(
-        "detail-" + trigger.dataset.detail,
-      );
+      const template = document.getElementById("detail-" + trigger.dataset.detail);
       if (!template || typeof dialog.showModal !== "function") return;
       event.preventDefault();
       content.querySelector("video")?.pause();
@@ -222,17 +213,17 @@
       controls.hidden = images.length < 2;
       showImage(0);
       dialog.showModal();
-      document.body.classList.add("dialog-open");
+      syncStage();
+      body.classList.add("dialog-open");
       dialog.scrollTop = 0;
       dialog.querySelector(".dialog-close").focus({ preventScroll: true });
     });
   });
-  dialog
-    .querySelector(".dialog-close")
-    .addEventListener("click", () => dialog.close());
+  dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("close", () => {
     content.querySelector("video")?.pause();
-    document.body.classList.remove("dialog-open");
+    body.classList.remove("dialog-open");
+    syncStage();
   });
   let startedOnBackdrop = false;
   function outsideDialog(event) {
@@ -248,20 +239,17 @@
     startedOnBackdrop = outsideDialog(event);
   });
   dialog.addEventListener("click", (event) => {
-    if (event.target === dialog && startedOnBackdrop && outsideDialog(event))
-      dialog.close();
+    if (event.target === dialog && startedOnBackdrop && outsideDialog(event)) dialog.close();
     startedOnBackdrop = false;
   });
-  dialog
-    .querySelector(".gallery-prev")
-    .addEventListener("click", () => showImage(imageIndex - 1));
-  dialog
-    .querySelector(".gallery-next")
-    .addEventListener("click", () => showImage(imageIndex + 1));
+  dialog.querySelector(".gallery-prev").addEventListener("click", () => showImage(imageIndex - 1));
+  dialog.querySelector(".gallery-next").addEventListener("click", () => showImage(imageIndex + 1));
   dialog.addEventListener("keydown", (event) => {
     if (images.length && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
       event.preventDefault();
       showImage(imageIndex + (event.key === "ArrowRight" ? 1 : -1));
     }
   });
+
+  if (!route(location.hash.slice(1))) showTab("projects");
 })();
