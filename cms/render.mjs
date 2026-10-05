@@ -186,20 +186,20 @@ export function renderPortfolio(input) {
       ${image(a.portrait, p.name, 'class="profile-figure" width="502" height="900"')}
     </div>
     <div class="profile-body">
-      <section class="block block-about" id="about" aria-labelledby="about-title">
+      <section class="block reveal block-about" id="about" aria-labelledby="about-title">
         <div><p class="block-label">About</p><h3 id="about-title">${e(a.heading)} ${e(a.line2)} <em>${e(a.accent)}</em></h3></div>
         <div class="prose">${a.paragraphs.map((t) => `<p>${e(t)}</p>`).join("")}</div>
       </section>
-      <section class="block block-experience" id="experience" aria-labelledby="experience-title">
+      <section class="block reveal block-experience" id="experience" aria-labelledby="experience-title">
         <div class="block-heading"><div><p class="block-label">Experience</p><h3 id="experience-title">${e(s.experienceHeading)} <em>${e(s.experienceAccent)}</em></h3></div><p>${lines(s.experienceIntro)}</p></div>
         <div class="experience-list">${experienceRows}</div>
       </section>
-      <section class="block block-toolbox" aria-labelledby="toolbox-title">
+      <section class="block reveal block-toolbox" aria-labelledby="toolbox-title">
         <p class="block-label">Toolbox</p><h3 id="toolbox-title">The tools I work with</h3>
         <div class="toolbox">${a.skills.map((f) => `<div><h4>${e(f.label)}</h4>${chips(f.value)}</div>`).join("")}</div>
       </section>
-      ${certificates.length ? `<section class="block block-certificates" aria-labelledby="certificates-title"><p class="block-label">Certificates</p><h3 id="certificates-title">A little structured learning, too</h3><div class="certificates">${certificateCards}</div></section>` : ""}
-      <section class="block block-contact" id="contact" aria-labelledby="contact-title">
+      ${certificates.length ? `<section class="block reveal block-certificates" aria-labelledby="certificates-title"><p class="block-label">Certificates</p><h3 id="certificates-title">A little structured learning, too</h3><div class="certificates">${certificateCards}</div></section>` : ""}
+      <section class="block reveal block-contact" id="contact" aria-labelledby="contact-title">
         <p class="block-label">Contact</p><p class="contact-intro">${lines(s.contactIntro)}</p>
         <h3 id="contact-title"><a href="mailto:${e(p.email)}">${e(s.contactHeading)} <em>${e(s.contactAccent)}</em></a></h3>
         <div class="contact-links"><a class="text-link" href="mailto:${e(p.email)}">${e(p.email)}</a>${external(p.github, "GitHub")}${external(p.linkedin, "LinkedIn")}${external(p.instagram, "Instagram")}</div>

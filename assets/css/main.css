@@ -700,6 +700,22 @@ kbd {
   margin-inline: auto;
   padding: clamp(64px, 8vw, 112px) var(--gutter) clamp(80px, 10vw, 128px);
 }
+/*
+  Profile blocks rise in as they enter the viewport, to pace a long scroll. Hidden
+  only once JavaScript confirms it can reveal them (html.motion-enabled), so content
+  stays visible without JS and for reduced-motion visitors.
+*/
+.motion-enabled .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+.motion-enabled .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
 .block h3 {
   margin-top: 8px;
   font-family: var(--display);

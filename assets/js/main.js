@@ -28,6 +28,27 @@
     { passive: true },
   );
 
+  // Reveal profile blocks on scroll. Blocks inside the hidden tab start observing
+  // as soon as the tab is shown, because hidden elements never intersect.
+  if ("IntersectionObserver" in window) {
+    const root = document.documentElement;
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+    root.classList.toggle("motion-enabled", !motion.matches);
+    motion.addEventListener("change", () =>
+      root.classList.toggle("motion-enabled", !motion.matches),
+    );
+  }
+
   // Tabs: Projects and Profile are two screens of one page, like a console home.
   const tabs = [...document.querySelectorAll('[role="tab"]')];
   const panelOf = (tab) =>
