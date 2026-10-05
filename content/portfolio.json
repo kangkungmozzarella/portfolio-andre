@@ -1,7 +1,6 @@
 {
   "profile": {
     "name": "Andrea Micola Azwir",
-    "brand": "Andrea Micola Azwir",
     "pageTitle": "Andrea Micola Azwir: Developer & curious mind",
     "description": "Andrea Micola Azwir, frontend engineer based in Medan, Indonesia. Selected work in web development, data science, and decision support systems.",
     "location": "Medan, Indonesia",
@@ -14,22 +13,18 @@
     "footer": "Built with care, in Medan."
   },
   "hero": {
-    "eyebrow": "Independent thinking. Thoughtful building.",
     "line1": "A curious mind.",
     "line2": "A builder",
     "accent": "at heart.",
     "intro": "I’m Andrea, a frontend engineer turning ideas and data into useful digital experiences.",
     "status": "Currently building at Kurosim",
-    "specialty": "Web development & data science",
-    "stamp": "Always curious.\nAlways building."
+    "specialty": "Web development & data science"
   },
   "about": {
     "heading": "Good work starts",
     "line2": "with",
     "accent": "curiosity.",
     "portrait": "assets/images/profil.png",
-    "caption": "Developer / Indonesia",
-    "mark": "a.",
     "paragraphs": [
       "I like understanding how things work, then figuring out how to make them work better.",
       "I’m a frontend engineer at Kurosim and a 2024 Informatics graduate from Malikussaleh University. My work sits between web development and data science: building interfaces, working with databases, and finding meaning in data.",
@@ -72,7 +67,6 @@
       "category": "Interactive web",
       "stack": "JavaScript · Three.js · Node.js",
       "description": "An interactive four-floor virtual office for a 13-person team. Explore the building, follow team routines, and manage tasks from the office interface.",
-      "color": "sand",
       "images": [
         "assets/images/gallery/kantor-ai/cover.jpg"
       ],
@@ -87,7 +81,6 @@
       "category": "Research",
       "stack": "Laravel · MySQL · Leaflet.js · MAUT · A*",
       "description": "A geographic information system that ranks accommodation in Banda Aceh with Multi-Attribute Utility Theory, then finds the shortest route from your location to the chosen place with the A* algorithm.",
-      "color": "blue",
       "images": [
         "assets/images/gallery/sig-penginapan/cover.jpg"
       ],
@@ -102,7 +95,6 @@
       "category": "Interactive web",
       "stack": "TypeScript · HTML5 Canvas · Web Audio · Capacitor",
       "description": "A 2D platformer inspired by the Si Kancil folk tale, playable in the browser and on Android. Run through four levels, cross the river on crocodiles' backs, and listen to a gamelan soundtrack. Every sprite and sound is generated in code.",
-      "color": "sand",
       "images": [
         "assets/images/gallery/si-kancil/cover.jpg"
       ],
@@ -206,9 +198,6 @@
     }
   ],
   "sections": {
-    "workHeading": "Ideas made",
-    "workAccent": "real.",
-    "workIntro": "From a question to a working product.\nA few things I’ve built along the way.",
     "experienceHeading": "Learning by",
     "experienceAccent": "doing.",
     "experienceIntro": "Different roles. New perspectives.\nSomething to take from every chapter.",

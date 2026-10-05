@@ -289,11 +289,10 @@ body[data-tab="profile"] .stage {
 .avatar img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 50% 8%;
-  /* Head and shoulders: enough body that it reads as a portrait, not a floating face. */
-  transform: scale(1.4);
-  transform-origin: 50% 45%;
+  /* Head and shoulders by default; the CMS "Atur posisi" editor uses the same numbers. */
+  object-fit: var(--image-fit, cover);
+  object-position: var(--image-x, 50%) var(--image-y, 6%);
+  transform: scale(var(--image-zoom, 1.4));
 }
 .profile-chip-text {
   display: flex;
@@ -852,12 +851,18 @@ kbd {
 .certificate:hover {
   border-color: rgba(255, 255, 255, 0.5);
 }
+/* Clips a zoomed image so it never spills over the card text. */
+.certificate-media {
+  display: block;
+  overflow: hidden;
+}
 .certificate img {
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top;
+  object-fit: var(--image-fit, cover);
+  object-position: var(--image-x, 50%) var(--image-y, 0%);
+  scale: var(--image-zoom, 1);
 }
 .certificate-text {
   display: flex;

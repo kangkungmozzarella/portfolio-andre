@@ -108,7 +108,7 @@ function fieldHTML(field, path) {
     return `<div class="collection-field">${label}${collectionHTML(field, path)}${hint}</div>`;
   if (field.type === "image") {
     const src = imageSrc(value);
-    return `<div class="field wide">${label}<div class="image-field"><div class="image-preview" style="${imageStyle(value)}">${src ? `<img src="${e(imageURL(src))}" alt="${e(field.label)}">` : '<span aria-hidden="true">＋</span>'}</div><div><p class="image-name">${e(src ? filename(src) : "Belum ada gambar dipilih")}</p><div class="image-buttons"><button type="button" class="button ghost" data-media-path="${path}" aria-label="Pilih ${e(field.label.toLowerCase())}">Pilih gambar</button>${src ? `<button type="button" class="button primary" data-adjust-image="${path}">Atur posisi</button>` : ""}</div></div></div>${hint}</div>`;
+    return `<div class="field wide">${label}<div class="image-field"><div class="image-preview" style="${imageStyle(value)}">${src ? `<img src="${e(imageURL(src))}" alt="${e(field.label)}">` : '<span aria-hidden="true">＋</span>'}</div><div><p class="image-name">${e(src ? filename(src) : "Belum ada gambar dipilih")}</p><div class="image-buttons"><button type="button" class="button ghost" data-media-path="${path}" aria-label="Pilih ${e(field.label.toLowerCase())}">Pilih gambar</button>${src && field.adjustable !== false ? `<button type="button" class="button primary" data-adjust-image="${path}">Atur posisi</button>` : ""}</div></div></div>${hint}</div>`;
   }
   if (field.type === "images")
     return `<div class="field wide">${label}<div class="image-gallery">${value.map((item, i) => { const src = imageSrc(item); return `<div class="gallery-card"><button type="button" class="gallery-image" data-media-path="${path}.${i}" aria-label="Ganti gambar ${i + 1}" style="${imageStyle(item)}"><img src="${e(imageURL(src))}" alt="Gambar galeri ${i + 1}"><span>${i === 0 ? "Sampul" : `Gambar ${i + 1}`}</span></button><button type="button" class="gallery-adjust" data-adjust-image="${path}.${i}">Atur posisi</button><div class="gallery-actions"><button type="button" class="icon-button" data-move="${path}" data-index="${i}" data-direction="-1" ${i === 0 ? "disabled" : ""} aria-label="Geser gambar ${i + 1} ke kiri">←</button><button type="button" class="icon-button danger" data-remove="${path}" data-index="${i}" ${value.length <= field.min ? "disabled" : ""} aria-label="Hapus gambar ${i + 1}">×</button><button type="button" class="icon-button" data-move="${path}" data-index="${i}" data-direction="1" ${i === value.length - 1 ? "disabled" : ""} aria-label="Geser gambar ${i + 1} ke kanan">→</button></div></div>`; }).join("")}${value.length < field.max ? `<button type="button" class="gallery-add" data-add-image="${path}">＋ Tambah gambar</button>` : ""}</div>${hint}</div>`;
@@ -255,8 +255,22 @@ form.addEventListener("click", (event) => {
   }
 });
 
+// The preview frame copies where the image is cropped on the site, and an image
+// without saved adjustments starts from that spot's default crop (see main.css).
+function adjustmentFrame(path) {
+  if (/^projects\.\d+\.images\.0$/.test(path))
+    return { ratio: 1, start: { fit: "cover", x: 50, y: 50, zoom: 100 }, note: "Bingkai ini meniru tile proyek dan thumbnail \"Next up\" (kotak)." };
+  if (path === "about.portrait")
+    return { ratio: 1, start: { fit: "cover", x: 50, y: 6, zoom: 140 }, note: "Bingkai ini meniru avatar bulat di pojok kanan atas. Foto di tab Profile tetap tampil utuh." };
+  if (/^certificates\.\d+\.image$/.test(path))
+    return { ratio: 16 / 10, start: { fit: "cover", x: 50, y: 0, zoom: 100 }, note: "Bingkai ini meniru gambar di kartu sertifikat." };
+  return { ratio: null, start: { fit: "contain", x: 50, y: 50, zoom: 100 }, note: "Gambar ini tampil di galeri dialog proyek." };
+}
 function adjustmentData() {
-  return imageData(get(adjustmentPath));
+  const value = get(adjustmentPath);
+  return typeof value === "string"
+    ? { src: value, ratio: "auto", ...adjustmentFrame(adjustmentPath).start }
+    : imageData(value);
 }
 function updateCropEditor() {
   if (!adjustmentPath) return;
@@ -268,10 +282,14 @@ function updateCropEditor() {
   image.style.objectFit = data.fit;
   image.style.objectPosition = `${data.x}% ${data.y}%`;
   image.style.transform = `scale(${data.zoom / 100})`;
-  frame.style.aspectRatio = data.ratio === "auto"
-    ? (image.naturalWidth && image.naturalHeight ? `${image.naturalWidth} / ${image.naturalHeight}` : "4 / 5")
-    : data.ratio;
-  $("#crop-ratio").value = data.ratio;
+  const shape = adjustmentFrame(adjustmentPath);
+  const ratio = shape.ratio
+    ?? (image.naturalWidth && image.naturalHeight ? image.naturalWidth / image.naturalHeight : 4 / 5);
+  frame.style.aspectRatio = String(ratio);
+  // Cap the width too, so a capped height never squashes the frame out of shape.
+  frame.style.maxWidth = `calc(62svh * ${ratio})`;
+  frame.classList.toggle("round", adjustmentPath === "about.portrait");
+  $("#crop-context").textContent = shape.note;
   $("#crop-fit").value = data.fit;
   $("#crop-zoom").value = data.zoom;
   $("#crop-zoom-value").textContent = `${data.zoom}%`;
@@ -289,10 +307,9 @@ function openAdjustment(path) {
   $("#crop-frame").focus();
 }
 $("#crop-image").addEventListener("load", updateCropEditor);
-$("#crop-ratio").addEventListener("change", (event) => updateAdjustment({ ratio: event.target.value }));
 $("#crop-fit").addEventListener("change", (event) => updateAdjustment({ fit: event.target.value }));
 $("#crop-zoom").addEventListener("input", (event) => updateAdjustment({ zoom: Number(event.target.value) }));
-$("#reset-crop").addEventListener("click", () => updateAdjustment({ x: 50, y: 50, zoom: 100 }));
+$("#reset-crop").addEventListener("click", () => updateAdjustment(adjustmentFrame(adjustmentPath).start));
 function closeAdjustment() {
   adjustDialog.close();
   render();

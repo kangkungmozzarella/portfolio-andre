@@ -597,6 +597,7 @@ dialog[open] {
 .crop-frame {
   position: relative;
   width: 100%;
+  margin-inline: auto;
   max-height: 62svh;
   aspect-ratio: 4 / 5;
   overflow: hidden;
@@ -605,6 +606,9 @@ dialog[open] {
   cursor: grab;
   touch-action: none;
   user-select: none;
+}
+.crop-frame.round {
+  border-radius: 50%;
 }
 .crop-frame.dragging {
   cursor: grabbing;
@@ -657,6 +661,10 @@ dialog[open] {
   color: var(--muted);
   font-size: 11px;
   line-height: 1.65;
+}
+.crop-controls > .crop-context {
+  color: var(--ink);
+  font-size: 12px;
 }
 .adjust-dialog-footer {
   display: flex;
