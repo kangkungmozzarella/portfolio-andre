@@ -56,7 +56,7 @@ test("renders original content and computes project count after add/remove", () 
 test("project video plays on the stage and replaces the gallery in the dialog", () => {
   const data = clone();
   const project = (id, name, folder) => ({
-    id, name, title: name, category: "Test", stack: "Test", description: "Test", color: "sand",
+    id, name, title: name, category: "Test", stack: "Test", description: "Test",
     images: [1, 2].map((n) => `assets/images/gallery/${folder}/${n}.png`), url: "", linkLabel: "", video: "",
   });
   data.projects = [

@@ -26,9 +26,9 @@ CMS harus dibuka dari server ini. Live Server dan membuka `admin/index.html` lan
 5. Klik **Lihat portfolio** untuk memeriksa hasil tersimpan.
 6. Commit dan push perubahan lewat Git seperti biasa untuk memperbarui website online.
 
-Proyek pertama tampil sebagai karya utama. Gambar pertama dalam galeri menjadi sampul. Jumlah proyek pada navigasi mengikuti jumlah item secara otomatis. Tautan proyek bisa diarahkan ke repositori atau demo masing-masing.
+Urutan tile di tab Projects mengikuti urutan daftar proyek; proyek paling atas yang terpilih saat halaman dibuka. Gambar pertama tiap proyek dipakai untuk tile, background, dan poster video. Tombol **Atur posisi** mengatur potongan tile (kotak); pada foto profil tombol itu mengatur avatar di pojok kanan atas, dan pada sertifikat mengatur gambar di kartu. Tautan proyek bisa diarahkan ke repositori atau demo masing-masing.
 
-Untuk menampilkan video perkenalan, isi **Video perkenalan** pada item proyek dengan URL HTTPS langsung ke file `.mp4`/`.webm`. Alternatifnya, letakkan file di `assets/videos/` dan isi path seperti `assets/videos/nama-proyek.mp4`. CMS belum mengunggah video otomatis; jika memakai file lokal, commit file video bersama perubahan konten. Saat video terisi, dialog proyek menampilkan video dengan kontrol putar; jika kosong, dialog menampilkan galeri gambar. Video tidak diputar otomatis dan berhenti saat dialog ditutup.
+Untuk menampilkan video perkenalan, isi **Video perkenalan** pada item proyek dengan URL HTTPS langsung ke file `.mp4`/`.webm`. Alternatifnya, letakkan file di `assets/videos/` dan isi path seperti `assets/videos/nama-proyek.mp4`. CMS belum mengunggah video otomatis; jika memakai file lokal, commit file video bersama perubahan konten. Saat video terisi, video diputar tanpa suara di background ketika proyek dipilih (kecuali pengunjung memakai mode kurangi gerakan atau hemat data), dan tombol **Watch video** membuka dialog dengan video bersuara. Jika video kosong, dialog menampilkan galeri gambar.
 
 **Simpan bersifat lokal, bukan publish online.** CMS tidak menjalankan perintah Git atau mengirim konten ke layanan lain. Jika konten berubah dari tab/editor lain, penyimpanan ditolak agar tidak menimpa perubahan; salin edit yang ingin dipertahankan sebelum memilih **Batalkan perubahan** untuk memuat versi terbaru.
 

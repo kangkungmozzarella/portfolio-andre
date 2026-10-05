@@ -30,7 +30,6 @@ export const schema = {
     description: "Identitas, kontak, dan informasi dasar portofolio.",
     fields: {
       name: text("Nama lengkap"),
-      brand: text("Nama di navigasi", { max: 30 }),
       pageTitle: text("Judul tab browser"),
       description: area("Deskripsi untuk mesin pencari"),
       location: text("Lokasi"),
@@ -44,17 +43,19 @@ export const schema = {
     },
   },
   hero: {
-    label: "Halaman pembuka",
-    description: "Kalimat pertama yang menyambut pengunjung.",
+    label: "Profil: bagian atas",
+    description: "Status, tagline, dan perkenalan di bagian atas tab Profile.",
     fields: {
-      eyebrow: text("Kalimat kecil di atas judul"),
-      line1: text("Judul baris pertama", { max: 70 }),
-      line2: text("Judul baris kedua", { max: 50 }),
-      accent: text("Teks miring pada judul", { max: 50 }),
+      line1: text("Tagline bagian pertama", { max: 70 }),
+      line2: text("Tagline bagian kedua", { max: 50 }),
+      accent: text("Kata berwarna di akhir tagline", { max: 50 }),
       intro: area("Perkenalan singkat"),
-      status: text("Status pekerjaan"),
-      specialty: text("Bidang keahlian"),
-      stamp: area("Catatan di samping simbol", { max: 160 }),
+      status: text("Status pekerjaan", {
+        hint: "Tampil di pojok kanan atas dan di bawah nama pada tab Profile.",
+      }),
+      specialty: text("Bidang keahlian", {
+        hint: "Tampil kecil di atas nama pada tab Profile.",
+      }),
     },
   },
   about: {
@@ -62,12 +63,13 @@ export const schema = {
     description:
       "Cerita singkat, foto, pendidikan, dan alat yang kamu gunakan.",
     fields: {
-      heading: text("Judul baris pertama"),
-      line2: text("Judul baris kedua"),
-      accent: text("Teks miring"),
-      portrait: image("Foto profil"),
-      caption: text("Keterangan foto"),
-      mark: text("Inisial pada foto", { max: 8 }),
+      heading: text("Judul About (awal)"),
+      line2: text("Judul About (lanjutan)"),
+      accent: text("Kata berwarna di akhir judul"),
+      portrait: {
+        ...image("Foto profil"),
+        hint: "Tampil utuh di tab Profile (paling bagus PNG transparan) dan sebagai avatar di pojok kanan atas. Atur posisi mengatur potongan avatar.",
+      },
       paragraphs: lines("Paragraf tentang kamu", {
         hint: "Pisahkan setiap paragraf dengan baris baru.",
         itemMax: 4000,
@@ -91,43 +93,34 @@ export const schema = {
   projects: {
     label: "Proyek",
     description:
-      "Proyek paling atas menjadi karya utama. Jumlah di navigasi diperbarui otomatis.",
+      "Urutan tile mengikuti daftar ini. Proyek paling atas yang terpilih saat halaman dibuka.",
     type: "list",
     min: 0,
     max: 60,
     fields: {
       id,
-      title: text("Judul kartu"),
+      title: text("Tagline", {
+        hint: "Kalimat pendek di bawah nama proyek.",
+      }),
       name: text("Nama proyek"),
       category: text("Kategori"),
       stack: text("Teknologi", {
         hint: "Contoh: React · TypeScript · PostgreSQL",
       }),
       description: area("Deskripsi proyek"),
-      color: {
-        type: "select",
-        label: "Warna latar",
-        options: {
-          sand: "Pasir",
-          sage: "Hijau lembut",
-          rose: "Merah muda",
-          blue: "Biru abu-abu",
-        },
-        required: true,
-      },
       images: {
         type: "images",
-        label: "Galeri gambar",
+        label: "Gambar",
         required: true,
         min: 1,
         max: 12,
-        hint: "Gambar pertama dipakai sebagai sampul. Gunakan panah untuk mengubah urutannya.",
+        hint: "Gambar pertama dipakai untuk tile, background, dan poster video. Atur posisinya untuk mengatur potongan tile (kotak). Gambar berikutnya tampil di galeri saat proyek tanpa video dibuka.",
       },
       video: text("Video perkenalan", {
         type: "video",
         required: false,
         max: 2000,
-        hint: "Opsional. Isi URL HTTPS video MP4/WebM, atau path assets/videos/nama-file.mp4. Jika diisi, video menggantikan galeri saat proyek dibuka.",
+        hint: "Opsional. Isi URL HTTPS video MP4/WebM, atau path assets/videos/nama-file.mp4. Jika diisi, video diputar tanpa suara di background saat proyek dipilih, dan ditonton dengan suara lewat tombol Watch video (menggantikan galeri).",
       }),
       url: url("Tautan proyek atau repositori", { required: false }),
       linkLabel: text("Teks tautan", { required: false }),
@@ -144,7 +137,7 @@ export const schema = {
       role: text("Posisi"),
       company: text("Perusahaan / organisasi"),
       period: text("Periode", { hint: "Contoh: May 2026 – Present" }),
-      logo: image("Logo perusahaan"),
+      logo: { ...image("Logo perusahaan"), adjustable: false },
       bullets: lines("Tanggung jawab / pencapaian", {
         hint: "Satu poin per baris.",
         itemMax: 3000,
@@ -163,24 +156,24 @@ export const schema = {
       organization: text("Penerbit"),
       period: text("Tahun / periode"),
       description: area("Deskripsi"),
-      image: image("Gambar sertifikat"),
+      image: {
+        ...image("Gambar sertifikat"),
+        hint: "Atur posisi mengatur potongan gambar di kartu sertifikat.",
+      },
       url: url("Tautan sertifikat", { required: false }),
     },
   },
   sections: {
     label: "Judul bagian",
     description:
-      "Sesuaikan judul karya, pengalaman, dan ajakan untuk menghubungi kamu.",
+      "Judul bagian Experience dan Contact di tab Profile.",
     fields: {
-      workHeading: text("Judul bagian proyek"),
-      workAccent: text("Teks miring bagian proyek"),
-      workIntro: area("Pengantar proyek"),
       experienceHeading: text("Judul pengalaman"),
-      experienceAccent: text("Teks miring pengalaman"),
+      experienceAccent: text("Kata berwarna pengalaman"),
       experienceIntro: area("Pengantar pengalaman"),
       contactIntro: area("Pengantar kontak"),
       contactHeading: text("Judul kontak"),
-      contactAccent: text("Teks miring kontak"),
+      contactAccent: text("Kata berwarna kontak"),
     },
   },
 };

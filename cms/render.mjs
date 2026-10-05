@@ -114,7 +114,7 @@ export function renderPortfolio(input) {
   const certificateCards = certificates
     .map(
       (item) =>
-        `<a class="certificate" href="${e(imageSrc(item.image))}" data-detail="certificate-${e(item.id)}">${image(item.image, "", 'width="640" height="425" loading="lazy"')}<span class="certificate-text"><strong>${e(item.title)}</strong><small>${e(item.organization)} · ${e(item.period)}</small></span></a>`,
+        `<a class="certificate" href="${e(imageSrc(item.image))}" data-detail="certificate-${e(item.id)}"><span class="certificate-media">${image(item.image, "", 'width="640" height="425" loading="lazy"')}</span><span class="certificate-text"><strong>${e(item.title)}</strong><small>${e(item.organization)} · ${e(item.period)}</small></span></a>`,
     )
     .join("");
 
@@ -160,7 +160,7 @@ export function renderPortfolio(input) {
 <main id="main" tabindex="-1">
   <h1 class="sr-only">${e(p.name)}, ${e(h.specialty)}</h1>
   <section class="panel panel-projects" id="projects" role="tabpanel" aria-labelledby="tab-projects">
-    <h2 class="sr-only">${e(s.workHeading)} ${e(s.workAccent)}</h2>
+    <h2 class="sr-only">Projects</h2>
     ${
       projects.length
         ? `<div class="tiles" aria-label="Choose a project">${tiles}${p.github ? `<div class="tile-wrap"><a class="tile tile-more" href="${e(p.github)}" target="_blank" rel="noopener noreferrer"><span>More on GitHub</span>${icon("arrow")}</a></div>` : ""}</div>
