@@ -2,8 +2,8 @@
   "profile": {
     "name": "Andrea Micola Azwir",
     "brand": "Andrea Micola Azwir",
-    "pageTitle": "Andrea Micola Azwir — Developer & curious mind",
-    "description": "Andrea Micola Azwir — frontend engineer based in Medan, Indonesia. Selected work in web development, data science, and decision support systems.",
+    "pageTitle": "Andrea Micola Azwir: Developer & curious mind",
+    "description": "Andrea Micola Azwir, frontend engineer based in Medan, Indonesia. Selected work in web development, data science, and decision support systems.",
     "location": "Medan, Indonesia",
     "timezone": "Asia/Jakarta",
     "email": "andreamicolaazwir@gmail.com",
@@ -31,7 +31,7 @@
     "caption": "Developer / Indonesia",
     "mark": "a.",
     "paragraphs": [
-      "I like understanding how things work — then figuring out how to make them work better.",
+      "I like understanding how things work, then figuring out how to make them work better.",
       "I’m a frontend engineer at Kurosim and a 2024 Informatics graduate from Malikussaleh University. My work sits between web development and data science: building interfaces, working with databases, and finding meaning in data.",
       "From freelance projects to product teams, I care about the details that make an application feel clear and easy to use."
     ],
@@ -191,7 +191,7 @@
       "title": "Frontend Engineering",
       "organization": "PT Ruang Raya Indonesia",
       "period": "2022",
-      "description": "PT Ruang Raya Indonesia — responsive interfaces with HTML, CSS, JavaScript, and React.",
+      "description": "PT Ruang Raya Indonesia: responsive interfaces with HTML, CSS, JavaScript, and React.",
       "image": "assets/images/sertifikat/RG.jpg",
       "url": "https://drive.google.com/file/d/18R6a9aIwQ0DEZMqfcDK0LApWYMuEXgEF/view?usp=sharing"
     },
@@ -200,7 +200,7 @@
       "title": "Google Data Analytics",
       "organization": "Coursera · Digitalent · Kominfo",
       "period": "2023–24",
-      "description": "Coursera · Digitalent · Kominfo — data cleaning, analysis, and visualization.",
+      "description": "Coursera · Digitalent · Kominfo: data cleaning, analysis, and visualization.",
       "image": "assets/images/sertifikat/DA.jpg",
       "url": "https://drive.google.com/file/d/1lh8DgH_rO12OUcIb5Iu33yYKkeSO-c5t/view?usp=sharing"
     }
