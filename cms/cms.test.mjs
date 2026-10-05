@@ -42,16 +42,18 @@ test("renders original content and computes project count after add/remove", () 
   const data = clone();
   data.projects.splice(1);
   const html = renderPortfolio(data);
-  assert.match(html, /Work<span>01<\/span>/);
-  assert.match(html, /A collection of 1 project/);
+  assert.equal((html.match(/class="tile" type="button"/g) || []).length, 1);
+  assert.match(html, /01 \/ 01/);
   assert.equal(
     (html.match(/class="experience-logo"/g) || []).length,
     data.experience.length,
   );
   data.projects = [];
-  assert.match(renderPortfolio(data), /Work<span>00<\/span>/);
+  const empty = renderPortfolio(data);
+  assert.match(empty, /No projects to show yet\./);
+  assert.doesNotMatch(empty, /class="tile" type="button"/);
 });
-test("project video replaces the gallery while keeping the cover image", () => {
+test("project video plays on the stage and replaces the gallery in the dialog", () => {
   const data = clone();
   const project = (id, name, folder) => ({
     id, name, title: name, category: "Test", stack: "Test", description: "Test", color: "sand",
@@ -62,7 +64,9 @@ test("project video replaces the gallery while keeping the cover image", () => {
     project("maut", "Accommodation decision support", "spk-maut"),
   ];
   const html = renderPortfolio(data);
-  assert.match(html, /Watch introduction: Travel information system/);
+  assert.match(html, /data-detail="project-travel">.*Watch video<\/button>/);
+  assert.match(html, /data-detail="project-maut">.*View screenshots<\/button>/);
+  assert.match(html, /<video class="stage-media" muted loop playsinline preload="none" poster="assets\/images\/gallery\/travel\/1\.png">/);
   assert.match(html, /<video controls preload="none" playsinline poster="assets\/images\/gallery\/travel\/1\.png"/);
   assert.match(html, /<source src="https:\/\/example\.com\/travel-demo\.mp4" type="video\/mp4">/);
   assert.doesNotMatch(html, /Travel information system, screenshot 2/);
