@@ -291,8 +291,8 @@ body[data-tab="profile"] .stage {
   height: 100%;
   /* Head and shoulders by default; the CMS "Atur posisi" editor uses the same numbers. */
   object-fit: var(--image-fit, cover);
-  object-position: var(--image-x, 50%) var(--image-y, 6%);
-  transform: scale(var(--image-zoom, 1.4));
+  object-position: var(--image-x, 50%) var(--image-y, 0%);
+  transform: scale(var(--image-zoom, 1.1));
 }
 .profile-chip-text {
   display: flex;
