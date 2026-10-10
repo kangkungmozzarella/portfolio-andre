@@ -183,7 +183,7 @@ export function renderPortfolio(input) {
         <div class="actions"><a class="btn btn-primary" href="mailto:${e(p.email)}">Email ${e(firstName)}</a>${external(p.cv, "View my CV", "btn btn-ghost")}</div>
         <dl class="facts">${a.facts.map((f) => `<div><dt>${e(f.label)}</dt><dd>${e(f.value)}</dd></div>`).join("")}</dl>
       </div>
-      ${image(a.portrait, p.name, 'class="profile-figure" width="502" height="900"')}
+      ${image(a.portrait, p.name, 'class="profile-figure" width="720" height="989"')}
     </div>
     <div class="profile-body">
       <section class="block reveal block-about" id="about" aria-labelledby="about-title">

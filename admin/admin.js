@@ -261,7 +261,7 @@ function adjustmentFrame(path) {
   if (/^projects\.\d+\.images\.0$/.test(path))
     return { ratio: 1, start: { fit: "cover", x: 50, y: 50, zoom: 100 }, note: "Bingkai ini meniru tile proyek dan thumbnail \"Next up\" (kotak)." };
   if (path === "about.portrait")
-    return { ratio: 1, start: { fit: "cover", x: 50, y: 6, zoom: 140 }, note: "Bingkai ini meniru avatar bulat di pojok kanan atas. Foto di tab Profile tetap tampil utuh." };
+    return { ratio: 1, start: { fit: "cover", x: 50, y: 0, zoom: 110 }, note: "Bingkai ini meniru avatar bulat di pojok kanan atas. Foto di tab Profile tetap tampil utuh." };
   if (/^certificates\.\d+\.image$/.test(path))
     return { ratio: 16 / 10, start: { fit: "cover", x: 50, y: 0, zoom: 100 }, note: "Bingkai ini meniru gambar di kartu sertifikat." };
   return { ratio: null, start: { fit: "contain", x: 50, y: 50, zoom: 100 }, note: "Gambar ini tampil di galeri dialog proyek." };
