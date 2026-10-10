@@ -101,6 +101,20 @@
       "video": "assets/videos/si-kancil-promo.mp4",
       "url": "https://github.com/kangkungmozzarella/si-kancil",
       "linkLabel": "View the source code"
+    },
+    {
+      "id": "otewe",
+      "title": "Plan the trip, then book it.",
+      "name": "OTEWE Travel Agency",
+      "category": "Information system",
+      "stack": "Laravel · Vue 3 · Inertia.js · Three.js",
+      "description": "A travel agency website with a 3D island on the home page, destination search and filters, package pages with a gallery and booking requests, and a travel journal. An admin dashboard manages packages, articles, and booking status.",
+      "images": [
+        "assets/images/gallery/otewe/cover.jpg"
+      ],
+      "video": "assets/videos/otewe-intro.mp4",
+      "url": "https://github.com/kangkungmozzarella/travel-agency",
+      "linkLabel": "View the source code"
     }
   ],
   "experience": [
