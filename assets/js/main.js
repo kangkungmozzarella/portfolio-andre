@@ -63,8 +63,15 @@
     });
     body.dataset.tab = name;
     syncStage();
-    if (target) target.scrollIntoView();
+    if (target) window.scrollTo(0, layoutTop(target) - topbar.offsetHeight - 16);
     else window.scrollTo(0, 0);
+  }
+  // Page offset from layout boxes, so a block still mid-reveal (translated down)
+  // doesn't skew the scroll target the way getBoundingClientRect would.
+  function layoutTop(el) {
+    let top = 0;
+    for (let node = el; node; node = node.offsetParent) top += node.offsetTop;
+    return top;
   }
   // Old section links (#work, #about, #experience, #contact) still land in the right tab.
   function route(id) {
@@ -272,5 +279,8 @@
     }
   });
 
-  if (!route(location.hash.slice(1))) showTab("projects");
+  const initial = location.hash.slice(1);
+  if (!route(initial)) showTab("projects");
+  // Web fonts change text heights once they load, so land on a section again then.
+  else document.fonts?.ready.then(() => route(initial));
 })();
