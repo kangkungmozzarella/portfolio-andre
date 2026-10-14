@@ -1,8 +1,8 @@
 {
   "profile": {
     "name": "Andrea Micola Azwir",
-    "pageTitle": "Andrea Micola Azwir: Developer & curious mind",
-    "description": "Andrea Micola Azwir, frontend engineer based in Medan, Indonesia. Selected work in web development, data science, and decision support systems.",
+    "pageTitle": "Andrea Micola Azwir: Frontend Engineer",
+    "description": "Andrea Micola Azwir, frontend engineer in Medan, Indonesia, building web and mobile apps with React, React Native, Next.js, and TypeScript.",
     "location": "Medan, Indonesia",
     "timezone": "Asia/Jakarta",
     "email": "andreamicolaazwir@gmail.com",
@@ -16,9 +16,9 @@
     "line1": "A curious mind.",
     "line2": "A builder",
     "accent": "at heart.",
-    "intro": "I’m Andrea, a frontend engineer turning ideas and data into useful digital experiences.",
-    "status": "Currently building at Kurosim",
-    "specialty": "Web development & data science"
+    "intro": "I’m Andrea, a frontend engineer building web and mobile apps, with a background in data analysis.",
+    "status": "Currently building at PT Inovasi Jelajah Dunia",
+    "specialty": "Frontend engineering · Web & mobile"
   },
   "about": {
     "heading": "Good work starts",
@@ -27,7 +27,7 @@
     "portrait": "assets/images/profil-2026.webp",
     "paragraphs": [
       "I like understanding how things work, then figuring out how to make them work better.",
-      "I’m a frontend engineer at Kurosim and a 2024 Informatics graduate from Malikussaleh University. My work sits between web development and data science: building interfaces, working with databases, and finding meaning in data.",
+      "I’m a frontend engineer at PT Inovasi Jelajah Dunia, where I build the company’s travel eSIM mobile app and website with React Native, Next.js, and TypeScript. I graduated in Informatics from Malikussaleh University in 2024, and a background in data analysis still shapes how I think about products.",
       "From freelance projects to product teams, I care about the details that make an application feel clear and easy to use."
     ],
     "facts": [
@@ -47,15 +47,15 @@
     "skills": [
       {
         "label": "Build",
-        "value": "JavaScript · TypeScript · React · Next.js · React Native · HTML & CSS · Tailwind · PHP · Laravel · Flask · Node.js"
+        "value": "TypeScript · JavaScript · React · Next.js · React Native · Expo · React Query · Tailwind CSS · HTML & CSS · Node.js · PHP · Laravel"
       },
       {
         "label": "Explore",
-        "value": "Python · SQL · Pandas · Scikit-learn · PyTorch · HuggingFace · LSTM · Tableau"
+        "value": "Python · SQL · R · Pandas · Scikit-learn · PyTorch · HuggingFace · Tableau"
       },
       {
         "label": "Collaborate",
-        "value": "Git · GitHub · VS Code · MySQL · Jupyter · Google Colab"
+        "value": "Git · GitHub · Figma · VS Code · MySQL · Jupyter · Google Colab"
       }
     ]
   },
@@ -142,73 +142,74 @@
     {
       "id": "experience-1",
       "role": "Frontend Engineer",
-      "company": "Kurosim",
+      "company": "PT Inovasi Jelajah Dunia",
       "period": "May 2026 – Present",
       "logo": "assets/images/logos/kurosim.png",
       "bullets": [
-        "Building and maintaining frontend features across Kurosim's product suite, translating designs into responsive, accessible interfaces.",
-        "Collaborating closely with product and backend teams to ship features end-to-end, from UI implementation to API integration.",
-        "Focusing on code quality, performance, and consistent UI patterns across the codebase."
+        "Develop and maintain features for the company’s consumer mobile app on iOS and Android using React Native, Expo, and TypeScript, covering onboarding, account management, and purchase-to-activation flows with multi-language support.",
+        "Build and maintain the company website with Next.js and React, creating responsive, SEO-friendly pages that display product and pricing data from the backend API.",
+        "Turn Figma designs into reusable components and keep the interface consistent across mobile and web, iterating on feedback from design reviews.",
+        "Work with design and backend teams to integrate APIs, manage server data with React Query, and add analytics tracking for key user actions."
+      ]
+    },
+    {
+      "id": "experience-3",
+      "role": "Web Developer & Research Data Analyst",
+      "company": "Freelance",
+      "period": "Dec 2023 – Present",
+      "logo": "assets/images/logos/freelance.png",
+      "bullets": [
+        "Design and build web applications that support data analysis and decision-making, with attention to performance and accessibility.",
+        "Work directly with clients to define requirements, design intuitive interfaces, and structure data management for each project.",
+        "Deliver responsive, user-friendly web applications tailored to each client’s needs and context."
       ]
     },
     {
       "id": "experience-2",
       "role": "Call Center Staff",
-      "company": "PT TUNAS CAHAYA MANDIRI WIDYATAMA",
-      "period": "May 2025 – Apr 2026",
+      "company": "PT Tunas Cahaya Mandiri Widyatama",
+      "period": "May 2025 – May 2026",
       "logo": "assets/images/logos/tcmw.jpg",
       "bullets": [
-        "Monitored and managed trouble tickets from multiple tower providers (TBG, TIS/IBS, Persada Sokka, Smartfren) across Sumatra and Kalimantan, ensuring 100% SLA compliance from 2-hour emergency to 7-day minor cases.",
-        "Coordinated field team responses across 5 regions via TOTI system, implementing systematic escalation from Supervisor to General Manager level with real-time GPS tracking.",
-        "Maintained comprehensive evidence databases and reporting systems with 100% accuracy across Telkomsel, XL, Smartfren, and Indosat operators."
-      ]
-    },
-    {
-      "id": "experience-3",
-      "role": "Freelance Web Developer",
-      "company": "Freelance",
-      "period": "Dec 2023 – Present",
-      "logo": "assets/images/logos/freelance.png",
-      "bullets": [
-        "Designed and built data-driven web solutions using modern technologies to optimize performance and accessibility.",
-        "Collaborated directly with clients to understand needs, design intuitive interfaces, and ensure efficient data management.",
-        "Delivered responsive, user-friendly web applications enhancing user experience across various contexts."
+        "Monitored and managed trouble tickets from multiple tower providers (TBG, TIS/IBS, Persada Sokka, Smartfren) across Sumatra and Kalimantan, with 100% compliance on monitoring and on-time closing under SLAs from emergency cases (2-hour SLA) to minor issues (7-day SLA).",
+        "Coordinated field team responses across 5 regions through the TOTI system, applied systematic escalation from Supervisor to General Manager level, and monitored teams in real time via GPS coordinates.",
+        "Maintained evidence databases for completed tickets and managed reporting with 100% accuracy for Telkomsel, XL, Smartfren, and Indosat."
       ]
     },
     {
       "id": "experience-4",
       "role": "Internal Audit",
-      "company": "PT GUNUNG SARI INDONESIA",
+      "company": "PT Gunung Sari Indonesia",
       "period": "Nov 2024 – Mar 2025",
       "logo": "assets/images/logos/gunungsari.png",
       "bullets": [
-        "Supported the internal audit team in reviewing financial reports, ensuring compliance with applicable accounting standards.",
-        "Conducted financial and non-financial data analysis to identify potential discrepancies and operational inefficiencies.",
-        "Managed collection and validation of supporting documents including invoices, bank statements, and transaction records."
+        "Supported the internal audit team in reviewing financial reports for compliance with applicable accounting standards.",
+        "Analyzed financial and non-financial data to identify discrepancies and operational inefficiencies, supporting better decision-making.",
+        "Collected and validated supporting documents such as invoices, bank statements, and transaction records to keep the audit complete."
       ]
     },
     {
       "id": "experience-5",
-      "role": "Data Analytics",
+      "role": "Data Analytics Program",
       "company": "Coursera · Google · Digitalent",
       "period": "Apr 2024 – Jul 2024",
       "logo": "assets/images/logos/coursera.png",
       "bullets": [
-        "Performed data cleaning using spreadsheets, SQL, R, and Tableau to produce accurate, analysis-ready datasets.",
-        "Designed and visualized data through interactive dashboards supporting effective data-driven decision-making.",
-        "Mastered analytical tools like R and Tableau for optimal data management and visualization."
+        "Cleaned and prepared data with spreadsheets, SQL, R, and Tableau to produce accurate, analysis-ready datasets.",
+        "Designed interactive dashboards that present data clearly for data-driven decisions.",
+        "Applied R and Tableau for data management and visualization."
       ]
     },
     {
       "id": "experience-6",
-      "role": "Frontend Engineering",
-      "company": "PT RUANG RAYA INDONESIA",
+      "role": "Frontend Engineering Bootcamp",
+      "company": "PT Ruang Raya Indonesia",
       "period": "Aug 2022 – Dec 2022",
       "logo": "assets/images/logos/ruangguru.jpg",
       "bullets": [
-        "Applied Tailwind CSS, HTML5, JavaScript, and React.js to build responsive and efficient user interfaces in web development projects.",
-        "Used OOP principles for structured application development and managed deployment through Git and GitHub.",
-        "Utilized Node.js to build backend functionality supporting the effective and integrated operation of projects."
+        "Built responsive user interfaces with React.js, JavaScript, HTML5, and Tailwind CSS in web development projects.",
+        "Applied Object-Oriented Programming principles for structured code and managed projects with Git and GitHub.",
+        "Used Node.js to build backend functionality that integrates with the frontend."
       ]
     }
   ],
