@@ -47,7 +47,7 @@
   function setMenu(open) {
     menu.hidden = !open;
     menuToggle.setAttribute("aria-expanded", String(open));
-    menuToggle.querySelector("span").textContent = open ? "Close" : "Menu";
+    menuToggle.querySelector(".menu-label").textContent = open ? "Close" : "Menu";
     body.classList.toggle("menu-open", open);
     // Keep Tab inside the open menu.
     document.querySelectorAll("main, .footer").forEach((el) => {
@@ -59,13 +59,16 @@
   menu.addEventListener("click", (event) => {
     if (event.target.closest("a")) setMenu(false);
   });
+  document.addEventListener("click", (event) => {
+    if (!menu.hidden && !nav.contains(event.target)) setMenu(false);
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !menu.hidden) {
       setMenu(false);
       menuToggle.focus();
     }
   });
-  window.matchMedia("(min-width: 1081px)").addEventListener("change", (event) => {
+  window.matchMedia("(min-width: 921px)").addEventListener("change", (event) => {
     if (event.matches) setMenu(false);
   });
 
@@ -98,23 +101,118 @@
     document.getElementById(old)?.scrollIntoView();
   }
 
-  // Headings rise out of a mask as they come into view.
+  // Split headings into words (or letters, for the name) that pop up one after
+  // another. Each piece gets its own index and a random starting tilt.
+  let pieceCount = 0;
+  function piece(text, cls, i) {
+    const span = document.createElement("span");
+    span.className = cls;
+    span.textContent = text;
+    span.style.setProperty("--i", i);
+    span.style.setProperty("--r", `${Math.round(Math.random() * 24 - 12)}deg`);
+    return span;
+  }
+  function splitWords(node) {
+    [...node.childNodes].forEach((child) => {
+      if (child.nodeType !== Node.TEXT_NODE) return splitWords(child);
+      const fragment = document.createDocumentFragment();
+      child.textContent.split(/(\s+)/).forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) fragment.append(part);
+        else fragment.append(piece(part, "w", pieceCount++));
+      });
+      child.replaceWith(fragment);
+    });
+  }
+  function splitChars(node, start) {
+    const fragment = document.createDocumentFragment();
+    let i = start;
+    node.textContent.split(/(\s+)/).forEach((part) => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) return fragment.append(" ");
+      // Letters of one word stay together so the word never breaks across lines.
+      const word = document.createElement("span");
+      word.style.whiteSpace = "nowrap";
+      [...part].forEach((char) => word.append(piece(char, "ch", i++)));
+      fragment.append(word);
+    });
+    node.replaceChildren(fragment);
+    return i;
+  }
+  const splits = [...document.querySelectorAll("[data-split]")];
+  if (moving()) {
+    const heroName = document.querySelector(".hero-name");
+    heroName.setAttribute("aria-label", heroName.textContent.replace(/\s+/g, " ").trim());
+    let chars = 0;
+    splits.forEach((el) => {
+      pieceCount = 0;
+      if (el.dataset.split === "chars") {
+        el.setAttribute("aria-hidden", "true");
+        chars = splitChars(el, chars);
+      } else splitWords(el);
+    });
+  }
+  const reveal = (el) => el.classList.add("is-in");
   if ("IntersectionObserver" in window) {
-    const maskObserver = new IntersectionObserver(
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-in");
-          maskObserver.unobserve(entry.target);
+          reveal(entry.target);
+          revealObserver.unobserve(entry.target);
         });
       },
-      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.15, rootMargin: "0px 0px -6% 0px" },
     );
-    document.querySelectorAll(".mask").forEach((el) => {
-      if (!el.closest(".hero")) maskObserver.observe(el);
+    [...splits, ...document.querySelectorAll(".rise")].forEach((el) => {
+      if (!el.closest(".hero")) revealObserver.observe(el);
     });
   } else {
-    document.querySelectorAll(".mask").forEach((el) => el.classList.add("is-in"));
+    [...splits, ...document.querySelectorAll(".rise")].forEach(reveal);
+  }
+
+  // Marquee bands drift on their own and speed up with the scroll, the second one
+  // running the other way. They hold still for visitors who prefer less motion.
+  const bands = [...document.querySelectorAll(".band-track")];
+  if (bands.length && moving()) {
+    const offsets = bands.map(() => 0);
+    let boost = 0;
+    let lastScroll = window.scrollY;
+    let bandsVisible = false;
+    let bandsRunning = false;
+    let then = 0;
+    window.addEventListener(
+      "scroll",
+      () => {
+        boost = Math.min(1600, boost + Math.abs(window.scrollY - lastScroll) * 6);
+        lastScroll = window.scrollY;
+      },
+      { passive: true },
+    );
+    const tick = (now) => {
+      const dt = Math.min(0.05, (now - then) / 1000);
+      then = now;
+      boost *= 0.92;
+      bands.forEach((track, i) => {
+        const width = track.firstElementChild.offsetWidth;
+        offsets[i] = (offsets[i] + (70 + boost) * dt) % width;
+        const x = i % 2 ? offsets[i] - width : -offsets[i];
+        track.style.transform = `translate3d(${x.toFixed(1)}px, 0, 0)`;
+      });
+      if (bandsVisible && !document.hidden) requestAnimationFrame(tick);
+      else bandsRunning = false;
+    };
+    const startBands = () => {
+      if (bandsRunning || !bandsVisible) return;
+      bandsRunning = true;
+      then = performance.now();
+      requestAnimationFrame(tick);
+    };
+    new IntersectionObserver(([entry]) => {
+      bandsVisible = entry.isIntersecting;
+      startBands();
+    }).observe(document.querySelector(".bands"));
+    document.addEventListener("visibilitychange", startBands);
   }
 
   // The About statement lights word by word as it scrolls past, so it reads at
@@ -283,7 +381,10 @@
   // With reduced motion the badge stays on its still CSS strap instead.
   const badge = hero.querySelector("[data-badge]");
   const strap = hero.querySelector("#strap-path");
-  const revealHero = () => hero.classList.add("is-in");
+  const revealHero = () => {
+    hero.classList.add("is-in");
+    hero.querySelectorAll("[data-split]").forEach(reveal);
+  };
   if (!badge || !strap || !moving()) {
     revealHero();
     return;
@@ -293,6 +394,8 @@
   badge.tabIndex = 0;
   badge.setAttribute("aria-label", "Swing the ID badge");
   const card = badge.querySelector(".badge-card");
+  const strapEdge = hero.querySelector(".strap-edge");
+  const strapBand = hero.querySelector(".strap-band");
 
   const SEGMENTS = 14;
   const GRAVITY = 2600;
@@ -308,6 +411,14 @@
   let angle = 0;
   let spin = 0;
   let turn = 0;
+  // The strap is elastic: pulling past its length stretches it, and on release the
+  // stretch springs back (and overshoots), flinging the badge up so it bounces.
+  const STRETCH_K = 110;
+  const STRETCH_DAMP = 9;
+  const MAX_SPEED = 1500;
+  let stretch = 0;
+  let stretchVel = 0;
+  let maxStretch = 0;
   let dragging = null;
   let running = false;
   let calm = 0;
@@ -318,18 +429,19 @@
   function measure() {
     const width = hero.clientWidth;
     const narrow = width <= 860;
-    const restTop = (nav.offsetHeight || 72) + (narrow ? 20 : Math.max(24, window.innerHeight * 0.06));
-    anchorX = width * (narrow ? 0.5 : 0.72);
+    const restTop = nav.getBoundingClientRect().bottom + window.scrollY - hero.offsetTop + (narrow ? 26 : 30);
+    anchorX = width * (narrow ? 0.5 : 0.74);
     anchorY = -window.innerHeight * 0.55;
     length = restTop - anchorY;
     segment = length / SEGMENTS;
+    maxStretch = Math.min(280, window.innerHeight * 0.34);
   }
   function rest() {
     for (let i = 0; i <= SEGMENTS; i++) {
       xs[i] = pxs[i] = anchorX;
       ys[i] = pys[i] = anchorY + segment * i;
     }
-    angle = spin = turn = 0;
+    angle = spin = turn = stretch = stretchVel = 0;
   }
   // The intro: the strap starts slack, off to one side and above the screen, so the
   // badge drops in, snaps taut and swings out the energy.
@@ -361,7 +473,13 @@
       pys[SEGMENTS] = ys[SEGMENTS];
       xs[SEGMENTS] = dragging.x;
       ys[SEGMENTS] = dragging.y;
+      stretch += (dragging.stretch - stretch) * 0.35;
+      stretchVel = 0;
+    } else {
+      stretchVel += (-STRETCH_K * stretch - STRETCH_DAMP * stretchVel) * STEP;
+      stretch = Math.max(-length * 0.2, stretch + stretchVel * STEP);
     }
+    const link = (length + stretch) / SEGMENTS;
     // A strap pulls but never pushes: segments only correct when stretched.
     // The badge end is heavy, so the strap gives way before the badge does.
     for (let k = 0; k < 18; k++) {
@@ -369,21 +487,31 @@
         const dx = xs[i] - xs[i - 1];
         const dy = ys[i] - ys[i - 1];
         const d = Math.hypot(dx, dy);
-        if (d <= segment) continue;
+        if (d <= link) continue;
         const wa = i - 1 === 0 ? 0 : 1;
         const wb = i === SEGMENTS ? (dragging ? 0 : 0.2) : 1;
         if (!wa && !wb) continue;
-        const diff = (d - segment) / (d * (wa + wb));
+        const diff = (d - link) / (d * (wa + wb));
         xs[i - 1] += dx * diff * wa;
         ys[i - 1] += dy * diff * wa;
         xs[i] -= dx * diff * wb;
         ys[i] -= dy * diff * wb;
       }
     }
+    // Cap the badge's speed so a hard snap-back bounces it instead of launching it.
+    if (!dragging) {
+      const vx = xs[SEGMENTS] - pxs[SEGMENTS];
+      const vy = ys[SEGMENTS] - pys[SEGMENTS];
+      const speed = Math.hypot(vx, vy) / STEP;
+      if (speed > MAX_SPEED) {
+        pxs[SEGMENTS] = xs[SEGMENTS] - (vx * MAX_SPEED) / speed;
+        pys[SEGMENTS] = ys[SEGMENTS] - (vy * MAX_SPEED) / speed;
+      }
+    }
     // The badge turns toward the strap's last segment on a damped spring.
     const dx = xs[SEGMENTS] - xs[SEGMENTS - 1];
     const dy = ys[SEGMENTS] - ys[SEGMENTS - 1];
-    const target = Math.hypot(dx, dy) > segment * 0.6 ? Math.atan2(-dx, dy) : angle;
+    const target = Math.hypot(dx, dy) > link * 0.6 ? Math.atan2(-dx, dy) : angle;
     spin += ((target - angle) * 70 - spin * 7) * STEP;
     angle += spin * STEP;
     const vx = (xs[SEGMENTS] - pxs[SEGMENTS]) / STEP;
@@ -399,6 +527,10 @@
     }
     d += ` L${xs[SEGMENTS].toFixed(1)} ${ys[SEGMENTS].toFixed(1)}`;
     strap.setAttribute("d", d);
+    // A stretched strap gets thinner, like a rubber band.
+    const thin = Math.sqrt(length / (length + Math.max(0, stretch)));
+    strapEdge.style.strokeWidth = (28 * thin).toFixed(1);
+    strapBand.style.strokeWidth = (22 * thin).toFixed(1);
     const half = badge.offsetWidth / 2;
     badge.style.transform = `translate3d(${(xs[SEGMENTS] - half).toFixed(1)}px, ${ys[SEGMENTS].toFixed(1)}px, 0) rotate(${angle.toFixed(4)}rad)`;
     card.style.setProperty("--turn", `${turn.toFixed(2)}deg`);
@@ -414,7 +546,7 @@
       accumulator -= STEP;
     }
     for (let i = 1; i <= SEGMENTS; i++) energy = Math.max(energy, Math.abs(xs[i] - pxs[i]) + Math.abs(ys[i] - pys[i]));
-    energy = Math.max(energy, Math.abs(spin) * 0.2);
+    energy = Math.max(energy, Math.abs(spin) * 0.2, Math.abs(stretch) * 0.05, Math.abs(stretchVel) * 0.01);
     draw();
     // Sleep once the badge has settled, and wake on the next touch.
     calm = energy < 0.02 && !dragging ? calm + 1 : 0;
@@ -439,41 +571,70 @@
   badge.addEventListener("pointerdown", (event) => {
     if (event.button !== 0) return;
     const point = local(event);
-    dragging = { dx: point.x - xs[SEGMENTS], dy: point.y - ys[SEGMENTS], x: xs[SEGMENTS], y: ys[SEGMENTS] };
-    badge.setPointerCapture(event.pointerId);
+    dragging = {
+      dx: point.x - xs[SEGMENTS],
+      dy: point.y - ys[SEGMENTS],
+      x: xs[SEGMENTS],
+      y: ys[SEGMENTS],
+      stretch: 0,
+      vx: 0,
+      vy: 0,
+      time: event.timeStamp,
+    };
     badge.classList.add("is-dragging");
     wake();
   });
-  badge.addEventListener("pointermove", (event) => {
+  // Moves and releases are heard on the window, so the drag holds even when the
+  // pointer slips off the badge or lets go outside the page.
+  window.addEventListener("pointermove", (event) => {
     if (!dragging) return;
     const point = local(event);
     let x = point.x - dragging.dx;
     let y = point.y - dragging.dy;
-    // Keep the pull within the strap's reach.
+    // Past the strap's length the pull meets more and more resistance, up to a limit.
     const dx = x - anchorX;
     const dy = y - anchorY;
     const d = Math.hypot(dx, dy);
+    dragging.stretch = 0;
     if (d > length) {
-      x = anchorX + (dx / d) * length;
-      y = anchorY + (dy / d) * length;
+      const extra = maxStretch * (1 - Math.exp(-(d - length) / maxStretch));
+      x = anchorX + (dx / d) * (length + extra);
+      y = anchorY + (dy / d) * (length + extra);
+      dragging.stretch = extra;
     }
+    // Remember how fast the hand moves, so letting go mid-swing throws the badge.
+    const dt = Math.max(1, event.timeStamp - dragging.time) / 1000;
+    dragging.vx += ((x - dragging.x) / dt - dragging.vx) * 0.5;
+    dragging.vy += ((y - dragging.y) / dt - dragging.vy) * 0.5;
+    dragging.time = event.timeStamp;
     dragging.x = x;
     dragging.y = y;
   });
   const release = () => {
     if (!dragging) return;
+    const limit = 2600;
+    const vx = Math.max(-limit, Math.min(limit, dragging.vx));
+    const vy = Math.max(-limit, Math.min(limit, dragging.vy));
+    pxs[SEGMENTS] = xs[SEGMENTS] - vx * STEP;
+    pys[SEGMENTS] = ys[SEGMENTS] - vy * STEP;
+    // A hard pull also sets the badge spinning a little as it snaps back.
+    spin += (Math.random() - 0.5) * stretch * 0.05;
     dragging = null;
     badge.classList.remove("is-dragging");
     wake();
   };
-  badge.addEventListener("pointerup", release);
-  badge.addEventListener("pointercancel", release);
+  window.addEventListener("pointerup", release);
+  window.addEventListener("pointercancel", release);
+  window.addEventListener("blur", release);
   let side = 1;
   badge.addEventListener("keydown", (event) => {
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
+    // The keyboard version of a tug: a sideways nudge plus a stretch that springs back.
     pxs[SEGMENTS] -= 4 * side;
     side = -side;
+    stretch = maxStretch * 0.5;
+    stretchVel = 0;
     wake();
   });
 

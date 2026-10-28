@@ -42,7 +42,7 @@ test("renders original content and computes project count after add/remove", () 
   const data = clone();
   data.projects.splice(1);
   const html = renderPortfolio(data);
-  assert.equal((html.match(/<article class="work"/g) || []).length, 1);
+  assert.equal((html.match(/<article class="work /g) || []).length, 1);
   assert.match(html, /01 \/ 01/);
   assert.equal(
     (html.match(/class="experience-logo"/g) || []).length,
@@ -51,7 +51,7 @@ test("renders original content and computes project count after add/remove", () 
   data.projects = [];
   const empty = renderPortfolio(data);
   assert.match(empty, /No projects to show yet\./);
-  assert.doesNotMatch(empty, /<article class="work"/);
+  assert.doesNotMatch(empty, /<article class="work /);
 });
 test("project video plays in the work list and replaces the gallery in the dialog", () => {
   const data = clone();
