@@ -10,12 +10,13 @@ import {
 } from "node:fs/promises";
 import { resolve, dirname, sep, extname } from "node:path";
 import { createHash, randomUUID } from "node:crypto";
-import { renderPortfolio } from "./render.mjs";
 import { validateContent } from "./schema.mjs";
 
+// Content refers to media by site path (assets/images/...); on disk those files live
+// in public/, which Next.js serves at the site root.
 export function createStorage(root) {
   const dataPath = resolve(root, "content/portfolio.json");
-  const htmlPath = resolve(root, "index.html");
+  const publicRoot = resolve(root, "public");
   let saving = false;
   const version = (raw) => createHash("sha256").update(raw).digest("hex");
   async function read() {
@@ -23,10 +24,10 @@ export function createStorage(root) {
     return { content: JSON.parse(raw), version: version(raw) };
   }
   async function assertImage(path) {
-    const imageRoot = await realpath(resolve(root, "assets/images"));
+    const imageRoot = await realpath(resolve(publicRoot, "assets/images"));
     let actual;
     try {
-      actual = await realpath(resolve(root, path));
+      actual = await realpath(resolve(publicRoot, path));
     } catch {
       throw new Error(
         `Gambar tidak ditemukan: ${path}. Pilih ulang dari pustaka media.`,
@@ -48,15 +49,15 @@ export function createStorage(root) {
     for (const video of content.projects.map((project) => project.video).filter((path) => path.startsWith("assets/videos/"))) {
       let actual;
       try {
-        actual = await realpath(resolve(root, video));
+        actual = await realpath(resolve(publicRoot, video));
       } catch {
         throw new Error(`Video tidak ditemukan: ${video}.`);
       }
-      const videoRoot = await realpath(resolve(root, "assets/videos"));
+      const videoRoot = await realpath(resolve(publicRoot, "assets/videos"));
       if (!actual.startsWith(videoRoot + sep) || !(await stat(actual)).isFile())
         throw new Error("Lokasi video tidak valid.");
     }
-    return { content, html: renderPortfolio(content) };
+    return { content };
   }
   async function save(input, expectedVersion) {
     if (saving)
@@ -65,9 +66,7 @@ export function createStorage(root) {
         { status: 409 },
       );
     saving = true;
-    const suffix = `.tmp-${randomUUID()}`;
-    const dataTemp = dataPath + suffix;
-    const htmlTemp = htmlPath + suffix;
+    const dataTemp = `${dataPath}.tmp-${randomUUID()}`;
     try {
       const current = await read();
       if (current.version !== expectedVersion)
@@ -77,32 +76,22 @@ export function createStorage(root) {
           ),
           { status: 409 },
         );
-      const { content, html } = await prepare(input);
+      const { content } = await prepare(input);
       const raw = JSON.stringify(content, null, 2) + "\n";
       await mkdir(dirname(dataPath), { recursive: true });
+      // Write then rename, so a crash never leaves a half-written content file.
       await writeFile(dataTemp, raw, { flag: "wx" });
-      await writeFile(htmlTemp, html, { flag: "wx" });
-      // Keep the previous HTML available for rollback if the second rename fails.
-      const previousHTML = await readFile(htmlPath);
-      await rename(htmlTemp, htmlPath);
-      try {
-        await rename(dataTemp, dataPath);
-      } catch (error) {
-        await writeFile(htmlPath, previousHTML);
-        throw error;
-      }
+      await rename(dataTemp, dataPath);
       return { content, version: version(raw) };
     } finally {
       saving = false;
-      await Promise.all(
-        [dataTemp, htmlTemp].map((path) => unlink(path).catch(() => {})),
-      );
+      await unlink(dataTemp).catch(() => {});
     }
   }
   async function media() {
     const result = [];
     async function walk(directory) {
-      for (const entry of await readdir(resolve(root, directory), {
+      for (const entry of await readdir(resolve(publicRoot, directory), {
         withFileTypes: true,
       })) {
         const path = `${directory}/${entry.name}`;
@@ -111,7 +100,7 @@ export function createStorage(root) {
           entry.isFile() &&
           /\.(png|jpe?g|webp|gif|svg)$/i.test(entry.name)
         ) {
-          const info = await stat(resolve(root, path));
+          const info = await stat(resolve(publicRoot, path));
           result.push({
             path,
             name: entry.name,
@@ -149,8 +138,8 @@ export function createStorage(root) {
         .replace(/-+/g, "-")
         .slice(0, 50) || "image";
     const path = `assets/images/uploads/${stem}-${randomUUID().slice(0, 8)}${extension}`;
-    await mkdir(resolve(root, "assets/images/uploads"), { recursive: true });
-    await writeFile(resolve(root, path), bytes, { flag: "wx" });
+    await mkdir(resolve(publicRoot, "assets/images/uploads"), { recursive: true });
+    await writeFile(resolve(publicRoot, path), bytes, { flag: "wx" });
     return { path };
   }
   return { read, save, prepare, media, upload };

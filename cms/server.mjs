@@ -6,7 +6,8 @@ import { randomBytes } from "node:crypto";
 import { createStorage } from "./storage.mjs";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
-export function createCmsServer({ directory = root } = {}) {
+// The page itself is served by `next dev` (see cms/dev.mjs); "/" on the CMS forwards there.
+export function createCmsServer({ directory = root, previewUrl = "http://127.0.0.1:4175/" } = {}) {
   const storage = createStorage(directory);
   const token = randomBytes(32).toString("hex");
   const types = {
@@ -99,20 +100,21 @@ export function createCmsServer({ directory = root } = {}) {
       const path = decodeURIComponent(url.pathname);
       if (path.includes("\0") || path.includes("\\"))
         return json(res, 400, { error: "Alamat tidak valid." });
+      if (path === "/" || path === "/index.html") {
+        res.writeHead(302, { Location: previewUrl });
+        return res.end();
+      }
       const routes = {
-        "/": "index.html",
-        "/index.html": "index.html",
         "/admin": "admin/index.html",
         "/admin/": "admin/index.html",
         "/cms/schema.mjs": "cms/schema.mjs",
       };
       let relative = routes[path];
-      if (
-        !relative &&
-        (/^\/admin\/(admin\.css|admin\.js)$/.test(path) ||
-          path.startsWith("/assets/"))
-      )
+      if (!relative && /^\/admin\/(admin\.css|admin\.js)$/.test(path))
         relative = path.slice(1);
+      // Media previews in the editor: site paths map onto public/.
+      if (!relative && path.startsWith("/assets/"))
+        relative = `public${path}`;
       if (!relative)
         return json(res, 404, { error: "Halaman tidak ditemukan." });
       const absolute = await realpath(resolve(directory, relative));
@@ -124,9 +126,9 @@ export function createCmsServer({ directory = root } = {}) {
         return json(res, 403, { error: "File tidak diizinkan." });
       // Assets cannot escape their public folder through a symlink or traversal.
       if (
-        relative.startsWith("assets/") &&
+        relative.startsWith("public/") &&
         !absolute.startsWith(
-          (await realpath(resolve(directory, "assets"))) + sep,
+          (await realpath(resolve(directory, "public/assets"))) + sep,
         )
       )
         return json(res, 403, { error: "File tidak diizinkan." });
@@ -156,26 +158,4 @@ export function createCmsServer({ directory = root } = {}) {
     }
   });
   return server;
-}
-if (
-  process.argv[1] &&
-  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
-) {
-  const port = Number(process.env.CMS_PORT || 4174);
-  if (!Number.isInteger(port) || port < 1024 || port > 65535)
-    throw new Error("CMS_PORT harus berupa angka 1024–65535.");
-  const server = createCmsServer();
-  server.on("error", (error) => {
-    console.error(
-      error.code === "EADDRINUSE"
-        ? `Port ${port} sedang dipakai. Jalankan dengan CMS_PORT=4175 npm run cms.`
-        : error.message,
-    );
-    process.exitCode = 1;
-  });
-  server.listen(port, "127.0.0.1", () =>
-    console.log(
-      `CMS: http://127.0.0.1:${port}/admin/\nPortfolio: http://127.0.0.1:${port}/\nSimpan di CMS, lalu commit dan push perubahan untuk publish.`,
-    ),
-  );
 }

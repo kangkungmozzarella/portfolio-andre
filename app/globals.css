@@ -13,8 +13,8 @@
   --shadow: 5px 5px 0 var(--ink);
   --shadow-lg: 8px 8px 0 var(--ink);
   --radius: 14px;
-  --display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
-  --body: "Archivo", system-ui, sans-serif;
+  --display: var(--font-display), "Arial Black", system-ui, sans-serif;
+  --body: var(--font-body), system-ui, sans-serif;
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --gutter: clamp(16px, 4vw, 56px);
@@ -1048,10 +1048,10 @@ em {
 .about-statement .word {
   transition: color 0.3s;
 }
-.reading .about-statement .word {
+.about-statement.is-reading .word {
   color: #b9ad97;
 }
-.reading .about-statement .word.is-lit {
+.about-statement.is-reading .word.is-lit {
   color: var(--ink);
 }
 .about-body {

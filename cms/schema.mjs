@@ -120,7 +120,7 @@ export const schema = {
         type: "video",
         required: false,
         max: 2000,
-        hint: "Opsional. Isi URL HTTPS video MP4/WebM, atau path assets/videos/nama-file.mp4. Jika diisi, video diputar tanpa suara di background saat proyek dipilih, dan ditonton dengan suara lewat tombol Watch video (menggantikan galeri).",
+        hint: "Opsional. Isi URL HTTPS video MP4/WebM, atau path assets/videos/nama-file.mp4. Jika diisi, video diputar tanpa suara saat kartu proyeknya terlihat di layar, dan ditonton dengan suara lewat tombol Watch video (menggantikan galeri). File lokal diletakkan di public/assets/videos/.",
       }),
       url: url("Tautan proyek atau repositori", { required: false }),
       linkLabel: text("Teks tautan", { required: false }),
