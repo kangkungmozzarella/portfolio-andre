@@ -11,6 +11,7 @@ import { validateContent } from "./schema.mjs";
 import { createStorage } from "./storage.mjs";
 import { createCmsServer } from "./server.mjs";
 import { Portfolio } from "../components/Portfolio.tsx";
+import { ProjectPage } from "../components/ProjectPage.tsx";
 
 // The page as Next.js prerenders it, minus the layout. Validation first, as the build does.
 const renderPortfolio = (data) =>
@@ -70,12 +71,30 @@ test("project cards autoplay a muted video, or offer screenshots when there is n
   ];
   const html = renderPortfolio(data);
   const card = (id) => html.slice(html.indexOf(`id="project-${id}"`), html.indexOf("</article>", html.indexOf(`id="project-${id}"`)));
-  assert.match(card("travel"), /Watch video<\/button>/);
-  assert.match(card("maut"), /View screenshots<\/button>/);
+  // Outside Next.js, <Link> drops the trailing slash that the real build keeps.
+  assert.match(card("travel"), /href="\/projects\/travel\/?"><svg[^]*?Watch video<\/a>/);
+  assert.match(card("maut"), /href="\/projects\/maut\/?"><svg[^]*?View screenshots<\/a>/);
   assert.match(card("travel"), /<video class="work-video" muted="" loop="" playsinline="" preload="none" poster="\/assets\/images\/gallery\/travel\/1\.png">/i);
   assert.match(card("travel"), /<source src="https:\/\/example\.com\/travel-demo\.mp4" type="video\/mp4"\/>/);
   assert.match(card("maut"), /<img src="\/assets\/images\/gallery\/spk-maut\/1\.png"/);
   assert.doesNotMatch(card("maut"), /<video/);
+});
+test("project pages play the video with sound, or show every screenshot, and link onward", () => {
+  const data = validateContent(clone());
+  const page = (project) => renderToStaticMarkup(createElement(ProjectPage, { content: data, project }));
+  const first = page(data.projects[0]);
+  assert.match(first, /<h1 data-split="words" class="project-name">/);
+  assert.match(first, /<video controls="" preload="metadata" playsinline=""/i);
+  assert.match(first, new RegExp(`href="/projects/${data.projects[1].id}/?"`));
+  assert.match(first, new RegExp(`href="/projects/${data.projects.at(-1).id}/?"`));
+  assert.match(first, /href="\/#work"/);
+
+  const gallery = structuredClone(data.projects[1]);
+  gallery.video = "";
+  gallery.images = ["assets/images/a.png", "assets/images/b.png"];
+  const html = page(gallery);
+  assert.doesNotMatch(html, /<video/);
+  assert.match(html, /screenshot 2/);
 });
 test("image adjustments are validated and rendered per image", () => {
   const data = clone();

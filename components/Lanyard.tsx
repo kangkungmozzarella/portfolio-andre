@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { ImageValue } from "@/lib/content";
 import { Img } from "@/lib/media";
+import { sounds } from "@/lib/sound";
 
 type Props = {
   heroRef: React.RefObject<HTMLElement | null>;
@@ -225,6 +226,7 @@ export function Lanyard({ heroRef, name, role, company, location, portrait }: Pr
         time: event.timeStamp,
       };
       badge!.classList.add("is-dragging");
+      sounds.pinch();
       wake();
     };
     // Moves and releases are heard on the window, so the drag holds even when the
@@ -262,6 +264,8 @@ export function Lanyard({ heroRef, name, role, company, location, portrait }: Pr
       pys[SEGMENTS] = ys[SEGMENTS] - vy * STEP;
       // A hard pull also sets the badge spinning a little as it snaps back.
       spin += (Math.random() - 0.5) * stretch * 0.05;
+      // Only a stretched strap twangs; a plain swing stays quiet.
+      if (stretch > 8) sounds.boing(Math.min(1, stretch / maxStretch));
       dragging = null;
       badge!.classList.remove("is-dragging");
       wake();
@@ -275,6 +279,7 @@ export function Lanyard({ heroRef, name, role, company, location, portrait }: Pr
       side = -side;
       stretch = maxStretch * 0.5;
       stretchVel = 0;
+      sounds.boing(0.5);
       wake();
     };
     let width = window.innerWidth;

@@ -3,12 +3,11 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { Project } from "@/lib/content";
 import { useOnScreen } from "@/lib/hooks";
-import { Img, Lines, asset, imageSrc, pad, parts, videoType } from "@/lib/media";
-import { ExternalLink, ProjectButton, useDialog } from "./Dialog";
+import { Img, Lines, asset, imageSrc, pad, parts, projectPath, tones, videoType } from "@/lib/media";
+import Link from "next/link";
+import { ExternalLink } from "./Dialog";
+import { Icon } from "./Icon";
 import { Reveal } from "./Reveal";
-
-// Project cards and toolbox boxes take turns through the three colours.
-export const tones = ["yellow", "blue", "pink"] as const;
 
 export function Chips({ value }: { value: string }) {
   return (
@@ -71,13 +70,22 @@ export function WorkIndex({ projects }: { projects: Project[] }) {
   );
 }
 
+// The main action on a card: the project's own page, where the video plays with sound.
+export function ProjectLink({ project }: { project: Project }) {
+  return (
+    <Link className="btn btn-primary" href={projectPath(project)}>
+      <Icon name={project.video ? "play" : "images"} />
+      {project.video ? "Watch video" : "View screenshots"}
+    </Link>
+  );
+}
+
 // A project card. Its video plays muted while on screen, unless the visitor asked
-// for less motion or less data, and pauses while the dialog is open.
+// for less motion or less data.
 export function ProjectCard({ project, index, total }: { project: Project; index: number; total: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const onScreen = useOnScreen(ref, 0.25);
-  const { isOpen } = useDialog();
   const [ratio, setRatio] = useState<number | null>(null);
   const [failed, setFailed] = useState(false);
   const cover = imageSrc(project.images[0]);
@@ -94,11 +102,11 @@ export function ProjectCard({ project, index, total }: { project: Project; index
     if (!el) return;
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (onScreen && !isOpen && !failed && !saveData && !reduced) {
+    if (onScreen && !failed && !saveData && !reduced) {
       el.preload = "auto";
       el.play().catch(() => {});
     } else el.pause();
-  }, [onScreen, isOpen, failed]);
+  }, [onScreen, failed]);
 
   const portrait = ratio !== null && ratio < 1;
   return (
@@ -133,14 +141,16 @@ export function ProjectCard({ project, index, total }: { project: Project; index
           )}
         </div>
         <div className="work-text">
-          <h3 className="work-name">{project.name}</h3>
+          <h3 className="work-name">
+            <Link href={projectPath(project)}>{project.name}</Link>
+          </h3>
           <p className="work-title">{project.title}</p>
           <p className="work-description">
             <Lines text={project.description} />
           </p>
           <Chips value={project.stack} />
           <div className="actions">
-            <ProjectButton project={project} />
+            <ProjectLink project={project} />
             {project.url && (
               <ExternalLink className="btn" href={project.url}>
                 {project.linkLabel || "View project"}
