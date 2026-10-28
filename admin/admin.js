@@ -259,9 +259,9 @@ form.addEventListener("click", (event) => {
 // without saved adjustments starts from that spot's default crop (see main.css).
 function adjustmentFrame(path) {
   if (/^projects\.\d+\.images\.0$/.test(path))
-    return { ratio: 1, start: { fit: "cover", x: 50, y: 50, zoom: 100 }, note: "Bingkai ini meniru tile proyek dan thumbnail \"Next up\" (kotak)." };
+    return { ratio: 1, start: { fit: "cover", x: 50, y: 50, zoom: 100 }, note: "Bingkai ini meniru thumbnail kotak yang muncul saat kursor di atas daftar proyek. Video dan poster di daftar proyek tetap tampil utuh." };
   if (path === "about.portrait")
-    return { ratio: 1, start: { fit: "cover", x: 50, y: 0, zoom: 110 }, note: "Bingkai ini meniru avatar bulat di pojok kanan atas. Foto di tab Profile tetap tampil utuh." };
+    return { ratio: 1, start: { fit: "cover", x: 50, y: 0, zoom: 130 }, note: "Bingkai ini meniru foto di kartu ID (lanyard) di bagian atas halaman." };
   if (/^certificates\.\d+\.image$/.test(path))
     return { ratio: 16 / 10, start: { fit: "cover", x: 50, y: 0, zoom: 100 }, note: "Bingkai ini meniru gambar di kartu sertifikat." };
   return { ratio: null, start: { fit: "contain", x: 50, y: 50, zoom: 100 }, note: "Gambar ini tampil di galeri dialog proyek." };
@@ -288,7 +288,6 @@ function updateCropEditor() {
   frame.style.aspectRatio = String(ratio);
   // Cap the width too, so a capped height never squashes the frame out of shape.
   frame.style.maxWidth = `calc(62svh * ${ratio})`;
-  frame.classList.toggle("round", adjustmentPath === "about.portrait");
   $("#crop-context").textContent = shape.note;
   $("#crop-fit").value = data.fit;
   $("#crop-zoom").value = data.zoom;
