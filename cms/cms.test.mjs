@@ -42,7 +42,7 @@ test("renders original content and computes project count after add/remove", () 
   const data = clone();
   data.projects.splice(1);
   const html = renderPortfolio(data);
-  assert.equal((html.match(/class="tile" type="button"/g) || []).length, 1);
+  assert.equal((html.match(/<article class="work"/g) || []).length, 1);
   assert.match(html, /01 \/ 01/);
   assert.equal(
     (html.match(/class="experience-logo"/g) || []).length,
@@ -51,9 +51,9 @@ test("renders original content and computes project count after add/remove", () 
   data.projects = [];
   const empty = renderPortfolio(data);
   assert.match(empty, /No projects to show yet\./);
-  assert.doesNotMatch(empty, /class="tile" type="button"/);
+  assert.doesNotMatch(empty, /<article class="work"/);
 });
-test("project video plays on the stage and replaces the gallery in the dialog", () => {
+test("project video plays in the work list and replaces the gallery in the dialog", () => {
   const data = clone();
   const project = (id, name, folder) => ({
     id, name, title: name, category: "Test", stack: "Test", description: "Test",
@@ -66,7 +66,7 @@ test("project video plays on the stage and replaces the gallery in the dialog", 
   const html = renderPortfolio(data);
   assert.match(html, /data-detail="project-travel">.*Watch video<\/button>/);
   assert.match(html, /data-detail="project-maut">.*View screenshots<\/button>/);
-  assert.match(html, /<video class="stage-media" muted loop playsinline preload="none" poster="assets\/images\/gallery\/travel\/1\.png">/);
+  assert.match(html, /<video class="work-video" muted loop playsinline preload="none" poster="assets\/images\/gallery\/travel\/1\.png">/);
   assert.match(html, /<video controls preload="none" playsinline poster="assets\/images\/gallery\/travel\/1\.png"/);
   assert.match(html, /<source src="https:\/\/example\.com\/travel-demo\.mp4" type="video\/mp4">/);
   assert.doesNotMatch(html, /Travel information system, screenshot 2/);
@@ -92,7 +92,7 @@ test("image adjustments are validated and rendered per image", () => {
   };
   const html = renderPortfolio(data);
   assert.match(html, /--image-fit:contain;--image-x:35%;--image-y:20%;--image-zoom:1\.25/);
-  assert.match(html, /<button class="tile"[^>]*><img src="assets\/images\/gallery\/kantor-ai\/cover\.jpg" alt="" style="--image-fit:cover;--image-x:70%;--image-y:45%;--image-zoom:1\.1"/);
+  assert.match(html, /<span class="thumb"><img src="assets\/images\/gallery\/kantor-ai\/cover\.jpg" alt="" style="--image-fit:cover;--image-x:70%;--image-y:45%;--image-zoom:1\.1"/);
   assert.match(html, /poster="assets\/images\/gallery\/kantor-ai\/cover\.jpg"/);
   assert.doesNotMatch(html, /\[object Object\]/);
 
