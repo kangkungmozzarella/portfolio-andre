@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Bricolage_Grotesque } from "next/font/google";
 import type { ReactNode } from "react";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { content } from "@/lib/content";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 // Fonts are downloaded at build time and served from the site itself.
@@ -29,7 +31,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SmoothScroll />
+      </body>
     </html>
   );
 }

@@ -37,7 +37,9 @@
 html {
   -webkit-text-size-adjust: 100%;
 }
-html.motion {
+/* Lenis drives the smooth scrolling once it runs, and needs the browser's own
+   smoothing off; this covers the moment before it starts. */
+html.motion:not(.lenis) {
   scroll-behavior: smooth;
 }
 body {
@@ -1328,6 +1330,201 @@ em {
   font-weight: 600;
 }
 
+/* Project pages */
+.project-page {
+  display: grid;
+  gap: clamp(32px, 4vw, 56px);
+  padding: calc(var(--nav-top) + var(--nav-h) + 40px) var(--gutter) clamp(72px, 9vw, 120px);
+}
+.back-link {
+  justify-self: start;
+}
+.project-meta {
+  display: inline-flex;
+  gap: 16px;
+  padding: 6px 14px;
+  border: var(--line);
+  border-radius: 999px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.project-meta.tone-yellow {
+  background: var(--yellow);
+}
+.project-meta.tone-blue {
+  background: var(--blue);
+}
+.project-meta.tone-pink {
+  background: var(--pink);
+}
+.project-name {
+  margin-top: 20px;
+  font-family: var(--display);
+  font-size: clamp(48px, 8vw, 128px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.project-tagline {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: var(--display);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 700;
+  background: linear-gradient(var(--yellow), var(--yellow)) 0 85% / 100% 40% no-repeat;
+}
+/* The video keeps its own ratio: wide videos fill the width, tall ones stand centred. */
+.project-stage {
+  --tip: 2deg;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 20px;
+  background: var(--ink);
+  box-shadow: var(--shadow-lg);
+}
+.project-stage video {
+  width: auto;
+  max-width: 100%;
+  max-height: 80svh;
+  margin-inline: auto;
+}
+.project-gallery {
+  display: grid;
+  gap: 3px;
+}
+.project-gallery img {
+  width: 100%;
+  height: auto;
+}
+.project-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 40px clamp(40px, 6vw, 96px);
+}
+.project-description {
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.6;
+}
+.project-facts {
+  --tip: -4deg;
+  display: grid;
+  gap: 4px;
+  padding: 22px;
+  border: var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+.project-facts.tone-yellow {
+  background: var(--yellow);
+}
+.project-facts.tone-blue {
+  background: var(--blue);
+}
+.project-facts.tone-pink {
+  background: var(--pink);
+}
+.project-facts h2 {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 800;
+}
+.project-facts .btn {
+  justify-self: start;
+}
+.project-facts .btn-primary {
+  background: var(--white);
+}
+.project-pager {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.pager-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px;
+  border: var(--line);
+  border-radius: 18px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.15s var(--ease),
+    box-shadow 0.15s var(--ease);
+}
+.pager-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-lg);
+}
+.pager-card:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.pager-next {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+.pager-thumb {
+  flex: none;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border: 2.5px solid var(--ink);
+  border-radius: 12px;
+}
+.pager-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: var(--image-fit, cover);
+  object-position: var(--image-x, 50%) var(--image-y, 50%);
+  transform: scale(var(--image-zoom, 1));
+}
+.pager-text {
+  display: grid;
+  min-width: 0;
+}
+.pager-text small {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.pager-text strong {
+  font-family: var(--display);
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+.work-name a {
+  background: linear-gradient(var(--yellow), var(--yellow)) 0 90% / 0 35% no-repeat;
+  transition: background-size 0.4s var(--ease);
+}
+.work-name a:hover {
+  background-size: 100% 35%;
+}
+
+/* Sound toggle: a square key, filled while sound is on. */
+.sound-toggle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: var(--line);
+  border-radius: 10px;
+  background: var(--white);
+  transition:
+    background 0.2s,
+    transform 0.4s var(--spring);
+}
+.sound-toggle[aria-pressed="true"] {
+  background: var(--blue);
+}
+.sound-toggle:active {
+  transform: scale(0.9);
+}
+
 /* Dialog */
 .project-dialog {
   width: min(1040px, calc(100% - 32px));
@@ -1422,27 +1619,6 @@ em {
   object-fit: var(--image-fit, contain);
   object-position: var(--image-x, 50%) var(--image-y, 50%);
 }
-.gallery-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 0 28px 24px;
-}
-.gallery-controls button {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: var(--line);
-  border-radius: 10px;
-  background: var(--white);
-}
-.gallery-count {
-  min-width: 48px;
-  font-weight: 700;
-  text-align: center;
-}
 .dialog-content > .text-link {
   margin-bottom: 16px;
 }
@@ -1471,9 +1647,16 @@ em {
   }
   .menu-toggle {
     display: inline-flex;
+    margin-left: 0;
+  }
+  .sound-toggle {
+    margin-left: auto;
   }
 }
 @media (max-width: 860px) {
+  .project-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .hero {
     --badge-w: clamp(190px, 52vw, 240px);
     align-items: start;
@@ -1537,6 +1720,9 @@ em {
   :root {
     --nav-h: 58px;
     --nav-top: 10px;
+  }
+  .project-pager {
+    grid-template-columns: minmax(0, 1fr);
   }
   .work-index a {
     grid-template-columns: 36px 1fr;

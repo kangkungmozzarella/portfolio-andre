@@ -1,14 +1,15 @@
 import type { Content } from "@/lib/content";
-import { Img, Lines, pad, parts } from "@/lib/media";
+import { Img, Lines, pad, parts, tones } from "@/lib/media";
 import { AboutStatement } from "./AboutStatement";
 import { Bands } from "./Bands";
 import { CertificateLink, DialogProvider, ExternalLink } from "./Dialog";
+import { Footer } from "./Footer";
 import { Hero } from "./Hero";
 import { Icon } from "./Icon";
 import { Nav } from "./Nav";
 import { Reveal } from "./Reveal";
 import { SplitText } from "./SplitText";
-import { Chips, ProjectCard, WorkIndex, tones } from "./Work";
+import { Chips, ProjectCard, WorkIndex } from "./Work";
 
 // The whole page. Interactive pieces are client components; everything else is
 // rendered to static HTML at build time.
@@ -168,15 +169,7 @@ export function Portfolio({ content }: { content: Content }) {
           </Reveal>
         </section>
       </main>
-      <footer className="footer">
-        <span>
-          © {new Date().getFullYear()} {profile.name}
-        </span>
-        <span>{profile.footer}</span>
-        <a className="text-link" href="#top">
-          Back to top <Icon name="up" />
-        </a>
-      </footer>
+      <Footer name={profile.name} note={profile.footer} />
     </DialogProvider>
   );
 }

@@ -48,3 +48,8 @@ export const parts = (value: string) =>
     .filter(Boolean);
 
 export const pad = (n: number) => String(n).padStart(2, "0");
+
+// Project cards, facts, and toolbox boxes take turns through the three colours.
+export const tones = ["yellow", "blue", "pink"] as const;
+
+export const projectPath = (project: { id: string }) => `/projects/${project.id}/`;

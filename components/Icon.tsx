@@ -8,6 +8,8 @@ const paths = {
   play: "M8 5.5v13l10.5-6.5z",
   images: "M4 6h16v12H4zM4 15l4.5-4.5 4 4 2.5-2.5L20 17",
   menu: "M4 8h16M4 16h16",
+  sound: "M4 9.5v5h3.5L12 18V6L7.5 9.5zM15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11",
+  muted: "M4 9.5v5h3.5L12 18V6L7.5 9.5zM16 9.5l5 5m0-5-5 5",
 };
 
 export function Icon({ name }: { name: keyof typeof paths }) {

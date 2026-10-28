@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "./Icon";
+import { SoundToggle } from "./SoundToggle";
 
 const sections = [
   { id: "work", label: "Work" },
@@ -13,9 +14,10 @@ const sections = [
 // Links from the previous layout (#projects, #profile) still land somewhere sensible.
 const oldHashes: Record<string, string> = { projects: "work", profile: "about" };
 
-type Props = { name: string; email: string; place: string; timezone: string };
+// `home` is false on project pages, where the section links lead back to the home page.
+type Props = { name: string; email: string; place: string; timezone: string; home?: boolean };
 
-export function Nav({ name, email, place, timezone }: Props) {
+export function Nav({ name, email, place, timezone, home = true }: Props) {
   const header = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -92,7 +94,7 @@ export function Nav({ name, email, place, timezone }: Props) {
   }, [menuOpen]);
 
   const links = sections.map(({ id, label }) => (
-    <a key={id} href={`#${id}`} aria-current={current === id ? "true" : undefined}>
+    <a key={id} href={`${home ? "" : "/"}#${id}`} aria-current={current === id ? "true" : undefined}>
       {label}
     </a>
   ));
@@ -100,7 +102,7 @@ export function Nav({ name, email, place, timezone }: Props) {
 
   return (
     <header ref={header} className={`nav${hidden && !menuOpen ? " is-hidden" : ""}`}>
-      <a className="nav-logo" href="#top" aria-label={`${name}, back to top`}>
+      <a className="nav-logo" href={home ? "#top" : "/"} aria-label={home ? `${name}, back to top` : `${name}, home`}>
         {firstName}
       </a>
       <nav className="nav-links" aria-label="Sections">
@@ -110,6 +112,7 @@ export function Nav({ name, email, place, timezone }: Props) {
         <span className="clock-place">{place}</span>
         <span className="local-time">{time}</span>
       </p>
+      <SoundToggle />
       <a className="btn btn-primary nav-cta" href={`mailto:${email}`}>
         Email me
       </a>

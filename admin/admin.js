@@ -259,7 +259,7 @@ form.addEventListener("click", (event) => {
 // without saved adjustments starts from that spot's default crop (see main.css).
 function adjustmentFrame(path) {
   if (/^projects\.\d+\.images\.0$/.test(path))
-    return { ratio: 1, start: { fit: "cover", x: 50, y: 50, zoom: 100 }, note: "Bingkai ini meniru thumbnail kotak yang muncul saat kursor di atas daftar proyek. Video dan poster di daftar proyek tetap tampil utuh." };
+    return { ratio: 1, start: { fit: "cover", x: 50, y: 50, zoom: 100 }, note: "Bingkai ini meniru thumbnail kotak: yang muncul saat kursor di atas daftar proyek, dan di tombol proyek sebelum/berikutnya di halaman proyek. Video dan poster tetap tampil utuh." };
   if (path === "about.portrait")
     return { ratio: 1, start: { fit: "cover", x: 50, y: 0, zoom: 130 }, note: "Bingkai ini meniru foto di kartu ID (lanyard) di bagian atas halaman." };
   if (/^certificates\.\d+\.image$/.test(path))

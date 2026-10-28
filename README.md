@@ -6,6 +6,8 @@ Portofolio pribadi yang dibangun dengan **Next.js (React) + TypeScript**, dieksp
 
 - **Next.js 16** (App Router, `output: "export"`): `next build` menghasilkan HTML, CSS, dan JS statis di `out/`. Halaman sudah berisi teks lengkap sejak awal, jadi tetap terbaca mesin pencari tanpa server.
 - **React 19 + TypeScript**: tiap bagian halaman adalah komponen di `components/`. Bagian yang interaktif (lanyard, menu, video, dialog) adalah client component; sisanya dirender statis saat build.
+- **Halaman per proyek** di `/projects/<id>/` (`app/projects/[id]/page.tsx`), dibuat otomatis untuk setiap proyek di konten.
+- **Lenis** untuk smooth scroll di desktop (mati jika pengunjung memakai mode kurangi gerakan), dan **suara antarmuka** yang dibuat dengan Web Audio di `lib/sound.ts`: mati secara default, dinyalakan lewat tombol speaker di navbar.
 - **CSS biasa** di `app/globals.css`, tanpa framework. Font (Bricolage Grotesque dan Archivo) dimuat lewat `next/font`, jadi diunduh saat build dan disajikan dari situs sendiri.
 - **CMS lokal** (Node.js, tanpa dependency) di `cms/` dan `admin/`.
 
@@ -34,9 +36,9 @@ CMS harus dibuka dari server ini. Membuka `admin/index.html` langsung tidak meny
 ## Struktur
 
 ```text
-app/            layout.tsx (font, metadata), page.tsx, globals.css
+app/            layout.tsx (font, metadata), page.tsx, projects/[id]/page.tsx, globals.css
 components/     Portfolio (susunan halaman), Hero, Lanyard, Nav, Work, Dialog, ...
-lib/            content.ts (tipe + validasi konten), media.tsx (helper gambar), hooks.ts
+lib/            content.ts (tipe + validasi konten), media.tsx (helper gambar), hooks.ts, sound.ts
 content/        portfolio.json, sumber semua teks dan daftar media
 public/         file yang disajikan apa adanya: assets/images, assets/videos, CNAME
 cms/            server CMS, penyimpanan, validasi (schema.mjs), tes
@@ -52,9 +54,9 @@ admin/          tampilan editor CMS
 5. Klik **Lihat portfolio** untuk memeriksa hasilnya di preview.
 6. Commit dan push perubahan lewat Git untuk memperbarui website online.
 
-Urutan proyek di halaman mengikuti urutan daftar proyek. Gambar pertama tiap proyek dipakai sebagai poster video (tampil utuh mengikuti rasionya) dan thumbnail kotak yang muncul saat kursor di atas daftar proyek. Tombol **Atur posisi** mengatur potongan thumbnail itu; pada foto profil tombol itu mengatur foto di kartu ID (lanyard) di bagian atas, dan pada sertifikat mengatur gambar di kartu. Kartu ID mengambil nama dari profil serta jabatan dan perusahaan dari pengalaman paling atas. Tautan proyek bisa diarahkan ke repositori atau demo masing-masing.
+Urutan proyek di halaman mengikuti urutan daftar proyek, begitu juga tombol proyek sebelum/berikutnya di halaman proyek. Setiap proyek otomatis punya halaman sendiri di `/projects/<id>/`, jadi ID proyek ikut menjadi alamat halamannya. Gambar pertama tiap proyek dipakai sebagai poster video (tampil utuh mengikuti rasionya) dan thumbnail kotak yang muncul saat kursor di atas daftar proyek serta di tombol sebelum/berikutnya. Tombol **Atur posisi** mengatur potongan thumbnail itu; pada foto profil tombol itu mengatur foto di kartu ID (lanyard) di bagian atas, dan pada sertifikat mengatur gambar di kartu. Kartu ID mengambil nama dari profil serta jabatan dan perusahaan dari pengalaman paling atas. Tautan proyek bisa diarahkan ke repositori atau demo masing-masing.
 
-Untuk menampilkan video perkenalan, isi **Video perkenalan** pada item proyek dengan URL HTTPS langsung ke file `.mp4`/`.webm`. Alternatifnya, letakkan file di `public/assets/videos/` dan isi path seperti `assets/videos/nama-proyek.mp4`. CMS belum mengunggah video otomatis; jika memakai file lokal, commit file video bersama perubahan konten. Saat video terisi, video diputar tanpa suara ketika proyeknya terlihat di layar (kecuali pengunjung memakai mode kurangi gerakan atau hemat data), dan tombol **Watch video** membuka dialog dengan video bersuara. Jika video kosong, dialog menampilkan galeri gambar.
+Untuk menampilkan video perkenalan, isi **Video perkenalan** pada item proyek dengan URL HTTPS langsung ke file `.mp4`/`.webm`. Alternatifnya, letakkan file di `public/assets/videos/` dan isi path seperti `assets/videos/nama-proyek.mp4`. CMS belum mengunggah video otomatis; jika memakai file lokal, commit file video bersama perubahan konten. Saat video terisi, video diputar tanpa suara ketika proyeknya terlihat di layar (kecuali pengunjung memakai mode kurangi gerakan atau hemat data), dan tombol **Watch video** membuka halaman proyek dengan video bersuara. Jika video kosong, halaman proyek menampilkan semua gambarnya.
 
 **Simpan bersifat lokal, bukan publish online.** CMS tidak menjalankan perintah Git atau mengirim konten ke layanan lain. Jika konten berubah dari tab/editor lain, penyimpanan ditolak agar tidak menimpa perubahan; salin edit yang ingin dipertahankan sebelum memilih **Batalkan perubahan** untuk memuat versi terbaru.
 
