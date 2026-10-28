@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { initials } from "@/lib/media";
 import { Icon } from "./Icon";
 
 const sections = [
@@ -102,10 +101,7 @@ export function Nav({ name, email, place, timezone }: Props) {
   return (
     <header ref={header} className={`nav${hidden && !menuOpen ? " is-hidden" : ""}`}>
       <a className="nav-logo" href="#top" aria-label={`${name}, back to top`}>
-        <span className="nav-mark" aria-hidden="true">
-          {initials(name)}
-        </span>
-        <span className="nav-name">{firstName}</span>
+        {firstName}
       </a>
       <nav className="nav-links" aria-label="Sections">
         {links}
