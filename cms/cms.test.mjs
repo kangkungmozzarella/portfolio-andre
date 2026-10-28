@@ -5,10 +5,16 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { once } from "node:events";
 import { request } from "node:http";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { validateContent } from "./schema.mjs";
-import { renderPortfolio } from "./render.mjs";
 import { createStorage } from "./storage.mjs";
 import { createCmsServer } from "./server.mjs";
+import { Portfolio } from "../components/Portfolio.tsx";
+
+// The page as Next.js prerenders it, minus the layout. Validation first, as the build does.
+const renderPortfolio = (data) =>
+  renderToStaticMarkup(createElement(Portfolio, { content: validateContent(data) }));
 const original = JSON.parse(
   await readFile(new URL("../content/portfolio.json", import.meta.url), "utf8"),
 );
@@ -21,7 +27,7 @@ async function fixture(t) {
   const directory = await mkdtemp(join(tmpdir(), "portfolio-cms-test-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   await mkdir(join(directory, "content"), { recursive: true });
-  await mkdir(join(directory, "assets/images"), { recursive: true });
+  await mkdir(join(directory, "public/assets/images"), { recursive: true });
   const data = clone();
   data.about.portrait = "assets/images/test.png";
   data.projects.forEach((x) => {
@@ -30,19 +36,18 @@ async function fixture(t) {
   });
   data.experience.forEach((x) => (x.logo = "assets/images/test.png"));
   data.certificates.forEach((x) => (x.image = "assets/images/test.png"));
-  await writeFile(join(directory, "assets/images/test.png"), png);
+  await writeFile(join(directory, "public/assets/images/test.png"), png);
   await writeFile(
     join(directory, "content/portfolio.json"),
     JSON.stringify(data, null, 2) + "\n",
   );
-  await writeFile(join(directory, "index.html"), renderPortfolio(data));
   return { directory, data, storage: createStorage(directory) };
 }
 test("renders original content and computes project count after add/remove", () => {
   const data = clone();
   data.projects.splice(1);
   const html = renderPortfolio(data);
-  assert.equal((html.match(/<article class="work /g) || []).length, 1);
+  assert.equal((html.match(/<article class="rise work /g) || []).length, 1);
   assert.match(html, /01 \/ 01/);
   assert.equal(
     (html.match(/class="experience-logo"/g) || []).length,
@@ -51,9 +56,9 @@ test("renders original content and computes project count after add/remove", () 
   data.projects = [];
   const empty = renderPortfolio(data);
   assert.match(empty, /No projects to show yet\./);
-  assert.doesNotMatch(empty, /<article class="work /);
+  assert.doesNotMatch(empty, /<article class="rise work /);
 });
-test("project video plays in the work list and replaces the gallery in the dialog", () => {
+test("project cards autoplay a muted video, or offer screenshots when there is none", () => {
   const data = clone();
   const project = (id, name, folder) => ({
     id, name, title: name, category: "Test", stack: "Test", description: "Test",
@@ -64,13 +69,13 @@ test("project video plays in the work list and replaces the gallery in the dialo
     project("maut", "Accommodation decision support", "spk-maut"),
   ];
   const html = renderPortfolio(data);
-  assert.match(html, /data-detail="project-travel">.*Watch video<\/button>/);
-  assert.match(html, /data-detail="project-maut">.*View screenshots<\/button>/);
-  assert.match(html, /<video class="work-video" muted loop playsinline preload="none" poster="assets\/images\/gallery\/travel\/1\.png">/);
-  assert.match(html, /<video controls preload="none" playsinline poster="assets\/images\/gallery\/travel\/1\.png"/);
-  assert.match(html, /<source src="https:\/\/example\.com\/travel-demo\.mp4" type="video\/mp4">/);
-  assert.doesNotMatch(html, /Travel information system, screenshot 2/);
-  assert.match(html, /Accommodation decision support, screenshot 2/);
+  const card = (id) => html.slice(html.indexOf(`id="project-${id}"`), html.indexOf("</article>", html.indexOf(`id="project-${id}"`)));
+  assert.match(card("travel"), /Watch video<\/button>/);
+  assert.match(card("maut"), /View screenshots<\/button>/);
+  assert.match(card("travel"), /<video class="work-video" muted="" loop="" playsinline="" preload="none" poster="\/assets\/images\/gallery\/travel\/1\.png">/i);
+  assert.match(card("travel"), /<source src="https:\/\/example\.com\/travel-demo\.mp4" type="video\/mp4"\/>/);
+  assert.match(card("maut"), /<img src="\/assets\/images\/gallery\/spk-maut\/1\.png"/);
+  assert.doesNotMatch(card("maut"), /<video/);
 });
 test("image adjustments are validated and rendered per image", () => {
   const data = clone();
@@ -92,8 +97,8 @@ test("image adjustments are validated and rendered per image", () => {
   };
   const html = renderPortfolio(data);
   assert.match(html, /--image-fit:contain;--image-x:35%;--image-y:20%;--image-zoom:1\.25/);
-  assert.match(html, /<span class="thumb"><img src="assets\/images\/gallery\/kantor-ai\/cover\.jpg" alt="" style="--image-fit:cover;--image-x:70%;--image-y:45%;--image-zoom:1\.1"/);
-  assert.match(html, /poster="assets\/images\/gallery\/kantor-ai\/cover\.jpg"/);
+  assert.match(html, /<span class="thumb"><img src="\/assets\/images\/gallery\/kantor-ai\/cover\.jpg" alt="" style="--image-fit:cover;--image-x:70%;--image-y:45%;--image-zoom:1\.1"/);
+  assert.match(html, /poster="\/assets\/images\/gallery\/kantor-ai\/cover\.jpg"/);
   assert.doesNotMatch(html, /\[object Object\]/);
 
   const bad = clone();
@@ -119,7 +124,7 @@ test("escapes text and rejects unsafe URLs, IDs, timezone, and media paths", () 
     assert.throws(() => validateContent(bad));
   }
 });
-test("save persists to JSON and generated HTML, preserving all other fields", async (t) => {
+test("save persists to JSON, preserving all other fields", async (t) => {
   const { directory, storage } = await fixture(t);
   const before = await storage.read();
   before.content.hero.intro = "A new introduction from the CMS.";
@@ -127,7 +132,7 @@ test("save persists to JSON and generated HTML, preserving all other fields", as
   assert.notEqual(saved.version, before.version);
   assert.deepEqual(saved.content, before.content);
   assert.match(
-    await readFile(join(directory, "index.html"), "utf8"),
+    await readFile(join(directory, "content/portfolio.json"), "utf8"),
     /A new introduction from the CMS\./,
   );
   assert.deepEqual(
@@ -147,10 +152,10 @@ test("stale saves cannot overwrite newer edits", async (t) => {
   );
   assert.equal((await storage.read()).content.hero.line1, "Newest version.");
 });
-test("invalid content and missing images leave both files unchanged", async (t) => {
+test("invalid content and missing images leave the content file unchanged", async (t) => {
   const { directory, storage } = await fixture(t);
   const before = await storage.read();
-  const html = await readFile(join(directory, "index.html"), "utf8");
+  const json = await readFile(join(directory, "content/portfolio.json"), "utf8");
   const bad = structuredClone(before.content);
   bad.projects[0].images = ["assets/images/missing.png"];
   await assert.rejects(
@@ -158,7 +163,7 @@ test("invalid content and missing images leave both files unchanged", async (t) 
     /Gambar tidak ditemukan/,
   );
   assert.equal((await storage.read()).version, before.version);
-  assert.equal(await readFile(join(directory, "index.html"), "utf8"), html);
+  assert.equal(await readFile(join(directory, "content/portfolio.json"), "utf8"), json);
 });
 test("upload validates image signature and uses a safe unique filename", async (t) => {
   const { storage } = await fixture(t);
@@ -172,7 +177,7 @@ test("upload validates image signature and uses a safe unique filename", async (
 });
 test("HTTP API enforces local origin/token and exposes only public routes", async (t) => {
   const { directory, data } = await fixture(t);
-  const server = createCmsServer({ directory });
+  const server = createCmsServer({ directory, previewUrl: "http://localhost:3999/" });
   server.listen(0, "127.0.0.1");
   await once(server, "listening");
   t.after(
@@ -239,10 +244,14 @@ test("HTTP API enforces local origin/token and exposes only public routes", asyn
   });
   assert.equal(response.status, 200);
   assert.deepEqual((await response.json()).content.projects, update.projects);
-  assert.match(
-    await (await fetch(base + "/")).text(),
-    new RegExp(update.projects[0].title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+  assert.deepEqual(
+    JSON.parse(await readFile(join(directory, "content/portfolio.json"), "utf8")).projects,
+    update.projects,
   );
+  const home = await fetch(base + "/", { redirect: "manual" });
+  assert.equal(home.status, 302);
+  assert.equal(home.headers.get("location"), "http://localhost:3999/");
+  assert.equal((await fetch(base + "/assets/images/test.png")).status, 200);
   const upload = await fetch(base + "/api/upload?name=picture.png", {
     method: "POST",
     headers: { "X-CMS-Token": session.token, "Content-Type": "image/png" },
