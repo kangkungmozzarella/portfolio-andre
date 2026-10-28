@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { ImageValue } from "@/lib/content";
-import { Img, initials } from "@/lib/media";
+import { Img } from "@/lib/media";
 
 type Props = {
   heroRef: React.RefObject<HTMLElement | null>;
@@ -69,7 +69,8 @@ export function Lanyard({ heroRef, name, role, company, location, portrait }: Pr
     function measure() {
       const width = hero!.clientWidth;
       const narrow = width <= 860;
-      const restTop = nav!.getBoundingClientRect().bottom + window.scrollY - hero!.offsetTop + (narrow ? 26 : 30);
+      // Hang well below the header so a stretch of strap shows between the two.
+      const restTop = nav!.getBoundingClientRect().bottom + window.scrollY - hero!.offsetTop + (narrow ? 56 : 72);
       anchorX = width * (narrow ? 0.5 : 0.74);
       anchorY = -window.innerHeight * 0.55;
       length = restTop - anchorY;
@@ -166,6 +167,9 @@ export function Lanyard({ heroRef, name, role, company, location, portrait }: Pr
         d += ` Q${xs[i].toFixed(1)} ${ys[i].toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;
       }
       d += ` L${xs[SEGMENTS].toFixed(1)} ${ys[SEGMENTS].toFixed(1)}`;
+      // Run the strap on into the clip along the badge's own axis, so its cut end
+      // stays hidden behind the clip however the badge is tilted.
+      d += ` l${(-Math.sin(angle) * 20).toFixed(1)} ${(Math.cos(angle) * 20).toFixed(1)}`;
       strap!.setAttribute("d", d);
       // A stretched strap gets thinner, like a rubber band.
       const thin = Math.sqrt(length / (length + Math.max(0, stretch)));
@@ -349,10 +353,7 @@ export function Lanyard({ heroRef, name, role, company, location, portrait }: Pr
             <p className="badge-role">{role}</p>
             {company && <p className="badge-company">{company}</p>}
           </div>
-          <p className="badge-foot">
-            <span>{location}</span>
-            <span className="badge-mark">{initials(name)}</span>
-          </p>
+          <p className="badge-foot">{location}</p>
         </div>
       </div>
     </>

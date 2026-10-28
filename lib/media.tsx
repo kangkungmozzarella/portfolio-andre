@@ -48,9 +48,3 @@ export const parts = (value: string) =>
     .filter(Boolean);
 
 export const pad = (n: number) => String(n).padStart(2, "0");
-
-export const initials = (name: string) =>
-  name
-    .split(" ")
-    .map((word) => word[0])
-    .join("");
