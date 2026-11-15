@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 // One large statement that lights word by word as it scrolls past, so it reads at
 // the pace of the scroll instead of arriving all at once.
 export function AboutStatement({ lead, accent, rest }: { lead: string; accent: string; rest: string }) {
-  const ref = useRef<HTMLHeadingElement>(null);
+  const ref = useRef<HTMLParagraphElement>(null);
   const [lit, setLit] = useState(0);
   const [reading, setReading] = useState(false);
 
@@ -45,8 +45,8 @@ export function AboutStatement({ lead, accent, rest }: { lead: string; accent: s
       });
 
   return (
-    <h2 ref={ref} className={`about-statement${reading ? " is-reading" : ""}`} id="about-title">
+    <p ref={ref} className={`about-statement${reading ? " is-reading" : ""}`}>
       {words(lead)} <em>{words(accent)}</em> {words(rest)}
-    </h2>
+    </p>
   );
 }

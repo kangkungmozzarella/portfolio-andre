@@ -259,9 +259,9 @@ form.addEventListener("click", (event) => {
 // without saved adjustments starts from that spot's default crop (see main.css).
 function adjustmentFrame(path) {
   if (/^projects\.\d+\.images\.0$/.test(path))
-    return { ratio: 1, start: { fit: "cover", x: 50, y: 50, zoom: 100 }, note: "Bingkai ini meniru thumbnail kotak: yang muncul saat kursor di atas daftar proyek, dan di tombol proyek sebelum/berikutnya di halaman proyek. Video dan poster tetap tampil utuh." };
+    return { ratio: 1, start: { fit: "cover", x: 50, y: 50, zoom: 100 }, note: "Bingkai ini meniru potongan sampul di kartu proyek dan thumbnail kotak di tombol proyek sebelum/berikutnya. Di halaman proyek, video dan poster tetap tampil utuh." };
   if (path === "about.portrait")
-    return { ratio: 1, start: { fit: "cover", x: 50, y: 0, zoom: 130 }, note: "Bingkai ini meniru foto di kartu ID (lanyard) di bagian atas halaman." };
+    return { ratio: null, start: { fit: "contain", x: 50, y: 50, zoom: 100 }, note: "Foto ini tampil menyembul keluar dari pil di samping kalimat pembuka; posisinya diatur otomatis. Pakai foto dengan latar transparan." };
   if (/^certificates\.\d+\.image$/.test(path))
     return { ratio: 16 / 10, start: { fit: "cover", x: 50, y: 0, zoom: 100 }, note: "Bingkai ini meniru gambar di kartu sertifikat." };
   return { ratio: null, start: { fit: "contain", x: 50, y: 50, zoom: 100 }, note: "Gambar ini tampil di galeri dialog proyek." };

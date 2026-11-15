@@ -8,17 +8,15 @@ import { useEffect } from "react";
 export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const nav = document.querySelector<HTMLElement>(".nav");
     const lenis = new Lenis({
       autoRaf: true,
-      // In-page links glide too, and land clear of the floating header.
-      anchors: { offset: -((nav?.getBoundingClientRect().bottom ?? 80) + 16) },
+      // In-page links glide too, and land clear of the fixed header.
+      anchors: { offset: -88 },
       stopInertiaOnNavigate: true,
     });
-    // The dialog and the open menu lock the page; pause the glide with them.
+    // The dialog locks the page; pause the glide with it.
     const sync = () => {
-      const locked = document.body.classList.contains("dialog-open") || document.body.classList.contains("menu-open");
-      if (locked) lenis.stop();
+      if (document.body.classList.contains("dialog-open")) lenis.stop();
       else lenis.start();
     };
     const observer = new MutationObserver(sync);

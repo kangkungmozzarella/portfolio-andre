@@ -48,8 +48,8 @@ test("renders original content and computes project count after add/remove", () 
   const data = clone();
   data.projects.splice(1);
   const html = renderPortfolio(data);
-  assert.equal((html.match(/<article class="rise work /g) || []).length, 1);
-  assert.match(html, /01 \/ 01/);
+  assert.equal((html.match(/<article [^>]*class="card"/g) || []).length, 1);
+  assert.match(html, /<span class="card-meta"><span>01<\/span>/);
   assert.equal(
     (html.match(/class="experience-logo"/g) || []).length,
     data.experience.length,
@@ -57,9 +57,9 @@ test("renders original content and computes project count after add/remove", () 
   data.projects = [];
   const empty = renderPortfolio(data);
   assert.match(empty, /No projects to show yet\./);
-  assert.doesNotMatch(empty, /<article class="rise work /);
+  assert.doesNotMatch(empty, /class="card"/);
 });
-test("project cards autoplay a muted video, or offer screenshots when there is none", () => {
+test("project cards lead to their pages, with a muted video or a screenshot", () => {
   const data = clone();
   const project = (id, name, folder) => ({
     id, name, title: name, category: "Test", stack: "Test", description: "Test",
@@ -72,8 +72,8 @@ test("project cards autoplay a muted video, or offer screenshots when there is n
   const html = renderPortfolio(data);
   const card = (id) => html.slice(html.indexOf(`id="project-${id}"`), html.indexOf("</article>", html.indexOf(`id="project-${id}"`)));
   // Outside Next.js, <Link> drops the trailing slash that the real build keeps.
-  assert.match(card("travel"), /href="\/projects\/travel\/?"><svg[^]*?Watch video<\/a>/);
-  assert.match(card("maut"), /href="\/projects\/maut\/?"><svg[^]*?View screenshots<\/a>/);
+  assert.match(card("travel"), /href="\/projects\/travel\/?"[^]*?Watch video/);
+  assert.match(card("maut"), /href="\/projects\/maut\/?"[^]*?View screenshots/);
   assert.match(card("travel"), /<video class="work-video" muted="" loop="" playsinline="" preload="none" poster="\/assets\/images\/gallery\/travel\/1\.png">/i);
   assert.match(card("travel"), /<source src="https:\/\/example\.com\/travel-demo\.mp4" type="video\/mp4"\/>/);
   assert.match(card("maut"), /<img src="\/assets\/images\/gallery\/spk-maut\/1\.png"/);
@@ -116,7 +116,7 @@ test("image adjustments are validated and rendered per image", () => {
   };
   const html = renderPortfolio(data);
   assert.match(html, /--image-fit:contain;--image-x:35%;--image-y:20%;--image-zoom:1\.25/);
-  assert.match(html, /<span class="thumb"><img src="\/assets\/images\/gallery\/kantor-ai\/cover\.jpg" alt="" style="--image-fit:cover;--image-x:70%;--image-y:45%;--image-zoom:1\.1"/);
+  assert.match(html, /poster="\/assets\/images\/gallery\/kantor-ai\/cover\.jpg" style="--image-fit:cover;--image-x:70%;--image-y:45%;--image-zoom:1\.1"/);
   assert.match(html, /poster="\/assets\/images\/gallery\/kantor-ai\/cover\.jpg"/);
   assert.doesNotMatch(html, /\[object Object\]/);
 

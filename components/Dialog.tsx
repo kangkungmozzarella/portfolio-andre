@@ -4,7 +4,6 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import type { Certificate } from "@/lib/content";
 import { Img, Lines, asset, imageSrc } from "@/lib/media";
 import { Icon } from "./Icon";
-import { Reveal } from "./Reveal";
 
 type Detail = { item: Certificate; name: string };
 
@@ -97,9 +96,9 @@ export function ExternalLink({ href, children, className = "text-link" }: { href
 export function CertificateLink({ certificate, name, children }: { certificate: Certificate; name: string; children: ReactNode }) {
   const { open } = useDialog();
   return (
-    <Reveal
-      as="a"
+    <a
       className="certificate"
+      draggable={false}
       href={asset(imageSrc(certificate.image))}
       onClick={(event: MouseEvent) => {
         event.preventDefault();
@@ -107,6 +106,6 @@ export function CertificateLink({ certificate, name, children }: { certificate: 
       }}
     >
       {children}
-    </Reveal>
+    </a>
   );
 }

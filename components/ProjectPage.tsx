@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { Content, Project } from "@/lib/content";
-import { Img, Lines, asset, imageSrc, pad, projectPath, tones, videoType } from "@/lib/media";
+import { Img, Lines, asset, imageSrc, pad, projectPath, videoType } from "@/lib/media";
 import { ExternalLink } from "./Dialog";
 import { Footer } from "./Footer";
+import { Header } from "./Header";
 import { Icon } from "./Icon";
-import { Nav } from "./Nav";
 import { Reveal } from "./Reveal";
 import { SplitText } from "./SplitText";
 import { Chips } from "./Work";
@@ -16,21 +16,20 @@ export function ProjectPage({ content, project }: { content: Content; project: P
   const index = projects.findIndex((item) => item.id === project.id);
   const previous = projects[(index - 1 + projects.length) % projects.length];
   const next = projects[(index + 1) % projects.length];
-  const tone = tones[index % 3];
 
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <Nav name={profile.name} email={profile.email} place={profile.location.split(",")[0]} timezone={profile.timezone} home={false} />
+      <Header name={profile.name} place={profile.location.split(",")[0]} timezone={profile.timezone} home={false} />
       <main id="main" tabIndex={-1} className="project-page">
         <Link className="btn back-link" href="/#work">
           <Icon name="left" />
           All projects
         </Link>
         <header className="project-head">
-          <p className={`project-meta tone-${tone}`}>
+          <p className="project-meta">
             <span>
               {pad(index + 1)} / {pad(projects.length)}
             </span>
@@ -59,7 +58,7 @@ export function ProjectPage({ content, project }: { content: Content; project: P
           <p className="project-description">
             <Lines text={project.description} />
           </p>
-          <Reveal as="aside" className={`project-facts tone-${tone}`}>
+          <Reveal as="aside" className="project-facts">
             <h2>Built with</h2>
             <Chips value={project.stack} />
             {project.url && (

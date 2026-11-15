@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import type { Project } from "@/lib/content";
-import { useOnScreen } from "@/lib/hooks";
-import { Img, Lines, asset, imageSrc, pad, parts, projectPath, tones, videoType } from "@/lib/media";
+import { useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
-import { ExternalLink } from "./Dialog";
+import type { Project } from "@/lib/content";
+import { asset, Img, imageSrc, imageStyle, pad, parts, projectPath, videoType } from "@/lib/media";
 import { Icon } from "./Icon";
-import { Reveal } from "./Reveal";
+import { PinnedRow } from "./PinnedRow";
 
 export function Chips({ value }: { value: string }) {
   return (
@@ -19,146 +17,84 @@ export function Chips({ value }: { value: string }) {
   );
 }
 
-// An index to scan before the cards. On a mouse, a small cover follows the pointer.
-export function WorkIndex({ projects }: { projects: Project[] }) {
-  const [active, setActive] = useState<number | null>(null);
-  const [point, setPoint] = useState({ x: 0, y: 0 });
-  const [follow, setFollow] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
-    const update = () => setFollow(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
+// Every project as a card in a pinned row that slides sideways as the page scrolls
+// (see PinnedRow). Categories above the row narrow it down. `head` is the title row.
+export function Projects({ projects, head }: { projects: Project[]; head: ReactNode }) {
+  const categories = [...new Set(projects.map((project) => project.category))];
+  const [filter, setFilter] = useState("");
+  const shown = filter ? projects.filter((project) => project.category === filter) : projects;
 
   return (
-    <div
-      className="work-index"
-      onPointerMove={(event) => {
-        if (!follow) return;
-        setPoint({ x: event.clientX + 28, y: event.clientY - 90 });
-        const link = (event.target as HTMLElement).closest<HTMLElement>("[data-thumb]");
-        setActive(link ? Number(link.dataset.thumb) : null);
-      }}
-      onPointerLeave={() => setActive(null)}
+    <PinnedRow
+      label="Projects"
+      resetKey={filter}
+      head={
+        <>
+          {head}
+          {categories.length > 1 && (
+            <div className="filters" role="group" aria-label="Filter projects by type">
+              {["", ...categories].map((category) => (
+                <button key={category} type="button" aria-pressed={filter === category} onClick={() => setFilter(category)}>
+                  {category || "All"}
+                  <span className="count">{category ? projects.filter((project) => project.category === category).length : projects.length}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </>
+      }
     >
-      <ol>
-        {projects.map((project, i) => (
-          <li key={project.id}>
-            <a href={`#project-${project.id}`} data-thumb={i}>
-              <span className="index-num">{pad(i + 1)}</span>
-              <span className="index-name">{project.name}</span>
-              <span className="index-category">{project.category}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-      <div
-        className={`thumbs${follow && active !== null ? " is-on" : ""}`}
-        style={{ "--x": `${point.x}px`, "--y": `${point.y}px` } as CSSProperties}
-        aria-hidden="true"
-      >
-        {projects.map((project, i) => (
-          <span key={project.id} className={`thumb${active === i ? " is-on" : ""}`}>
-            <Img value={project.images[0]} alt="" width={160} height={160} loading="lazy" />
-          </span>
-        ))}
-      </div>
-    </div>
+      {shown.map((project) => (
+        <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} />
+      ))}
+    </PinnedRow>
   );
 }
 
-// The main action on a card: the project's own page, where the video plays with sound.
-export function ProjectLink({ project }: { project: Project }) {
-  return (
-    <Link className="btn btn-primary" href={projectPath(project)}>
-      <Icon name={project.video ? "play" : "images"} />
-      {project.video ? "Watch video" : "View screenshots"}
-    </Link>
-  );
-}
-
-// A project card. Its video plays muted while on screen, unless the visitor asked
-// for less motion or less data.
-export function ProjectCard({ project, index, total }: { project: Project; index: number; total: number }) {
-  const ref = useRef<HTMLDivElement>(null);
+// One project. The whole card leads to the project's page. On a mouse, its video
+// plays muted while the pointer rests on it.
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const video = useRef<HTMLVideoElement>(null);
-  const onScreen = useOnScreen(ref, 0.25);
-  const [ratio, setRatio] = useState<number | null>(null);
   const [failed, setFailed] = useState(false);
-  const cover = imageSrc(project.images[0]);
-
-  // Each frame takes the ratio of its poster, so portrait videos stay portrait.
-  useEffect(() => {
-    const probe = new Image();
-    probe.onload = () => setRatio(probe.naturalWidth / probe.naturalHeight);
-    probe.src = asset(cover);
-  }, [cover]);
-
-  useEffect(() => {
+  const play = (on: boolean) => {
     const el = video.current;
-    if (!el) return;
+    if (!el || failed) return;
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (onScreen && !failed && !saveData && !reduced) {
+    if (on && !saveData && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       el.preload = "auto";
       el.play().catch(() => {});
     } else el.pause();
-  }, [onScreen, failed]);
+  };
 
-  const portrait = ratio !== null && ratio < 1;
   return (
-    <Reveal
-      as="article"
-      id={`project-${project.id}`}
-      className={`work tone-${tones[index % 3]}${portrait ? " is-portrait" : ""}`}
-    >
-      <p className="work-bar">
-        <span>
-          {pad(index + 1)} / {pad(total)}
-        </span>
-        <span>{project.category}</span>
-      </p>
-      <div ref={ref} className="work-body">
-        <div className="work-frame">
+    <article id={`project-${project.id}`} className="card">
+      <Link
+        className="card-link"
+        href={projectPath(project)}
+        onPointerEnter={(event) => event.pointerType === "mouse" && play(true)}
+        onPointerLeave={() => play(false)}
+      >
+        <span className="card-media">
           {project.video ? (
-            <video
-              ref={video}
-              className="work-video"
-              muted
-              loop
-              playsInline
-              preload="none"
-              poster={asset(cover)}
-              style={ratio ? { aspectRatio: String(ratio) } : undefined}
-            >
+            <video ref={video} className="work-video" muted loop playsInline preload="none" poster={asset(imageSrc(project.images[0]))} style={imageStyle(project.images[0])}>
               <source src={asset(project.video)} type={videoType(project.video)} onError={() => setFailed(true)} />
             </video>
           ) : (
-            <Img value={project.images[0]} alt="" className="work-video" loading="lazy" style={ratio ? { aspectRatio: String(ratio) } : undefined} />
+            <Img value={project.images[0]} alt="" className="work-video" loading="lazy" />
           )}
-        </div>
-        <div className="work-text">
-          <h3 className="work-name">
-            <Link href={projectPath(project)}>{project.name}</Link>
-          </h3>
-          <p className="work-title">{project.title}</p>
-          <p className="work-description">
-            <Lines text={project.description} />
-          </p>
-          <Chips value={project.stack} />
-          <div className="actions">
-            <ProjectLink project={project} />
-            {project.url && (
-              <ExternalLink className="btn" href={project.url}>
-                {project.linkLabel || "View project"}
-              </ExternalLink>
-            )}
-          </div>
-        </div>
-      </div>
-    </Reveal>
+          <span className="card-cta">
+            <Icon name={project.video ? "play" : "images"} />
+            {project.video ? "Watch video" : "View screenshots"}
+          </span>
+        </span>
+        <span className="card-meta">
+          <span>{pad(index + 1)}</span>
+          <span>{project.category}</span>
+        </span>
+        <span className="card-name">{project.name}</span>
+        <span className="card-title">{project.title}</span>
+        <span className="card-stack">{parts(project.stack).join(" · ")}</span>
+      </Link>
+    </article>
   );
 }

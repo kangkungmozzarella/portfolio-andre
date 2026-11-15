@@ -6,9 +6,9 @@ import { useInView } from "@/lib/hooks";
 type Props = {
   as?: ElementType;
   text: string;
-  // Rendered last, inside <em>, with the yellow marker.
+  // Rendered last, inside <em>, with the accent marker.
   accent?: string;
-  // "chars" pops letter by letter (the hero name); "words" word by word.
+  // "chars" rises letter by letter (the hero name); "words" word by word.
   mode?: "words" | "chars";
   // Starting index, so two pieces of one heading continue one stagger.
   offset?: number;
@@ -20,16 +20,13 @@ type Props = {
   "aria-hidden"?: boolean;
 };
 
-// Deterministic tilt per piece, so the server and the browser render the same markup.
-const tilt = (i: number) => `${((i * 37) % 25) - 12}deg`;
-
 export function SplitText({ as: Tag = "span", text, accent, mode = "words", offset = 0, active, className, ...rest }: Props) {
   const ref = useRef<HTMLElement>(null);
   const seen = useInView(ref);
   const on = active ?? seen;
   let i = offset;
   const piece = (value: string, cls: string) => (
-    <span key={i} className={cls} style={{ "--i": i, "--r": tilt(i++) } as CSSProperties}>
+    <span key={i} className={cls} style={{ "--i": i++ } as CSSProperties}>
       {value}
     </span>
   );

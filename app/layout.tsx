@@ -1,14 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Bricolage_Grotesque } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import type { ReactNode } from "react";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { content } from "@/lib/content";
+import { themeColors, themeScript } from "@/lib/theme";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 
-// Fonts are downloaded at build time and served from the site itself.
-const display = Bricolage_Grotesque({ subsets: ["latin"], axes: ["opsz"], variable: "--font-display", display: "swap" });
-const body = Archivo({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+// One typeface for everything, downloaded at build time and served from the site
+// itself. It is a variable font: any weight from 200 to 800 is available, which the
+// headings that react to the pointer rely on.
+const sans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 const { profile } = content;
 
@@ -18,20 +20,27 @@ export const metadata: Metadata = {
   icons: { icon: "/assets/images/favicon-32.png", apple: "/assets/images/apple-touch-icon.png" },
 };
 
-export const viewport: Viewport = { themeColor: "#fff4de" };
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: themeColors.light },
+    { media: "(prefers-color-scheme: dark)", color: themeColors.dark },
+  ],
+};
 
-// Sets html.motion before the first paint, so content waiting for its entrance is
-// hidden from the start rather than flashing in and out. Without JavaScript, or with
-// reduced motion, the class never appears and everything simply shows.
-const motionScript = `document.documentElement.classList.toggle("motion", !matchMedia("(prefers-reduced-motion: reduce)").matches)`;
+// Runs before the first paint. It picks the theme (the saved choice, or the system
+// setting), so the page never flashes the wrong one, and sets html.motion, so content
+// waiting for its entrance is hidden from the start rather than flashing in and out.
+// Without JavaScript, or with reduced motion, that class never appears and everything
+// simply shows. <html> takes no className from React, so a re-render cannot wipe it.
+const startScript = `${themeScript};document.documentElement.classList.toggle("motion", !matchMedia("(prefers-reduced-motion: reduce)").matches)`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: motionScript }} />
+        <script dangerouslySetInnerHTML={{ __html: startScript }} />
       </head>
-      <body>
+      <body className={sans.variable}>
         {children}
         <SmoothScroll />
       </body>

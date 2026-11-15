@@ -38,7 +38,7 @@ function audio() {
 }
 
 // One oscillator with a pitch glide and a quick fade, the building block of every sound.
-function tone({ type = "sine", from, to, duration, volume, wobble = 0 }: { type?: OscillatorType; from: number; to: number; duration: number; volume: number; wobble?: number }) {
+function tone({ type = "sine", from, to, duration, volume }: { type?: OscillatorType; from: number; to: number; duration: number; volume: number }) {
   const ctx = audio();
   if (!ctx) return;
   const now = ctx.currentTime;
@@ -47,17 +47,6 @@ function tone({ type = "sine", from, to, duration, volume, wobble = 0 }: { type?
   osc.type = type;
   osc.frequency.setValueAtTime(from, now);
   osc.frequency.exponentialRampToValueAtTime(to, now + duration);
-  if (wobble) {
-    // A fast vibrato that dies away: the "boing" of a rubber strap.
-    const lfo = ctx.createOscillator();
-    const depth = ctx.createGain();
-    lfo.frequency.value = 16;
-    depth.gain.setValueAtTime(wobble, now);
-    depth.gain.exponentialRampToValueAtTime(1, now + duration);
-    lfo.connect(depth).connect(osc.frequency);
-    lfo.start(now);
-    lfo.stop(now + duration);
-  }
   gain.gain.setValueAtTime(volume, now);
   gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
   osc.connect(gain).connect(ctx.destination);
@@ -68,9 +57,6 @@ function tone({ type = "sine", from, to, duration, volume, wobble = 0 }: { type?
 export const sounds = {
   // A press on any button or link.
   pop: () => tone({ from: 640, to: 280, duration: 0.09, volume: 0.12 }),
-  // Grabbing the badge.
-  pinch: () => tone({ type: "triangle", from: 880, to: 1320, duration: 0.05, volume: 0.06 }),
-  // Letting the badge go; a harder pull (0 to 1) bounces lower and longer.
-  boing: (strength: number) =>
-    tone({ type: "triangle", from: 320 - strength * 120, to: 140, duration: 0.35 + strength * 0.35, volume: 0.1 + strength * 0.08, wobble: 30 + strength * 60 }),
+  // Moving to another project in the showcase.
+  tick: () => tone({ type: "triangle", from: 1100, to: 760, duration: 0.04, volume: 0.05 }),
 };
