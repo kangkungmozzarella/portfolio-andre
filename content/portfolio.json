@@ -61,6 +61,34 @@
   },
   "projects": [
     {
+      "id": "nontonin",
+      "title": "See the screen first, then pay.",
+      "name": "Nontonin",
+      "category": "Mobile & web app",
+      "stack": "Expo · React Native · Next.js · Three.js",
+      "description": "A cinema ticket booking app for mobile and desktop. Tap a seat on the map and the camera flies to it in a 3D theatre, so you see the screen size, distance, and viewing angle before you book. Films come from TMDB, and the ticket ends with a QR code.",
+      "images": [
+        "assets/images/gallery/nontonin/cover.jpg"
+      ],
+      "video": "assets/videos/nontonin-reel.mp4",
+      "url": "https://github.com/kangkungmozzarella/nontonin",
+      "linkLabel": "View the source code"
+    },
+    {
+      "id": "klyn",
+      "title": "Your folders, tidy by themselves.",
+      "name": "Klyn",
+      "category": "Desktop app",
+      "stack": "Rust · Tauri · React · TypeScript",
+      "description": "A Windows app that keeps folders tidy from the system tray. Write a rule in plain words or pick a template, and Klyn sorts new files as they arrive. Every clean-up starts with a preview, nothing is overwritten or deleted for good, and every move can be undone from History.",
+      "images": [
+        "assets/images/gallery/klyn/cover.jpg"
+      ],
+      "video": "assets/videos/klyn-story.mp4",
+      "url": "https://kangkungmozzarella.github.io/",
+      "linkLabel": "Visit the website"
+    },
+    {
       "id": "kantor-ai",
       "title": "An office you can explore.",
       "name": "Kantor Kita",
