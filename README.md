@@ -7,7 +7,7 @@ Portofolio pribadi yang dibangun dengan **Next.js (React) + TypeScript**, dieksp
 - **Next.js 16** (App Router, `output: "export"`): `next build` menghasilkan HTML, CSS, dan JS statis di `out/`. Halaman sudah berisi teks lengkap sejak awal, jadi tetap terbaca mesin pencari tanpa server.
 - **React 19 + TypeScript**: tiap bagian halaman adalah komponen di `components/`. Bagian yang interaktif (header, baris proyek dan sertifikat yang bergeser ke samping, huruf yang bereaksi ke kursor, dialog) adalah client component; sisanya dirender statis saat build.
 - **Halaman per proyek** di `/projects/<id>/` (`app/projects/[id]/page.tsx`), dibuat otomatis untuk setiap proyek di konten.
-- **Lenis** untuk smooth scroll di desktop (mati jika pengunjung memakai mode kurangi gerakan), dan **suara antarmuka** yang dibuat dengan Web Audio di `lib/sound.ts`: mati secara default, dinyalakan lewat tombol speaker di header.
+- **Lenis** untuk smooth scroll di desktop (mati jika pengunjung memakai mode kurangi gerakan).
 - **Mode terang dan gelap** lewat sakelar di header. Tema awal mengikuti pengaturan perangkat, lalu pilihan pengunjung diingat di browser (`lib/theme.ts`). Saat berganti, tema baru menyebar dari sakelar seperti tinta di air (`lib/ink.ts`, memakai View Transitions API); di browser yang belum mendukungnya, atau pada mode kurangi gerakan, tema langsung berganti.
 - **CSS biasa** di `app/globals.css`, tanpa framework. Font (Plus Jakarta Sans, variable font) dimuat lewat `next/font`, jadi diunduh saat build dan disajikan dari situs sendiri. Huruf judul pembuka dan judul kontak menebal saat kursor mendekat (`components/Kinetic.tsx`).
 - **CMS lokal** (Node.js, tanpa dependency) di `cms/` dan `admin/`.
@@ -39,7 +39,7 @@ CMS harus dibuka dari server ini. Membuka `admin/index.html` langsung tidak meny
 ```text
 app/            layout.tsx (font, metadata), page.tsx, projects/[id]/page.tsx, globals.css
 components/     Portfolio (susunan halaman), Header, Hero, PinnedRow, Work (kartu proyek), Kinetic, Dialog, ...
-lib/            content.ts (tipe + validasi konten), media.tsx (helper gambar), hooks.ts, sound.ts, theme.ts, ink.ts
+lib/            content.ts (tipe + validasi konten), media.tsx (helper gambar), hooks.ts, theme.ts, ink.ts
 content/        portfolio.json, sumber semua teks dan daftar media
 public/         file yang disajikan apa adanya: assets/images, assets/videos, CNAME
 cms/            server CMS, penyimpanan, validasi (schema.mjs), tes
