@@ -106,8 +106,11 @@ test("image adjustments are validated and rendered per image", () => {
     y: 20,
     zoom: 125,
   };
+  // Whichever project comes first; its cover path is matched below.
+  const cover = data.projects[0].images[0];
+  const poster = `poster="/${cover}"`.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&");
   data.projects[0].images[0] = {
-    src: data.projects[0].images[0],
+    src: cover,
     fit: "cover",
     ratio: "16/9",
     x: 70,
@@ -116,8 +119,7 @@ test("image adjustments are validated and rendered per image", () => {
   };
   const html = renderPortfolio(data);
   assert.match(html, /--image-fit:contain;--image-x:35%;--image-y:20%;--image-zoom:1\.25/);
-  assert.match(html, /poster="\/assets\/images\/gallery\/kantor-ai\/cover\.jpg" style="--image-fit:cover;--image-x:70%;--image-y:45%;--image-zoom:1\.1"/);
-  assert.match(html, /poster="\/assets\/images\/gallery\/kantor-ai\/cover\.jpg"/);
+  assert.match(html, new RegExp(`${poster} style="--image-fit:cover;--image-x:70%;--image-y:45%;--image-zoom:1\\.1"`));
   assert.doesNotMatch(html, /\[object Object\]/);
 
   const bad = clone();
