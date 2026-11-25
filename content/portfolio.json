@@ -190,7 +190,7 @@
       "id": "sig-penginapan",
       "title": "Where to stay, and how to get there.",
       "name": "SIG Penginapan Banda Aceh",
-      "category": "Research",
+      "category": "Data & analysis",
       "stack": "Laravel · MySQL · Leaflet.js · MAUT · A*",
       "description": "A geographic information system that ranks accommodation in Banda Aceh with Multi-Attribute Utility Theory, then finds the shortest route from your location to the chosen place with the A* algorithm.",
       "images": [
@@ -208,7 +208,7 @@
       "id": "webgis-dbscan",
       "title": "Research system",
       "name": "DBSCAN Clustering Web GIS",
-      "category": "Web GIS",
+      "category": "Data & analysis",
       "stack": "PHP · MySQL · Leaflet · DBSCAN",
       "description": "An interactive map that groups 34 provinces by demographic characteristics, with multi-year analysis results.",
       "images": [
@@ -226,7 +226,7 @@
       "id": "perkebunan-bireuen",
       "title": "Research system · Aceh",
       "name": "Bireuen Plantation Yield Mapping",
-      "category": "Web GIS",
+      "category": "Data & analysis",
       "stack": "Python · Flask · K-Means · GeoPandas",
       "description": "Geospatial mapping of plantation yields in Bireuen Regency using clustering.",
       "images": [
@@ -296,7 +296,7 @@
       "id": "spk-laptop-smart",
       "title": "Decision support system",
       "name": "Laptop Selection DSS (SMART)",
-      "category": "Dashboard",
+      "category": "Data & analysis",
       "stack": "PHP · MySQL · Chart.js · SMART",
       "description": "A web app that recommends laptops for Informatics and Management students using the SMART method.",
       "images": [
@@ -314,7 +314,7 @@
       "id": "spk-bansos-moora",
       "title": "Decision support system",
       "name": "Social Aid Recipient DSS (MOORA)",
-      "category": "Dashboard",
+      "category": "Data & analysis",
       "stack": "PHP · MySQL · Bootstrap · MOORA",
       "description": "A web app that screens social aid applicants per year for eligibility using the MOORA method.",
       "images": [
@@ -350,7 +350,7 @@
       "id": "clustering-ipm-aceh",
       "title": "Research system · Aceh",
       "name": "Aceh Province HDI Clustering",
-      "category": "Web GIS",
+      "category": "Data & analysis",
       "stack": "Python · Flask · K-Means · Folium",
       "description": "A GIS that groups Aceh's 23 regencies and cities by 2018-2024 HDI indicators and compares K-Means with K-Medoids.",
       "images": [
@@ -458,7 +458,7 @@
       "id": "spk-pemilihan-jurusan-forward-chaining",
       "title": "Decision support system",
       "name": "Major Selection DSS (Forward Chaining)",
-      "category": "Dashboard",
+      "category": "Data & analysis",
       "stack": "PHP · MySQL · Bootstrap · Forward Chaining",
       "description": "A web system that recommends a university major from interest and ability questionnaire answers using weighted forward chaining.",
       "images": [
@@ -476,7 +476,7 @@
       "id": "nilai-zona-tanah-random-forest",
       "title": "Research system · Aceh",
       "name": "Land Zone Value WebGIS",
-      "category": "Web GIS",
+      "category": "Data & analysis",
       "stack": "Python · Flask · Random Forest · MapLibre GL",
       "description": "Land zone value prediction (Rp/m²) for Idi Rayeuk District, East Aceh, using Random Forest Regression and an interactive 3D map.",
       "images": [
