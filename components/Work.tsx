@@ -17,43 +17,75 @@ export function Chips({ value }: { value: string }) {
   );
 }
 
-// Every project as a card in a pinned row that slides sideways as the page scrolls
-// (see PinnedRow). Categories above the row narrow it down. `head` is the title row.
+const GRID_FIRST = 12;
+
+// The featured projects as cards in a pinned row that slides sideways as the page
+// scrolls (see PinnedRow), then every project in a plain grid below it. Categories
+// narrow the grid down. `head` is the title row of the pinned row.
 export function Projects({ projects, head }: { projects: Project[]; head: ReactNode }) {
+  const featured = projects.filter((project) => project.featured === "yes");
   const categories = [...new Set(projects.map((project) => project.category))];
   const [filter, setFilter] = useState("");
-  const shown = filter ? projects.filter((project) => project.category === filter) : projects;
+  const [all, setAll] = useState(false);
+  const matching = filter ? projects.filter((project) => project.category === filter) : projects;
+  const shown = all ? matching : matching.slice(0, GRID_FIRST);
 
   return (
-    <PinnedRow
-      label="Projects"
-      resetKey={filter}
-      head={
-        <>
-          {head}
+    <>
+      {featured.length > 0 ? (
+        <PinnedRow label="Featured projects" head={head}>
+          {featured.map((project) => (
+            <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} anchor />
+          ))}
+        </PinnedRow>
+      ) : (
+        <div className="work-intro">{head}</div>
+      )}
+
+      <div className="all-work" id="all-projects">
+        <div className="all-head">
+          <h3 className="all-title">
+            All projects <span className="count">{projects.length}</span>
+          </h3>
           {categories.length > 1 && (
             <div className="filters" role="group" aria-label="Filter projects by type">
               {["", ...categories].map((category) => (
-                <button key={category} type="button" aria-pressed={filter === category} onClick={() => setFilter(category)}>
+                <button
+                  key={category}
+                  type="button"
+                  aria-pressed={filter === category}
+                  onClick={() => {
+                    setFilter(category);
+                    setAll(false);
+                  }}
+                >
                   {category || "All"}
                   <span className="count">{category ? projects.filter((project) => project.category === category).length : projects.length}</span>
                 </button>
               ))}
             </div>
           )}
-        </>
-      }
-    >
-      {shown.map((project) => (
-        <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} />
-      ))}
-    </PinnedRow>
+        </div>
+        <ul className="grid-cards">
+          {shown.map((project) => (
+            <li key={project.id}>
+              <ProjectCard project={project} index={projects.indexOf(project)} />
+            </li>
+          ))}
+        </ul>
+        {matching.length > shown.length && (
+          <button type="button" className="btn grid-more" onClick={() => setAll(true)}>
+            Show all {matching.length}
+          </button>
+        )}
+      </div>
+    </>
   );
 }
 
 // One project. The whole card leads to the project's page. On a mouse, its video
 // plays muted while the pointer rests on it.
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project, index, anchor = false }: { project: Project; index: number; anchor?: boolean }) {
   const video = useRef<HTMLVideoElement>(null);
   const [failed, setFailed] = useState(false);
   const play = (on: boolean) => {
@@ -67,7 +99,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   };
 
   return (
-    <article id={`project-${project.id}`} className="card">
+    <article id={anchor ? `project-${project.id}` : undefined} className="card">
       <Link
         className="card-link"
         href={projectPath(project)}

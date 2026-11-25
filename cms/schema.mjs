@@ -124,6 +124,12 @@ export const schema = {
       }),
       url: url("Tautan proyek atau repositori", { required: false }),
       linkLabel: text("Teks tautan", { required: false }),
+      featured: {
+        type: "select",
+        label: "Tampil di baris utama",
+        options: { no: "Tidak, hanya di daftar semua proyek", yes: "Ya, proyek unggulan" },
+        hint: "Proyek unggulan tampil di baris yang digeser saat scroll. Semua proyek tetap muncul di daftar di bawahnya. Letakkan proyek unggulan di urutan atas.",
+      },
     },
   },
   experience: {

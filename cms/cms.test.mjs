@@ -48,7 +48,9 @@ test("renders original content and computes project count after add/remove", () 
   const data = clone();
   data.projects.splice(1);
   const html = renderPortfolio(data);
-  assert.equal((html.match(/<article [^>]*class="card"/g) || []).length, 1);
+  // One project is in the pinned row (when featured) and in the full grid.
+  const featured = data.projects[0].featured === "yes";
+  assert.equal((html.match(/<article [^>]*class="card"/g) || []).length, featured ? 2 : 1);
   assert.match(html, /<span class="card-meta"><span>01<\/span>/);
   assert.equal(
     (html.match(/class="experience-logo"/g) || []).length,
@@ -63,7 +65,7 @@ test("project cards lead to their pages, with a muted video or a screenshot", ()
   const data = clone();
   const project = (id, name, folder) => ({
     id, name, title: name, category: "Test", stack: "Test", description: "Test",
-    images: [1, 2].map((n) => `assets/images/gallery/${folder}/${n}.png`), url: "", linkLabel: "", video: "",
+    images: [1, 2].map((n) => `assets/images/gallery/${folder}/${n}.png`), url: "", linkLabel: "", video: "", featured: "yes",
   });
   data.projects = [
     { ...project("travel", "Travel information system", "travel"), video: "https://example.com/travel-demo.mp4" },
@@ -82,7 +84,8 @@ test("project cards lead to their pages, with a muted video or a screenshot", ()
 test("project pages play the video with sound, or show every screenshot, and link onward", () => {
   const data = validateContent(clone());
   const page = (project) => renderToStaticMarkup(createElement(ProjectPage, { content: data, project }));
-  const first = page(data.projects[0]);
+  const withVideo = { ...data.projects[0], video: "https://example.com/intro.mp4" };
+  const first = page(withVideo);
   assert.match(first, /<h1 data-split="words" class="project-name">/);
   assert.match(first, /<video controls="" preload="metadata" playsinline=""/i);
   assert.match(first, new RegExp(`href="/projects/${data.projects[1].id}/?"`));
@@ -107,6 +110,7 @@ test("image adjustments are validated and rendered per image", () => {
     zoom: 125,
   };
   // Whichever project comes first; its cover path is matched below.
+  data.projects[0].video = "https://example.com/intro.mp4";
   const cover = data.projects[0].images[0];
   const poster = `poster="/${cover}"`.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&");
   data.projects[0].images[0] = {
@@ -125,6 +129,23 @@ test("image adjustments are validated and rendered per image", () => {
   const bad = clone();
   bad.about.portrait = { src: bad.about.portrait, fit: "stretch", ratio: "auto", x: 50, y: 50, zoom: 100 };
   assert.throws(() => validateContent(bad), /mode tampilan tidak valid/);
+});
+test("featured projects fill the pinned row, and every project is in the full grid", () => {
+  const data = clone();
+  const featured = data.projects.filter((x) => x.featured === "yes");
+  assert.ok(featured.length > 0 && featured.length < data.projects.length);
+  const html = renderPortfolio(data);
+  const [pinned, rest] = html.split('id="all-projects"');
+  assert.equal((pinned.match(/<article [^>]*class="card"/g) || []).length, featured.length);
+  // The grid starts with a first page; the button reveals the rest.
+  assert.match(rest, /class="grid-cards"/);
+  assert.match(rest, new RegExp(`Show all ${data.projects.length}`));
+  data.projects.forEach((x) => (x.featured = "no"));
+  const none = renderPortfolio(data);
+  assert.doesNotMatch(none, /aria-label="Featured projects"/);
+  assert.match(none, /id="all-projects"/);
+  data.projects[0].featured = "maybe";
+  assert.throws(() => validateContent(data), /pilihan tidak valid/);
 });
 test("escapes text and rejects unsafe URLs, IDs, timezone, and media paths", () => {
   const data = clone();

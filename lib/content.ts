@@ -17,6 +17,8 @@ export interface Project {
   video: string;
   url: string;
   linkLabel: string;
+  // "yes" puts the project in the pinned row; every project is in the full grid.
+  featured: string;
 }
 
 export interface Experience {
