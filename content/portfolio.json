@@ -68,11 +68,15 @@
       "stack": "Expo · React Native · Next.js · Three.js",
       "description": "A cinema ticket booking app for mobile and desktop. Tap a seat on the map and the camera flies to it in a 3D theatre, so you see the screen size, distance, and viewing angle before you book. Films come from TMDB, and the ticket ends with a QR code.",
       "images": [
-        "assets/images/gallery/nontonin/cover.jpg"
+        "assets/images/gallery/nontonin/01-peta-kursi-3d.webp",
+        "assets/images/gallery/nontonin/02-beranda.webp",
+        "assets/images/gallery/nontonin/03-detail-film.webp",
+        "assets/images/gallery/nontonin/04-daftar-film.webp"
       ],
-      "video": "assets/videos/nontonin-reel.mp4",
+      "video": "",
       "url": "https://github.com/kangkungmozzarella/nontonin",
-      "linkLabel": "View the source code"
+      "linkLabel": "View the source code",
+      "featured": "yes"
     },
     {
       "id": "klyn",
@@ -82,11 +86,16 @@
       "stack": "Rust · Tauri · React · TypeScript",
       "description": "A Windows app that keeps folders tidy from the system tray. Write a rule in plain words or pick a template, and Klyn sorts new files as they arrive. Every clean-up starts with a preview, nothing is overwritten or deleted for good, and every move can be undone from History.",
       "images": [
-        "assets/images/gallery/klyn/cover.jpg"
+        "assets/images/gallery/klyn/01-tidy.webp",
+        "assets/images/gallery/klyn/02-editor.webp",
+        "assets/images/gallery/klyn/03-history.webp",
+        "assets/images/gallery/klyn/04-dupes.webp",
+        "assets/images/gallery/klyn/05-storage.webp"
       ],
-      "video": "assets/videos/klyn-story.mp4",
+      "video": "",
       "url": "https://kangkungmozzarella.github.io/",
-      "linkLabel": "Visit the website"
+      "linkLabel": "Visit the website",
+      "featured": "yes"
     },
     {
       "id": "kantor-ai",
@@ -96,53 +105,15 @@
       "stack": "JavaScript · Three.js · Node.js",
       "description": "An interactive four-floor virtual office for a 13-person team. Explore the building, follow team routines, and manage tasks from the office interface.",
       "images": [
-        "assets/images/gallery/kantor-ai/cover.jpg"
+        "assets/images/gallery/kantor-ai/01-lantai-kerja-tim.webp",
+        "assets/images/gallery/kantor-ai/02-seluruh-gedung.webp",
+        "assets/images/gallery/kantor-ai/03-panel-anggota-agen-ai.webp",
+        "assets/images/gallery/kantor-ai/04-istirahat-rooftop.webp"
       ],
-      "video": "assets/videos/kantor-ai-explainer-v2.mp4",
+      "video": "",
       "url": "https://github.com/kangkungmozzarella/kantor-ai",
-      "linkLabel": "View the source code"
-    },
-    {
-      "id": "sig-penginapan",
-      "title": "Where to stay, and how to get there.",
-      "name": "SIG Penginapan Banda Aceh",
-      "category": "Research",
-      "stack": "Laravel · MySQL · Leaflet.js · MAUT · A*",
-      "description": "A geographic information system that ranks accommodation in Banda Aceh with Multi-Attribute Utility Theory, then finds the shortest route from your location to the chosen place with the A* algorithm.",
-      "images": [
-        "assets/images/gallery/sig-penginapan/cover.jpg"
-      ],
-      "video": "assets/videos/sig-penginapan-intro.mp4",
-      "url": "https://github.com/kangkungmozzarella/sig-penginapan",
-      "linkLabel": "View the source code"
-    },
-    {
-      "id": "si-kancil",
-      "title": "A folk tale you can play.",
-      "name": "Si Kancil: Petualangan di Kampung",
-      "category": "Interactive web",
-      "stack": "TypeScript · HTML5 Canvas · Web Audio · Capacitor",
-      "description": "A 2D platformer inspired by the Si Kancil folk tale, playable in the browser and on Android. Run through four levels, cross the river on crocodiles' backs, and listen to a gamelan soundtrack. Every sprite and sound is generated in code.",
-      "images": [
-        "assets/images/gallery/si-kancil/cover.jpg"
-      ],
-      "video": "assets/videos/si-kancil-promo.mp4",
-      "url": "https://github.com/kangkungmozzarella/si-kancil",
-      "linkLabel": "View the source code"
-    },
-    {
-      "id": "otewe",
-      "title": "Plan the trip, then book it.",
-      "name": "OTEWE Travel Agency",
-      "category": "Information system",
-      "stack": "Laravel · Vue 3 · Inertia.js · Three.js",
-      "description": "A travel agency website with a 3D island on the home page, destination search and filters, package pages with a gallery and booking requests, and a travel journal. An admin dashboard manages packages, articles, and booking status.",
-      "images": [
-        "assets/images/gallery/otewe/cover.jpg"
-      ],
-      "video": "assets/videos/otewe-intro.mp4",
-      "url": "https://github.com/kangkungmozzarella/travel-agency",
-      "linkLabel": "View the source code"
+      "linkLabel": "View the source code",
+      "featured": "yes"
     },
     {
       "id": "crew-and-crop",
@@ -152,18 +123,462 @@
       "stack": "JavaScript · Three.js · Node.js · Claude API",
       "description": "A 3D farming game prototype inspired by Hay Day. Give the crew orders in plain English and Claude turns them into standing rules for three farmers, settles problems like a fallen tree or a full barn, and writes their daily diary. The game engine handles movement, stock, and time.",
       "images": [
-        {
-          "src": "assets/images/gallery/crew-and-crop/cover.jpg",
-          "fit": "cover",
-          "ratio": "auto",
-          "x": 14.834202250036938,
-          "y": 49.76570909935201,
-          "zoom": 100
-        }
+        "assets/images/gallery/crew-and-crop/01-peternakan-3d.webp",
+        "assets/images/gallery/crew-and-crop/02-perintah-kru.webp",
+        "assets/images/gallery/crew-and-crop/03-zoom-kebun.webp"
       ],
-      "video": "assets/videos/crew-and-crop-demo.mp4",
+      "video": "",
       "url": "https://github.com/kangkungmozzarella/crew-and-crop",
-      "linkLabel": "View the source code"
+      "linkLabel": "View the source code",
+      "featured": "yes"
+    },
+    {
+      "id": "si-kancil",
+      "title": "A folk tale you can play.",
+      "name": "Si Kancil: Petualangan di Kampung",
+      "category": "Interactive web",
+      "stack": "TypeScript · HTML5 Canvas · Web Audio · Capacitor",
+      "description": "A 2D platformer inspired by the Si Kancil folk tale, playable in the browser and on Android. Run through four levels, cross the river on crocodiles' backs, and listen to a gamelan soundtrack. Every sprite and sound is generated in code.",
+      "images": [
+        "assets/images/gallery/si-kancil/01-layar-judul.webp",
+        "assets/images/gallery/si-kancil/02-level-sawah.webp",
+        "assets/images/gallery/si-kancil/03-level-sungai.webp"
+      ],
+      "video": "",
+      "url": "https://github.com/kangkungmozzarella/si-kancil",
+      "linkLabel": "View the source code",
+      "featured": "yes"
+    },
+    {
+      "id": "otewe",
+      "title": "Plan the trip, then book it.",
+      "name": "OTEWE Travel Agency",
+      "category": "Information system",
+      "stack": "Laravel · Vue 3 · Inertia.js · Three.js",
+      "description": "A travel agency website with a 3D island on the home page, destination search and filters, package pages with a gallery and booking requests, and a travel journal. An admin dashboard manages packages, articles, and booking status.",
+      "images": [
+        "assets/images/gallery/otewe/01-beranda.webp",
+        "assets/images/gallery/otewe/02-katalog-paket.webp",
+        "assets/images/gallery/otewe/03-detail-paket.webp",
+        "assets/images/gallery/otewe/04-jurnal.webp"
+      ],
+      "video": "",
+      "url": "https://github.com/kangkungmozzarella/travel-agency",
+      "linkLabel": "View the source code",
+      "featured": "yes"
+    },
+    {
+      "id": "pengadaan-medan",
+      "title": "Government client · Medan City",
+      "name": "Procurement Monitoring Dashboard",
+      "category": "Dashboard",
+      "stack": "Flask · Chart.js · openpyxl · INAPROC API",
+      "description": "A dashboard that brings Medan City's public procurement data from the INAPROC API into one place.",
+      "images": [
+        "assets/images/gallery/pengadaan-medan/01-ekatalog.webp",
+        "assets/images/gallery/pengadaan-medan/02-rup-distribusi.webp",
+        "assets/images/gallery/pengadaan-medan/03-ringkasan.webp",
+        "assets/images/gallery/pengadaan-medan/04-rekap-rup-satker.webp",
+        "assets/images/gallery/pengadaan-medan/05-daftar-rencana-pengadaan.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "yes"
+    },
+    {
+      "id": "sig-penginapan",
+      "title": "Where to stay, and how to get there.",
+      "name": "SIG Penginapan Banda Aceh",
+      "category": "Research",
+      "stack": "Laravel · MySQL · Leaflet.js · MAUT · A*",
+      "description": "A geographic information system that ranks accommodation in Banda Aceh with Multi-Attribute Utility Theory, then finds the shortest route from your location to the chosen place with the A* algorithm.",
+      "images": [
+        "assets/images/gallery/sig-penginapan/01-peta-penginapan.webp",
+        "assets/images/gallery/sig-penginapan/02-peringkat-maut.webp",
+        "assets/images/gallery/sig-penginapan/03-nilai-utilitas.webp",
+        "assets/images/gallery/sig-penginapan/04-bobot-kriteria.webp"
+      ],
+      "video": "",
+      "url": "https://github.com/kangkungmozzarella/sig-penginapan",
+      "linkLabel": "View the source code",
+      "featured": "yes"
+    },
+    {
+      "id": "webgis-dbscan",
+      "title": "Research system",
+      "name": "DBSCAN Clustering Web GIS",
+      "category": "Web GIS",
+      "stack": "PHP · MySQL · Leaflet · DBSCAN",
+      "description": "An interactive map that groups 34 provinces by demographic characteristics, with multi-year analysis results.",
+      "images": [
+        "assets/images/gallery/webgis-dbscan/01-peta-tracking-klaster.webp",
+        "assets/images/gallery/webgis-dbscan/02-hasil-klaster-dbi.webp",
+        "assets/images/gallery/webgis-dbscan/03-distribusi-klaster-pulau.webp",
+        "assets/images/gallery/webgis-dbscan/04-pola-sebaran-per-pulau.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "perkebunan-bireuen",
+      "title": "Research system · Aceh",
+      "name": "Bireuen Plantation Yield Mapping",
+      "category": "Web GIS",
+      "stack": "Python · Flask · K-Means · GeoPandas",
+      "description": "Geospatial mapping of plantation yields in Bireuen Regency using clustering.",
+      "images": [
+        "assets/images/gallery/perkebunan-bireuen/01-peta-cluster-kecamatan.webp",
+        "assets/images/gallery/perkebunan-bireuen/02-hasil-kmeans-evaluasi.webp",
+        "assets/images/gallery/perkebunan-bireuen/03-dashboard-ringkasan.webp",
+        "assets/images/gallery/perkebunan-bireuen/04-tren-silhouette-dbi.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "reksadana-lstm",
+      "title": "Final-year research",
+      "name": "Mutual Fund Prediction with LSTM",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · TensorFlow · LSTM · ECharts",
+      "description": "A dashboard that forecasts a mutual fund's price with an LSTM. Daily prices come from Yahoo Finance, every model setting is adjustable from the side panel, and the model retrains in the browser while the loss curve updates live. Results are compared against a naive \"tomorrow equals today\" baseline.",
+      "images": [
+        "assets/images/gallery/reksadana-lstm/01-dashboard-lengkap.webp",
+        "assets/images/gallery/reksadana-lstm/02-harga-prediksi-forecast.webp",
+        "assets/images/gallery/reksadana-lstm/03-evaluasi-model.webp",
+        "assets/images/gallery/reksadana-lstm/04-tabel-forecast-riwayat.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "sentimen-mbg",
+      "title": "Research system",
+      "name": "MBG Program Sentiment Analysis",
+      "category": "Data & analysis",
+      "stack": "Flask · scikit-learn · TF-IDF · Naive Bayes · SVM",
+      "description": "A system that analyzes public opinion on X (Twitter) about the Free Nutritious Meals program.",
+      "images": [
+        "assets/images/gallery/sentimen-mbg/01-dashboard.webp",
+        "assets/images/gallery/sentimen-mbg/02-perbandingan-model.webp",
+        "assets/images/gallery/sentimen-mbg/03-prediksi-sentimen.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "saham-bris",
+      "title": "Research system",
+      "name": "BRIS Stock Price Forecasting",
+      "category": "Data & analysis",
+      "stack": "Flask · PyTorch · LSTM · Prophet",
+      "description": "Comparing two forecasting methods to predict Bank Syariah Indonesia stock prices.",
+      "images": [
+        "assets/images/gallery/saham-bris/01-evaluasi-prediksi-vs-aktual.webp",
+        "assets/images/gallery/saham-bris/02-dashboard-ringkasan.webp",
+        "assets/images/gallery/saham-bris/03-perbandingan-metrik.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "spk-laptop-smart",
+      "title": "Decision support system",
+      "name": "Laptop Selection DSS (SMART)",
+      "category": "Dashboard",
+      "stack": "PHP · MySQL · Chart.js · SMART",
+      "description": "A web app that recommends laptops for Informatics and Management students using the SMART method.",
+      "images": [
+        "assets/images/gallery/spk-laptop-smart/01-grafik-peringkat.webp",
+        "assets/images/gallery/spk-laptop-smart/02-peringkat-informatika.webp",
+        "assets/images/gallery/spk-laptop-smart/03-nilai-utility.webp",
+        "assets/images/gallery/spk-laptop-smart/04-sub-kriteria.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "spk-bansos-moora",
+      "title": "Decision support system",
+      "name": "Social Aid Recipient DSS (MOORA)",
+      "category": "Dashboard",
+      "stack": "PHP · MySQL · Bootstrap · MOORA",
+      "description": "A web app that screens social aid applicants per year for eligibility using the MOORA method.",
+      "images": [
+        "assets/images/gallery/spk-bansos-moora/01-hasil-optimasi.webp",
+        "assets/images/gallery/spk-bansos-moora/02-kriteria-benefit-cost.webp",
+        "assets/images/gallery/spk-bansos-moora/03-sub-kriteria.webp",
+        "assets/images/gallery/spk-bansos-moora/04-normalisasi-2023.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "gizi-ibu-hamil-knn",
+      "title": "Research system · Aceh",
+      "name": "Maternal Stunting Risk Classification (KNN)",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · scikit-learn · KNN",
+      "description": "A web app that classifies stunting risk in pregnant women in North Aceh from nutrition monitoring data, using K-Nearest Neighbors.",
+      "images": [
+        "assets/images/gallery/gizi-ibu-hamil-knn/01-dashboard.webp",
+        "assets/images/gallery/gizi-ibu-hamil-knn/02-prediksi.webp",
+        "assets/images/gallery/gizi-ibu-hamil-knn/03-tuning-k.webp",
+        "assets/images/gallery/gizi-ibu-hamil-knn/04-korelasi.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "clustering-ipm-aceh",
+      "title": "Research system · Aceh",
+      "name": "Aceh Province HDI Clustering",
+      "category": "Web GIS",
+      "stack": "Python · Flask · K-Means · Folium",
+      "description": "A GIS that groups Aceh's 23 regencies and cities by 2018-2024 HDI indicators and compares K-Means with K-Medoids.",
+      "images": [
+        "assets/images/gallery/clustering-ipm-aceh/01-peta-sig.webp",
+        "assets/images/gallery/clustering-ipm-aceh/02-dashboard.webp",
+        "assets/images/gallery/clustering-ipm-aceh/03-evaluasi.webp",
+        "assets/images/gallery/clustering-ipm-aceh/04-prediksi.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "bert-fakenews-indobert",
+      "title": "Research system",
+      "name": "Fake News Detection with IndoBERT",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · PyTorch · IndoBERT",
+      "description": "A web app that classifies Indonesian news headlines as fake or valid using a fine-tuned IndoBERT model.",
+      "images": [
+        "assets/images/gallery/bert-fakenews-indobert/01-deteksi-judul.webp",
+        "assets/images/gallery/bert-fakenews-indobert/02-demo-fake.webp",
+        "assets/images/gallery/bert-fakenews-indobert/03-evaluasi.webp",
+        "assets/images/gallery/bert-fakenews-indobert/04-confusion-matrix.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "prediksi-komoditas-des",
+      "title": "Research system · Aceh",
+      "name": "Bireuen Plantation Production Forecast (DES)",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · Pandas · Double Exp. Smoothing",
+      "description": "Forecasting system for rubber, nutmeg, and sugar palm production in Bireuen Regency using Double Exponential Smoothing (Holt). Trained on 2020-2023, tested on 2024, forecasting 2025.",
+      "images": [
+        "assets/images/gallery/prediksi-komoditas-des/01-dashboard.webp",
+        "assets/images/gallery/prediksi-komoditas-des/02-prediksi-2025.webp",
+        "assets/images/gallery/prediksi-komoditas-des/03-tabel-perbandingan.webp",
+        "assets/images/gallery/prediksi-komoditas-des/04-form-prediksi.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "prediksi-emas-ses-des",
+      "title": "Research system",
+      "name": "Gold Price Forecast (SES and DES)",
+      "category": "Data & analysis",
+      "stack": "PHP · MySQL · Chart.js · Exp. Smoothing",
+      "description": "A web app that forecasts 14K, 22K, 23K, and 24K gold prices from three stores' 2022-2024 data, comparing Single and Double Exponential Smoothing.",
+      "images": [
+        "assets/images/gallery/prediksi-emas-ses-des/01-grafik-prediksi.webp",
+        "assets/images/gallery/prediksi-emas-ses-des/02-perbandingan-ses-des.webp",
+        "assets/images/gallery/prediksi-emas-ses-des/03-tabel-prediksi.webp",
+        "assets/images/gallery/prediksi-emas-ses-des/04-hasil-des.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "prediksi-pasien-ses-des",
+      "title": "Research system · Aceh",
+      "name": "Puskesmas Patient Visit Forecast",
+      "category": "Data & analysis",
+      "stack": "PHP · MySQL · Chart.js · Exp. Smoothing",
+      "description": "A daily patient visit forecasting system for Puskesmas Banda Sakti, Lhokseumawe, using 2023-2025 data and comparing Single and Double Exponential Smoothing.",
+      "images": [
+        "assets/images/gallery/prediksi-pasien-ses-des/01-perbandingan-ses-des.webp",
+        "assets/images/gallery/prediksi-pasien-ses-des/02-grafik-perbandingan.webp",
+        "assets/images/gallery/prediksi-pasien-ses-des/03-prediksi-30-hari.webp",
+        "assets/images/gallery/prediksi-pasien-ses-des/04-dashboard.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "prediksi-pasien-rawat-jalan",
+      "title": "Research system",
+      "name": "Outpatient Visit Forecasting",
+      "category": "Data & analysis",
+      "stack": "PHP · MySQL · Chart.js · Regresi Linear",
+      "description": "A web system that forecasts outpatient visits per clinic from 2020-2024 data and validates the model against actual 2024 figures.",
+      "images": [
+        "assets/images/gallery/prediksi-pasien-rawat-jalan/01-validasi-prediksi-vs-aktual.webp",
+        "assets/images/gallery/prediksi-pasien-rawat-jalan/02-dashboard-tren.webp",
+        "assets/images/gallery/prediksi-pasien-rawat-jalan/03-tabel-hasil-validasi.webp",
+        "assets/images/gallery/prediksi-pasien-rawat-jalan/04-prediksi-masa-depan.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "spk-pemilihan-jurusan-forward-chaining",
+      "title": "Decision support system",
+      "name": "Major Selection DSS (Forward Chaining)",
+      "category": "Dashboard",
+      "stack": "PHP · MySQL · Bootstrap · Forward Chaining",
+      "description": "A web system that recommends a university major from interest and ability questionnaire answers using weighted forward chaining.",
+      "images": [
+        "assets/images/gallery/spk-pemilihan-jurusan-forward-chaining/01-hasil-rekomendasi-jurusan.webp",
+        "assets/images/gallery/spk-pemilihan-jurusan-forward-chaining/02-proses-forward-chaining.webp",
+        "assets/images/gallery/spk-pemilihan-jurusan-forward-chaining/03-basis-aturan.webp",
+        "assets/images/gallery/spk-pemilihan-jurusan-forward-chaining/04-data-kuesioner.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "nilai-zona-tanah-random-forest",
+      "title": "Research system · Aceh",
+      "name": "Land Zone Value WebGIS",
+      "category": "Web GIS",
+      "stack": "Python · Flask · Random Forest · MapLibre GL",
+      "description": "Land zone value prediction (Rp/m²) for Idi Rayeuk District, East Aceh, using Random Forest Regression and an interactive 3D map.",
+      "images": [
+        "assets/images/gallery/nilai-zona-tanah-random-forest/01-dashboard-peta.webp",
+        "assets/images/gallery/nilai-zona-tanah-random-forest/02-peta-3d-nilai-tanah.webp",
+        "assets/images/gallery/nilai-zona-tanah-random-forest/03-prediksi-nilai-tanah.webp",
+        "assets/images/gallery/nilai-zona-tanah-random-forest/04-hasil-analisis.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "ssa-produksi-padi",
+      "title": "Research system · Aceh",
+      "name": "Rice Production Forecast (SSA)",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · NumPy · SSA",
+      "description": "A web system that forecasts a North Aceh rice mill's daily output with Singular Spectrum Analysis, with data management and forecast history.",
+      "images": [
+        "assets/images/gallery/ssa-produksi-padi/01-dashboard.webp",
+        "assets/images/gallery/ssa-produksi-padi/02-hasil-peramalan.webp",
+        "assets/images/gallery/ssa-produksi-padi/03-dekomposisi-ssa.webp",
+        "assets/images/gallery/ssa-produksi-padi/04-pemilihan-window-length.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "svr-prediksi-harga-beras",
+      "title": "Research system",
+      "name": "Rice Price Prediction (SVR)",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · scikit-learn · SVR",
+      "description": "A web app that forecasts prices for 6 rice categories in Langkat Regency using RBF-kernel Support Vector Regression, with daily weather data as extra variables.",
+      "images": [
+        "assets/images/gallery/svr-prediksi-harga-beras/01-analisis-svr.webp",
+        "assets/images/gallery/svr-prediksi-harga-beras/02-prediksi-365-hari.webp",
+        "assets/images/gallery/svr-prediksi-harga-beras/03-prediksi-vs-aktual.webp",
+        "assets/images/gallery/svr-prediksi-harga-beras/04-performa-per-kategori.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "klasifikasi-jantung-lmknn",
+      "title": "Research system",
+      "name": "Heart Disease Classification (LMKNN)",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · MySQL · Local Mean KNN",
+      "description": "A web system that classifies heart disease from medical records using the Local Mean K-Nearest Neighbor algorithm.",
+      "images": [
+        "assets/images/gallery/klasifikasi-jantung-lmknn/01-dashboard.webp",
+        "assets/images/gallery/klasifikasi-jantung-lmknn/02-prediksi.webp",
+        "assets/images/gallery/klasifikasi-jantung-lmknn/03-dataset.webp",
+        "assets/images/gallery/klasifikasi-jantung-lmknn/04-feature.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "apriori-kedai-kopi",
+      "title": "Research system",
+      "name": "Coffee Shop Buying Patterns (Apriori)",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · Apriori · Plotly",
+      "description": "A web system that analyzes a coffee shop's customer buying patterns using the Apriori algorithm and association rules.",
+      "images": [
+        "assets/images/gallery/apriori-kedai-kopi/01-confidence-lift.webp",
+        "assets/images/gallery/apriori-kedai-kopi/02-association-rules.webp",
+        "assets/images/gallery/apriori-kedai-kopi/03-dataset.webp",
+        "assets/images/gallery/apriori-kedai-kopi/04-produk-terlaris.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
+    },
+    {
+      "id": "sentimen-svm-naive-bayes",
+      "title": "Research system",
+      "name": "Tokopedia Review Sentiment Analysis",
+      "category": "Data & analysis",
+      "stack": "Python · Flask · scikit-learn · TF-IDF",
+      "description": "A web system that analyzes Tokopedia product review sentiment by comparing SVM and Naive Bayes on TF-IDF features.",
+      "images": [
+        "assets/images/gallery/sentimen-svm-naive-bayes/01-dashboard.webp",
+        "assets/images/gallery/sentimen-svm-naive-bayes/02-evaluasi-model.webp",
+        "assets/images/gallery/sentimen-svm-naive-bayes/03-tfidf-features.webp",
+        "assets/images/gallery/sentimen-svm-naive-bayes/04-dataset.webp"
+      ],
+      "video": "",
+      "url": "",
+      "linkLabel": "",
+      "featured": "no"
     }
   ],
   "experience": [
