@@ -98,6 +98,26 @@
       "featured": "yes"
     },
     {
+      "id": "kasir-pos",
+      "title": "Every sale counted, every drawer balanced.",
+      "name": "Kasir POS",
+      "category": "Information system",
+      "stack": "Next.js · PostgreSQL · Prisma · Playwright",
+      "description": "A point-of-sale web app for a grocery shop with two branches. Cashiers scan or tap items and take cash, QRIS, or card, with the non-cash payments simulated. Each shift closes with a blind cash count, stock moves between branches with a send and receive step, and the owner sees sales by the hour and gross profit per branch.",
+      "images": [
+        "assets/images/gallery/kasir-pos/01-layar-kasir.webp",
+        "assets/images/gallery/kasir-pos/02-dashboard.webp",
+        "assets/images/gallery/kasir-pos/03-pembayaran-qris.webp",
+        "assets/images/gallery/kasir-pos/04-rekap-shift.webp",
+        "assets/images/gallery/kasir-pos/05-transfer-stok.webp",
+        "assets/images/gallery/kasir-pos/06-riwayat-penjualan.webp"
+      ],
+      "video": "",
+      "url": "https://github.com/kangkungmozzarella/kasir-pos",
+      "linkLabel": "View the source code",
+      "featured": "yes"
+    },
+    {
       "id": "kantor-ai",
       "title": "An office you can explore.",
       "name": "Kantor Kita",
