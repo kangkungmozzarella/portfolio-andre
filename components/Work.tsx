@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import type { Project } from "@/lib/content";
 import { asset, Img, imageSrc, imageStyle, pad, parts, projectPath, videoType } from "@/lib/media";
+import { useReducedMotion } from "@/lib/hooks";
 import { Icon } from "./Icon";
 import { PinnedRow } from "./PinnedRow";
 
@@ -112,7 +113,7 @@ function ProjectCard({ project, index, anchor = false }: { project: Project; ind
               <source src={asset(project.video)} type={videoType(project.video)} onError={() => setFailed(true)} />
             </video>
           ) : (
-            <Img value={project.images[0]} alt="" className="work-video" loading="lazy" />
+            <Slides project={project} offset={index} />
           )}
           <span className="card-cta">
             <Icon name={project.video ? "play" : "images"} />
@@ -128,5 +129,65 @@ function ProjectCard({ project, index, anchor = false }: { project: Project; ind
         <span className="card-stack">{parts(project.stack).join(" · ")}</span>
       </Link>
     </article>
+  );
+}
+
+const SLIDE_MS = 3200;
+
+// A card without a video shows its screenshots one after another while the card is
+// on screen. Cards start at different moments, so a grid does not change all at once.
+// Visitors who prefer less motion see the cover only.
+function Slides({ project, offset }: { project: Project; offset: number }) {
+  const box = useRef<HTMLSpanElement>(null);
+  const reduced = useReducedMotion();
+  const [active, setActive] = useState(0);
+  const count = project.images.length;
+
+  useEffect(() => {
+    const el = box.current;
+    if (!el || count < 2 || reduced || !("IntersectionObserver" in window)) return;
+    let timer = 0;
+    let start = 0;
+    const stop = () => {
+      window.clearTimeout(start);
+      window.clearInterval(timer);
+      timer = start = 0;
+    };
+    const run = () => {
+      if (timer || start) return;
+      start = window.setTimeout(() => {
+        start = 0;
+        setActive((i) => (i + 1) % count);
+        timer = window.setInterval(() => setActive((i) => (i + 1) % count), SLIDE_MS);
+      }, SLIDE_MS / 2 + (offset % 4) * 650);
+    };
+    let visible = false;
+    const sync = () => (visible && !document.hidden ? run() : stop());
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      sync();
+    }, { threshold: 0.4 });
+    observer.observe(el);
+    document.addEventListener("visibilitychange", sync);
+    return () => {
+      stop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+    };
+  }, [count, reduced, offset]);
+
+  return (
+    <span ref={box} className="slides">
+      {project.images.map((image, i) => (
+        <Img key={i} value={image} alt="" className={`work-video slide${i === active ? " is-on" : ""}`} loading="lazy" draggable={false} />
+      ))}
+      {count > 1 && !reduced && (
+        <span className="slide-dots" aria-hidden="true">
+          {project.images.map((_, i) => (
+            <i key={i} className={i === active ? "is-on" : undefined} />
+          ))}
+        </span>
+      )}
+    </span>
   );
 }

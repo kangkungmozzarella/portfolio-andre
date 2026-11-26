@@ -972,6 +972,46 @@ html.ink::view-transition-new(root) {
   transition: transform 0.9s var(--ease);
   -webkit-user-drag: none;
 }
+.slides {
+  position: absolute;
+  inset: 0;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+}
+.slide.is-on {
+  opacity: 1;
+}
+.slide-dots {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(13, 13, 15, 0.38);
+  backdrop-filter: blur(6px);
+}
+.slide-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition:
+    width 0.4s var(--ease),
+    background 0.4s;
+}
+.slide-dots i.is-on {
+  width: 16px;
+  border-radius: 3px;
+  background: #fff;
+}
 .card-cta {
   position: absolute;
   left: 12px;
